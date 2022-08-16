@@ -1,3 +1,3 @@
-import Button from './button';
+import PlayAudioButton from './playAudioButton';
 
-export default Button;
+export default PlayAudioButton;
