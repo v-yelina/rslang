@@ -1,13 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Button } from 'antd';
-import IconPlayAudio from '../../../assets/icons/volume.svg';
+// import IconPlayAudio from '../../../assets/icons/volume.svg';
 
 type PlayAudioProps = {
   audioUrl: string
 }
 
-const useAudio = (url: string) => {
-  const [audio] = useState(new Audio(url));
+const PlayAudioButton: FC<PlayAudioProps> = (props) => {
+  const { audioUrl } = props;
+  const [audio] = useState(new Audio(audioUrl));
   const [isPlay, setPlay] = useState(false);
 
   useEffect(
@@ -31,11 +32,8 @@ const useAudio = (url: string) => {
     },
     [],
   );
-};
 
-const PlayAudioButton: FC<PlayAudioProps> = (props) => {
-  const { audioUrl } = props;
-  return <Button onClick={() => useAudio(audioUrl)} icon={<IconPlayAudio />} />;
+  return <Button onClick={() => setPlay(!isPlay)} />;
 };
 
 export default PlayAudioButton;
