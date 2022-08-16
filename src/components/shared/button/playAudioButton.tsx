@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Button } from 'antd';
-// import IconPlayAudio from '../../../assets/icons/volume.svg';
+import './play-audio-button.scss';
 
 type PlayAudioProps = {
   audioUrl: string
@@ -33,7 +33,7 @@ const PlayAudioButton: FC<PlayAudioProps> = (props) => {
     [],
   );
 
-  return <Button onClick={() => setPlay(!isPlay)} />;
+  return <Button onClick={() => setPlay(!isPlay)} className="play-audio-button" type="primary" />;
 };
 
 export default PlayAudioButton;
