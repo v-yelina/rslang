@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Button } from 'antd';
-import './play-audio-button.scss';
+import './style.scss';
 
 type PlayAudioProps = {
   audioUrl: string
