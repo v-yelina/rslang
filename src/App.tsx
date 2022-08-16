@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { FC } from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+import Header from './components/shared/header';
+import Audiochallenge from './pages/audiochallenge';
+import Home from './pages/home';
+import Sprint from './pages/sprint';
+import Statistics from './pages/statistics';
+import Textbook from './pages/textbook';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: FC = () => (
+  <Routes>
+    <Route path="/" element={<Header />}>
+      <Route index element={<Home />} />
+      <Route path="textbook" element={<Textbook />} />
+      <Route path="sprint" element={<Sprint />} />
+      <Route path="audiochallenge" element={<Audiochallenge />} />
+      <Route path="statistics" element={<Statistics />} />
+    </Route>
+  </Routes>
+);
 
 export default App;
