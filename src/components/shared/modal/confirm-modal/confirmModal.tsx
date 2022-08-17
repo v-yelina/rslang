@@ -12,12 +12,12 @@ const ConfirmModal: FC<ModalProps> = (props) => {
   const { isVisible, setVisible } = props;
   const navigate = useNavigate();
 
-  const hiddenModal = () => {
+  const hideModal = () => {
     setVisible(false);
   };
 
   const leaveGame = () => {
-    hiddenModal();
+    hideModal();
     navigate('/', { replace: true });
   };
 
@@ -26,7 +26,7 @@ const ConfirmModal: FC<ModalProps> = (props) => {
       className="modal modal--confirm"
       visible={isVisible}
       onOk={leaveGame}
-      onCancel={hiddenModal}
+      onCancel={hideModal}
       title="вы уверены что хотите выйти?"
     />
   );
