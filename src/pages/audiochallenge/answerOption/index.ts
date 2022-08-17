@@ -1,3 +1,3 @@
-import Audiochallenge from './answerOption';
+import AnswerOption from './answerOption';
 
-export default Audiochallenge;
+export default AnswerOption;

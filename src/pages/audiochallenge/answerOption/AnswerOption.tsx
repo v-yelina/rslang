@@ -1,15 +1,16 @@
+import { Button } from 'antd';
 import React, { FC } from 'react';
 
 type AnswerOptionProps = {num: string}
 
 const AnswerOption: FC<AnswerOptionProps> = ({ num }: AnswerOptionProps) => (
-  <button type="button">
-    <span>
+  <Button type="dashed" className="option-btn">
+    <span className="number">
       { num }
       .
     </span>
-    word
-  </button>
+    <span className="word">word</span>
+  </Button>
 );
 
 export default AnswerOption;
