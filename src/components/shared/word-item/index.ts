@@ -1,3 +1,3 @@
-import WordItem from './wordItem';
+import WordItem from './WordItem';
 
 export default WordItem;

@@ -1,3 +1,3 @@
-import ResultGameModal from './resultGameModal';
+import ResultGameModal from './ResultGameModal';
 
 export default ResultGameModal;

@@ -3,7 +3,7 @@ import { Modal, List, Button } from 'antd';
 import { IWord } from '../../../../interfaces/IWord';
 import WordItem from '../../word-item';
 import '../modal.scss';
-import './style.scss';
+import './result-game-modal.scss';
 
 type WordItemType = Pick<IWord, 'audio' | 'word' | 'wordTranslate'>;
 
