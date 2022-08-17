@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Button } from 'antd';
-import './style.scss';
+import './play-audio-button.scss';
 
 type PlayAudioProps = {
   audioUrl: string
@@ -19,21 +19,12 @@ const PlayAudioButton: FC<PlayAudioProps> = (props) => {
         audio.pause();
         audio.currentTime = 0;
       }
+      audio.addEventListener('ended', () => setPlay(false));
     },
     [isPlay],
   );
 
-  useEffect(
-    () => {
-      audio.addEventListener('ended', () => setPlay(false));
-      return () => {
-        audio.removeEventListener('ended', () => setPlay(false));
-      };
-    },
-    [],
-  );
-
-  return <Button onClick={() => setPlay(!isPlay)} className="play-audio-button" type="primary" />;
+  return <Button onClick={() => setPlay(true)} className="play-audio-button" type="primary" />;
 };
 
 export default PlayAudioButton;
