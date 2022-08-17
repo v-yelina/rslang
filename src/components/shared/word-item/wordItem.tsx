@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { List, Typography } from 'antd';
 import { IWord } from '../../../interfaces/IWord';
-import PlayAudioButton from '../play-audio-button';
+import PlayAudioButton from '../button/play-audio-button';
 import './style.scss';
 
 type WordItemProps = Pick<IWord, 'audio' | 'word' | 'wordTranslate'>;
