@@ -8,7 +8,7 @@ const DemoLeaveModal:FC = () => {
   return (
     <Space className="space">
       <Button onClick={() => setVisible(true)}>Show Leave Modal</Button>
-      { isVisible ? <ConfirmModal isVisible={isVisible} setVisible={setVisible} /> : null}
+      { isVisible && <ConfirmModal isVisible={isVisible} setVisible={setVisible} /> }
     </Space>
   );
 };
