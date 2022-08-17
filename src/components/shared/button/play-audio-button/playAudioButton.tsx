@@ -8,7 +8,7 @@ type PlayAudioProps = {
 
 const PlayAudioButton: FC<PlayAudioProps> = (props) => {
   const { audioUrl } = props;
-  const [audio] = useState(new Audio(audioUrl));
+  const audio = new Audio(audioUrl);
   const [isPlay, setPlay] = useState(false);
 
   useEffect(

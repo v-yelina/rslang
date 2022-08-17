@@ -1,3 +1,3 @@
-import PlayAudioButton from './playAudioButton';
+import PlayAudioButton from './PlayAudioButton';
 
 export default PlayAudioButton;
