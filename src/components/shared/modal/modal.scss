@@ -29,5 +29,11 @@
       display: none;
     }
   }
+
+  &--result {
+    .ant-modal-close {
+      display: none;
+    }
+  }
 }
 
