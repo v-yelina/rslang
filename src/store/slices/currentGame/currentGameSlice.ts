@@ -45,11 +45,11 @@ export const currentGameSlice = createSlice({
       state.wrongAnswers.push(action.payload);
     },
 
-    clearCurrentgame: () => initialState,
+    clearCurrentGame: () => initialState,
   },
   extraReducers: () => {},
 });
 
-export const { setGameType, setWordsSource, setWordsToTrain, clearCurrentgame } = currentGameSlice.actions;
+export const { setGameType, setWordsSource, setWordsToTrain, clearCurrentGame } = currentGameSlice.actions;
 
 export default currentGameSlice.reducer;
