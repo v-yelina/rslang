@@ -7,6 +7,7 @@ import Home from './pages/home';
 import Sprint from './pages/sprint';
 import Statistics from './pages/statistics';
 import Textbook from './pages/textbook';
+import Demo from './pages/demo';
 
 import './App.css';
 
@@ -18,6 +19,7 @@ const App: FC = () => (
       <Route path="sprint" element={<Sprint />} />
       <Route path="audiochallenge" element={<Audiochallenge />} />
       <Route path="statistics" element={<Statistics />} />
+      <Route path="demo" element={<Demo />} />
     </Route>
   </Routes>
 );
