@@ -50,6 +50,8 @@ export const currentGameSlice = createSlice({
   extraReducers: () => {},
 });
 
-export const { setGameType, setWordsSource, setWordsToTrain, clearCurrentGame } = currentGameSlice.actions;
+export const {
+  setGameType, setWordsSource, setWordsToTrain, clearCurrentGame,
+} = currentGameSlice.actions;
 
 export default currentGameSlice.reducer;
