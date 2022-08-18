@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Modal, List, Button } from 'antd';
+import { Typography, List, Button } from 'antd';
 import { IWord } from '../../../../interfaces/IWord';
 import WordItem from '../../word-item';
 import '../modal.scss';
@@ -16,12 +16,8 @@ const ResultGameModal: FC<ResultProps> = (props) => {
   const { rightWords, wrongWords } = props;
 
   return (
-    <Modal
-      visible
-      className="modal modal--result"
-      title="Результаты игры"
-      footer={null}
-    >
+    <div className="modal">
+      <Typography.Title level={3}>Результат игры</Typography.Title>
       <List
         header={(
           <div>
@@ -36,6 +32,7 @@ const ResultGameModal: FC<ResultProps> = (props) => {
         dataSource={wrongWords}
         renderItem={(item) => (
           <WordItem
+            key={item.word}
             audio={item.audio}
             word={item.word}
             wordTranslate={item.wordTranslate}
@@ -56,6 +53,7 @@ const ResultGameModal: FC<ResultProps> = (props) => {
         dataSource={rightWords}
         renderItem={(item) => (
           <WordItem
+            key={item.word}
             audio={item.audio}
             word={item.word}
             wordTranslate={item.wordTranslate}
@@ -63,7 +61,7 @@ const ResultGameModal: FC<ResultProps> = (props) => {
         )}
       />
       <Button onClick={() => console.log('New game')}>Новая игра</Button>
-    </Modal>
+    </div>
   );
 };
 

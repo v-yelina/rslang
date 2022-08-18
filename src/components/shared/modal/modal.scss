@@ -1,9 +1,4 @@
 .modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
   .ant-modal-content {
     padding: 10px 0;
     display: flex;
@@ -25,12 +20,6 @@
   }
 
   &--confirm {
-    .ant-modal-close {
-      display: none;
-    }
-  }
-
-  &--result {
     .ant-modal-close {
       display: none;
     }

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Button } from 'antd';
-import './play-audio-button.scss';
+import { ReactComponent as PlayAudioIcon } from '../../../../assets/icons/volume.svg';
 
 type PlayAudioProps = {
   audioUrl: string
@@ -24,7 +24,14 @@ const PlayAudioButton: FC<PlayAudioProps> = (props) => {
     [isPlay],
   );
 
-  return <Button onClick={() => setPlay(true)} className="play-audio-button" type="primary" />;
+  return (
+    <Button
+      onClick={() => setPlay(true)}
+      className="play-audio-button"
+      type="text"
+      icon={<PlayAudioIcon />}
+    />
+  );
 };
 
 export default PlayAudioButton;

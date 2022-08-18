@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Space } from 'antd';
+import { Space, List } from 'antd';
 import PlayAudioButton from '../../components/shared/button/play-audio-button';
 import soud1 from '../../assets/demo/01_0001.mp3';
 import soud2 from '../../assets/demo/01_0002.mp3';
@@ -39,34 +39,46 @@ type WordItemType = Pick<IWord, 'audio' | 'word' | 'wordTranslate'>;
 const rightWords: DemoWord[] = [];
 const wrongWords: DemoWord[] = [];
 
-data.filter((item, i) => ((i < 2) ? wrongWords.push(item) : rightWords.push(item)));
+data.filter((item, i) => (
+  (i < 2)
+    ? wrongWords.push(item)
+    : rightWords.push(item)
+));
 
 const Demo: FC = () => (
   <div className="demo">
     <h2>Demo page</h2>
     <Space size="large" className="space">
       Play audio button:
-      {data.map((item) => <PlayAudioButton audioUrl={item.audio} />)}
-    </Space>
-    <Space className="space space--vert">
-      {data.map((item) => {
-        const { audio, word, wordTranslate } = item;
-        return (
-          <WordItem
-            audio={audio as 'string'}
-            word={word as 'string'}
-            wordTranslate={wordTranslate as 'string'}
+      <List
+        className="demo__list"
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={(item) => (
+          <PlayAudioButton
+            key={item.word}
+            audioUrl={item.audio}
           />
-        );
-      })}
-    </Space>
-    <DemoLeaveModal />
-    <Space>
-      <ResultGameModal
-        rightWords={rightWords as WordItemType[]}
-        wrongWords={wrongWords as WordItemType[]}
+        )}
       />
     </Space>
+    <List
+      size="small"
+      dataSource={data}
+      renderItem={(item) => (
+        <WordItem
+          key={item.word}
+          audio={item.audio}
+          word={item.word}
+          wordTranslate={item.wordTranslate}
+        />
+      )}
+    />
+    <DemoLeaveModal />
+    <ResultGameModal
+      rightWords={rightWords as WordItemType[]}
+      wrongWords={wrongWords as WordItemType[]}
+    />
   </div>
 );
 
