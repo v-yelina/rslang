@@ -18,7 +18,6 @@ const ResultGameModal: FC<ResultProps> = (props) => {
   return (
     <Modal
       visible
-      className="modal modal--result"
       title="Результаты игры"
       footer={null}
     >
