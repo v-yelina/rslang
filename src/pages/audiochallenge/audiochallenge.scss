@@ -1,0 +1,17 @@
+.game--audiochallenge {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+
+    h2 {
+        align-self: flex-start;
+    }
+}
+
+.options-container {
+    display: flex;
+    gap: 30px;
+}
