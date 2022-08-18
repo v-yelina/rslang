@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { IWord } from '../../interfaces/IWord';
-import WordCard from './word-card';
+import WordCard from './components/word-card';
 
 const wordData = {
   id: '5e9f5ee35eb9e72bc21af4a0',
@@ -22,7 +22,7 @@ const wordData = {
 const Textbook: FC = () => (
   <>
     <h2>Textbook Page</h2>
-    <WordCard wordData={wordData as IWord}/>
+    <WordCard wordData={wordData as IWord} />
   </>
 );
 
