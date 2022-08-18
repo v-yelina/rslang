@@ -39,14 +39,23 @@ type WordItemType = Pick<IWord, 'audio' | 'word' | 'wordTranslate'>;
 const rightWords: DemoWord[] = [];
 const wrongWords: DemoWord[] = [];
 
-data.filter((item, i) => ((i < 2) ? wrongWords.push(item) : rightWords.push(item)));
+data.filter((item, i) => (
+  (i < 2)
+    ? wrongWords.push(item)
+    : rightWords.push(item)
+));
 
 const Demo: FC = () => (
   <div className="demo">
     <h2>Demo page</h2>
     <Space size="large" className="space">
       Play audio button:
-      {data.map((item) => <PlayAudioButton key={item.word} audioUrl={item.audio} />)}
+      {data.map((item) => (
+        <PlayAudioButton
+          key={item.word}
+          audioUrl={item.audio}
+        />
+      ))}
     </Space>
     <List
       size="small"
