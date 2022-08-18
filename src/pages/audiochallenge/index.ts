@@ -1,3 +1,3 @@
-import Audiochallenge from './audiochallenge';
+import Audiochallenge from './Audiochallenge';
 
 export default Audiochallenge;

@@ -1,3 +1,3 @@
-import OptionsContainer from './optionsContainer';
+import OptionsContainer from './OptionsContainer';
 
 export default OptionsContainer;

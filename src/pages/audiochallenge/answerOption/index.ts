@@ -1,3 +1,3 @@
-import AnswerOption from './answerOption';
+import AnswerOption from './AnswerOption';
 
 export default AnswerOption;
