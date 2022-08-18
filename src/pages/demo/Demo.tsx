@@ -54,9 +54,9 @@ const Demo: FC = () => (
       renderItem={(item) => (
         <WordItem
           key={item.word}
-          audio={item.audio as 'string'}
-          word={item.word as 'string'}
-          wordTranslate={item.wordTranslate as 'string'}
+          audio={item.audio}
+          word={item.word}
+          wordTranslate={item.wordTranslate}
         />
       )}
     />
