@@ -1,4 +1,6 @@
-import React, { FC, Dispatch, SetStateAction } from 'react';
+import React, {
+  FC, Dispatch, SetStateAction, useEffect,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from 'antd';
 import '../modal.scss';
@@ -11,6 +13,7 @@ type ModalProps = {
 const ConfirmModal: FC<ModalProps> = (props) => {
   const { isVisible, setVisible } = props;
   const navigate = useNavigate();
+  const [modal, contextHolder] = Modal.useModal();
 
   const hideModal = () => {
     setVisible(false);
@@ -21,15 +24,16 @@ const ConfirmModal: FC<ModalProps> = (props) => {
     navigate('/', { replace: true });
   };
 
-  return (
-    <Modal
-      className="modal modal--confirm"
-      visible={isVisible}
-      onOk={leaveGame}
-      onCancel={hideModal}
-      title="вы уверены что хотите выйти?"
-    />
-  );
+  useEffect(() => {
+    modal.confirm({
+      title: 'вы уверены что хотите выйти?',
+      visible: isVisible,
+      onOk: leaveGame,
+      onCancel: hideModal,
+    });
+  }, []);
+
+  return <div>{contextHolder}</div>;
 };
 
 export default ConfirmModal;
