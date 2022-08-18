@@ -10,11 +10,13 @@ const WordItem:FC<WordItemProps> = (props) => {
   const { audio, word, wordTranslate } = props;
 
   return (
-    <List.Item className="word-item">
-      <PlayAudioButton audioUrl={audio} />
-      <Typography.Paragraph strong>{word}</Typography.Paragraph>
-      -
-      <Typography.Paragraph>{wordTranslate}</Typography.Paragraph>
+    <List.Item>
+      <div className="word-item">
+        <PlayAudioButton audioUrl={audio} />
+        <Typography.Text strong>{word}</Typography.Text>
+        -
+        <Typography.Text>{wordTranslate}</Typography.Text>
+      </div>
     </List.Item>
   );
 };

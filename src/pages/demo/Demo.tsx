@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Space } from 'antd';
+import { Space, List } from 'antd';
 import PlayAudioButton from '../../components/shared/button/play-audio-button';
 import soud1 from '../../assets/demo/01_0001.mp3';
 import soud2 from '../../assets/demo/01_0002.mp3';
@@ -48,18 +48,17 @@ const Demo: FC = () => (
       Play audio button:
       {data.map((item) => <PlayAudioButton audioUrl={item.audio} />)}
     </Space>
-    <Space className="space space--vert">
-      {data.map((item) => {
-        const { audio, word, wordTranslate } = item;
-        return (
-          <WordItem
-            audio={audio as 'string'}
-            word={word as 'string'}
-            wordTranslate={wordTranslate as 'string'}
-          />
-        );
-      })}
-    </Space>
+    <List
+      size="small"
+      dataSource={data}
+      renderItem={(item) => (
+        <WordItem
+          audio={item.audio as 'string'}
+          word={item.word as 'string'}
+          wordTranslate={item.wordTranslate as 'string'}
+        />
+      )}
+    />
     <DemoLeaveModal />
     {/* <Space>
       <ResultGameModal
