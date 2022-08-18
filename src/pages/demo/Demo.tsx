@@ -50,12 +50,23 @@ const Demo: FC = () => (
     <h2>Demo page</h2>
     <Space size="large" className="space">
       Play audio button:
-      {data.map((item) => (
+      {/* {data.map((item) => (
         <PlayAudioButton
           key={item.word}
           audioUrl={item.audio}
         />
-      ))}
+      ))} */}
+      <List
+        className="demo__list"
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={(item) => (
+          <PlayAudioButton
+            key={item.word}
+            audioUrl={item.audio}
+          />
+        )}
+      />
     </Space>
     <List
       size="small"

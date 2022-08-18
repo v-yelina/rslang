@@ -2,6 +2,12 @@
   padding: 0 20px;
   display: flex;
   flex-direction: column;
+
+  &__list .ant-list-items {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+  }
 }
 
 .space {
