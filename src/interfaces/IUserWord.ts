@@ -1,4 +1,4 @@
 export interface IUserWord {
-    difficulty: 'string';
+    difficulty: string;
     optional: {};
 }
