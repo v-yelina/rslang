@@ -6,8 +6,8 @@ import soud2 from '../../assets/demo/01_0002.mp3';
 import soud3 from '../../assets/demo/01_0003.mp3';
 import WordItem from '../../components/shared/word-item';
 import DemoLeaveModal from './demo-leave-modal/DemoLeaveModal';
-// import ResultGameModal from '../../components/shared/modal/result-game-modal';
-// import { IWord } from '../../interfaces/IWord';
+import ResultGameModal from '../../components/shared/modal/result-game-modal';
+import { IWord } from '../../interfaces/IWord';
 import './demo.scss';
 
 type DemoWord = {
@@ -34,7 +34,7 @@ const data: DemoWord[] = [
   },
 ];
 
-// type WordItemType = Pick<IWord, 'audio' | 'word' | 'wordTranslate'>;
+type WordItemType = Pick<IWord, 'audio' | 'word' | 'wordTranslate'>;
 
 const rightWords: DemoWord[] = [];
 const wrongWords: DemoWord[] = [];
@@ -46,13 +46,14 @@ const Demo: FC = () => (
     <h2>Demo page</h2>
     <Space size="large" className="space">
       Play audio button:
-      {data.map((item) => <PlayAudioButton audioUrl={item.audio} />)}
+      {data.map((item) => <PlayAudioButton key={item.word} audioUrl={item.audio} />)}
     </Space>
     <List
       size="small"
       dataSource={data}
       renderItem={(item) => (
         <WordItem
+          key={item.word}
           audio={item.audio as 'string'}
           word={item.word as 'string'}
           wordTranslate={item.wordTranslate as 'string'}
@@ -60,12 +61,10 @@ const Demo: FC = () => (
       )}
     />
     <DemoLeaveModal />
-    {/* <Space>
-      <ResultGameModal
-        rightWords={rightWords as WordItemType[]}
-        wrongWords={wrongWords as WordItemType[]}
-      />
-    </Space> */}
+    <ResultGameModal
+      rightWords={rightWords as WordItemType[]}
+      wrongWords={wrongWords as WordItemType[]}
+    />
   </div>
 );
 
