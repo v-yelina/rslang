@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
+import SprintMultiplier from '../sprint-multiplier';
 
 const SprintField: FC = () => (
   <div className="sprint__field">
-    <div className="spring__multiplier" />
+    <SprintMultiplier />
     <div className="sprint__round" />
     <div className="sprint__controls" />
   </div>

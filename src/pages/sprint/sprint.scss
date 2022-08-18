@@ -18,4 +18,13 @@
   &__counter {
     margin-top: 50px;
   }
+
+  &__field {
+    padding: 25px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 340px;
+    background-color: #f2f2f2;
+  }
 }
