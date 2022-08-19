@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import SprintControls from '../sprint-controls';
 import SprintMultiplier from '../sprint-multiplier';
 import SprintWords from '../sprint-words';
 
@@ -9,7 +10,7 @@ const SprintField: FC = () => (
       word="arrive"
       wordTranslate="прибыть"
     />
-    <div className="sprint__controls" />
+    <SprintControls />
   </div>
 );
 
