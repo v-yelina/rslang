@@ -4,11 +4,15 @@ import React, {
 import PlayAudioButton from '../../components/shared/button/play-audio-button';
 import OptionsContainer from './optionsContainer';
 import './audiochallenge.scss';
-import { useAppSelector } from '../../store/hooks';
-import { checkAnswer, getAnswerOptions, getAnswerText } from './audioChallengeGame';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import {
+  checkAnswer, getAnswerOptions, getAnswerText,
+} from './audioChallengeGame';
+import { currentGameSlice } from '../../store/slices/currentGame/currentGameSlice';
 import ENV from '../../config/config';
 
 const Audiochallenge: FC = () => {
+  const dispatch = useAppDispatch();
   const { words } = useAppSelector((state) => state.rootReducer.currentGame);
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
@@ -24,19 +28,40 @@ const Audiochallenge: FC = () => {
     setWordAudio(ENV.BASE_URL as string + currentWord.audio);
   }, [currentWord]);
 
+  const addAnswersToSlice = (isRight: boolean, answer:
+    string, word: string, audio: string, id: string) => {
+    const { addRightAnswer, addWrongAnswer } = currentGameSlice.actions;
+    if (isRight) {
+      dispatch(addRightAnswer({ word, audio, id }));
+    } else {
+      dispatch(addWrongAnswer({
+        answer, word, audio, id,
+      }));
+    }
+  };
+
   const handleClick: MouseEventHandler = (e) => {
     e.preventDefault();
     let answer = getAnswerText(e as unknown as MouseEvent);
     if (answer) {
       let isRightAnswer: boolean;
-      if (answer === 'Don‘t know') {
+      if (answer === "Don't know") {
         isRightAnswer = false;
-        answer = "-"
+        answer = '-';
       } else {
         isRightAnswer = checkAnswer(answer, currentWord.wordTranslate);
       }
+      addAnswersToSlice(
+        isRightAnswer,
+        answer,
+        currentWord.wordTranslate,
+        currentWord.audio,
+        currentWord.id,
+      );
     }
-    setWordIndex(wordIndex + 1);
+    if (wordIndex < words.length) {
+      setWordIndex(wordIndex + 1);
+    }
   };
 
   return (
