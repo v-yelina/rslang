@@ -5,11 +5,9 @@ type AnswerOptionProps = { num: string, option: string }
 
 const AnswerOption: FC<AnswerOptionProps> = ({ num, option }: AnswerOptionProps) => (
   <Button type="dashed" className="option-btn">
-    <span className="number">
-      {num}
-      .
-    </span>
-    <span className="word">{option}</span>
+    {num}
+    .&nbsp;
+    {option}
   </Button>
 );
 

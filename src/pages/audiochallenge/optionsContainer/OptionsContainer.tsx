@@ -1,11 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEventHandler } from 'react';
 import { Button } from 'antd';
 import AnswerOption from '../answerOption';
 
-type OptionsContainerProps = { options: string[] };
+/* eslint-disable */
+type OptionsContainerProps = { options: string[]; clickHandler: MouseEventHandler<HTMLDivElement> };
 
-const OptionsContainer: FC<OptionsContainerProps> = ({ options }) => (
-  <div className="options-container">
+const OptionsContainer: FC<OptionsContainerProps> = ({ options, clickHandler }) => (
+  <div className="options-container" onClick={(e) => clickHandler(e)}>
     <AnswerOption num="1" option={options[0]} />
     <AnswerOption num="2" option={options[1]} />
     <AnswerOption num="3" option={options[2]} />

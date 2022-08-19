@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react';
 import { WordToTrain } from '../../store/slices/currentGame/currentGameSlice';
 
 /* eslint-disable */
@@ -17,6 +18,7 @@ export const getAnswerOptions = (word: WordToTrain, words: WordToTrain[]) => {
   const translations = getTranslations(words);
   const options = [word.wordTranslate];
   while (options.length < 5) {
+    //stackoverflow.com/questions/4550505/getting-a-random-value-from-a-javascript-array
     const randomTranslation = translations[Math.floor(Math.random() * translations.length)];
     if (!options.includes(randomTranslation)) {
       options.push(randomTranslation);
@@ -24,3 +26,17 @@ export const getAnswerOptions = (word: WordToTrain, words: WordToTrain[]) => {
   }
   return shuffleArray(options);
 };
+
+export const getAnswerText: MouseEventHandler = (e) => {
+  const { target, currentTarget } = e;
+    if (target !== currentTarget) {
+      const targetEl = target as HTMLElement;
+      const targetChildrenCount = targetEl.childElementCount;
+      const answerContainer = targetChildrenCount === 1
+        ? targetEl.firstChild as HTMLElement : targetEl;
+      if (answerContainer) {
+        const answerText = answerContainer.textContent?.replace(/\d\./, '').trim();
+        return answerText;
+      }
+    }
+}
