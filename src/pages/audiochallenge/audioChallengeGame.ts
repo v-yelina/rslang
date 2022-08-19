@@ -1,4 +1,3 @@
-import { MouseEventHandler } from 'react';
 import { WordToTrain } from '../../store/slices/currentGame/currentGameSlice';
 
 /* eslint-disable */
@@ -27,16 +26,19 @@ export const getAnswerOptions = (word: WordToTrain, words: WordToTrain[]) => {
   return shuffleArray(options);
 };
 
-export const getAnswerText: MouseEventHandler = (e) => {
+export const getAnswerText:  (e:MouseEvent)=> string | undefined = (e) => {
   const { target, currentTarget } = e;
+  let answerText;
     if (target !== currentTarget) {
       const targetEl = target as HTMLElement;
       const targetChildrenCount = targetEl.childElementCount;
       const answerContainer = targetChildrenCount === 1
         ? targetEl.firstChild as HTMLElement : targetEl;
       if (answerContainer) {
-        const answerText = answerContainer.textContent?.replace(/\d\./, '').trim();
-        return answerText;
+        answerText = answerContainer.textContent?.replace(/\d\./, '').trim();
       }
     }
+    return answerText;
 }
+
+export const checkAnswer = (answer:string, word:string) => answer === word;
