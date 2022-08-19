@@ -1,0 +1,47 @@
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  .ant-btn-primary {
+    position: relative;
+    width: 100px;
+
+    &::before {
+      position: absolute;
+      top: -2px;
+      display: block;
+      width: 10px;
+      height: 100px;
+      background: url('../../../assets/icons/arrow.svg') center no-repeat;
+      background-size: 400%;
+    }
+    
+    &:first-child {
+      background-color: #DF6565;
+      border-color: #DF6565;
+
+      &::before {
+        left: 30px;
+        transform: rotate(-90deg);
+      }
+    }
+
+    &:last-child {
+      background-color: #2C9C4B;
+      border-color: #2C9C4B;
+
+      &::before {
+        left: 50px;
+        transform: rotate(90deg);
+      }
+    }
+
+    span {
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+  }
+}
