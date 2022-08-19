@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Card, Row, Col } from 'antd';
 import { IWord } from '../../../../interfaces/IWord';
 import PlayAudioButton from '../../../../components/shared/button/play-audio-button';
-import BASE_URL from '../../../../constants';
+import ENV from '../../../../config/config';
 
 import './word-card.scss';
 
@@ -30,13 +30,13 @@ const WordCard: FC<WordCardProps> = (props) => {
       <Row gutter={16}>
         <Col span={8}>
           <Card className="word-card--img-container" hoverable={false}>
-            <img alt={word} src={`${BASE_URL}${image}`} />
+            <img alt={word} src={`${ENV.BASE_URL}${image}`} />
           </Card>
         </Col>
         <Col span={16}>
           <Card className="word-card--text-container" hoverable={false} title={title}>
             <div className="word-card--content-block__pronunciation">
-              <PlayAudioButton audioUrl={`${BASE_URL}${audio}`} />
+              <PlayAudioButton audioUrl={`${ENV.BASE_URL}${audio}`} />
               <p>{transcription}</p>
             </div>
             <div className="word-card--content-block">
