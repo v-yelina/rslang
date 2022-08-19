@@ -3,16 +3,17 @@ import React, {
 } from 'react';
 import PlayAudioButton from '../../components/shared/button/play-audio-button';
 import OptionsContainer from './optionsContainer';
-import soud1 from '../../assets/demo/01_0001.mp3';
 import './audiochallenge.scss';
 import { useAppSelector } from '../../store/hooks';
 import { checkAnswer, getAnswerOptions, getAnswerText } from './audioChallengeGame';
+import ENV from '../../config/config';
 
 const Audiochallenge: FC = () => {
   const { words } = useAppSelector((state) => state.rootReducer.currentGame);
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
   const [answerOptions, setAnswerOptions] = useState(getAnswerOptions(currentWord, words));
+  const [wordAudio, setWordAudio] = useState(ENV.BASE_URL as string + currentWord.audio);
 
   useEffect(() => {
     setCurrentWord(words[wordIndex]);
@@ -20,6 +21,7 @@ const Audiochallenge: FC = () => {
 
   useEffect(() => {
     setAnswerOptions(getAnswerOptions(currentWord, words));
+    setWordAudio(ENV.BASE_URL as string + currentWord.audio);
   }, [currentWord]);
 
   const handleClick: MouseEventHandler = (e) => {
@@ -36,7 +38,7 @@ const Audiochallenge: FC = () => {
   return (
     <section className="game game--audiochallenge">
       <h2>Audiochallenge Page</h2>
-      <div className="audio"><PlayAudioButton audioUrl={soud1} /></div>
+      <div className="audio"><PlayAudioButton audioUrl={wordAudio} /></div>
       <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
     </section>
 
