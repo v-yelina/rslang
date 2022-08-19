@@ -26,11 +26,15 @@ const Audiochallenge: FC = () => {
 
   const handleClick: MouseEventHandler = (e) => {
     e.preventDefault();
-    const answer = getAnswerText(e as unknown as MouseEvent);
+    let answer = getAnswerText(e as unknown as MouseEvent);
     if (answer) {
-      const isRightAnswer = checkAnswer(answer, currentWord.wordTranslate);
-      console.log(answer);
-      console.log(isRightAnswer);
+      let isRightAnswer: boolean;
+      if (answer === 'Don‘t know') {
+        isRightAnswer = false;
+        answer = "-"
+      } else {
+        isRightAnswer = checkAnswer(answer, currentWord.wordTranslate);
+      }
     }
     setWordIndex(wordIndex + 1);
   };
