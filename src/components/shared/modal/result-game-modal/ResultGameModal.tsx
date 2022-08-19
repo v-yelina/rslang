@@ -60,7 +60,7 @@ const ResultGameModal: FC<ResultProps> = (props) => {
           />
         )}
       />
-      <Button onClick={() => console.log('New game')}>Новая игра</Button>
+      <Button onClick={clickHandler}>Новая игра</Button>
     </div>
   );
 };

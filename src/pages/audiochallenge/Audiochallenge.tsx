@@ -8,16 +8,19 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   checkAnswer, getAnswerOptions, getAnswerText,
 } from './audioChallengeGame';
-import { currentGameSlice } from '../../store/slices/currentGame/currentGameSlice';
+import { clearCurrentGame, currentGameSlice } from '../../store/slices/currentGame/currentGameSlice';
 import ENV from '../../config/config';
+import ResultGameModal from '../../components/shared/modal/result-game-modal';
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
-  const { words } = useAppSelector((state) => state.rootReducer.currentGame);
+  const { words, rightAnswers, wrongAnswers } = useAppSelector((state) => state
+    .rootReducer.currentGame);
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
   const [answerOptions, setAnswerOptions] = useState(getAnswerOptions(currentWord, words));
   const [wordAudio, setWordAudio] = useState(ENV.BASE_URL as string + currentWord.audio);
+  const [isGameFinished, setIsGameFinished] = useState(false);
 
   useEffect(() => {
     setCurrentWord(words[wordIndex]);
@@ -29,13 +32,15 @@ const Audiochallenge: FC = () => {
   }, [currentWord]);
 
   const addAnswersToSlice = (isRight: boolean, answer:
-    string, word: string, audio: string, id: string) => {
+    string, word: string, wordTranslate: string, audio: string, id: string) => {
     const { addRightAnswer, addWrongAnswer } = currentGameSlice.actions;
     if (isRight) {
-      dispatch(addRightAnswer({ word, audio, id }));
+      dispatch(addRightAnswer({
+        word, wordTranslate, audio, id,
+      }));
     } else {
       dispatch(addWrongAnswer({
-        answer, word, audio, id,
+        answer, word, wordTranslate, audio, id,
       }));
     }
   };
@@ -54,23 +59,37 @@ const Audiochallenge: FC = () => {
       addAnswersToSlice(
         isRightAnswer,
         answer,
+        currentWord.word,
         currentWord.wordTranslate,
         currentWord.audio,
         currentWord.id,
       );
     }
-    if (wordIndex < words.length) {
+    if (wordIndex < words.length - 1) {
       setWordIndex(wordIndex + 1);
+    } else {
+      setIsGameFinished(true);
     }
   };
 
-  return (
+  const restartGame = () => {
+    dispatch(clearCurrentGame);
+    setWordIndex(0);
+    setIsGameFinished(false);
+  };
+
+  return !isGameFinished ? (
     <section className="game game--audiochallenge">
       <h2>Audiochallenge Page</h2>
       <div className="audio"><PlayAudioButton audioUrl={wordAudio} /></div>
       <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
     </section>
-
+  ) : (
+    <ResultGameModal
+      rightWords={rightAnswers}
+      wrongWords={wrongAnswers}
+      clickHandler={restartGame}
+    />
   );
 };
 
