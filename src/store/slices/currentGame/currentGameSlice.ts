@@ -6,8 +6,9 @@ type wordsSourceType = 'group' | 'textbook' | undefined;
 type gameType = 'audiochallenge' | 'sprint' | undefined;
 
 export type WordToTrain = Pick<IWord, 'id' | 'word' | 'image' | 'audio' | 'wordTranslate'>;
-type Answer = { answer: string; word: string; audio: string; id: string };
-type RightAnswer = Pick<Answer, 'word' | 'audio' | 'id'>;
+export type Answer = { answer: string; word: string;
+  wordTranslate: string;audio: string; id: string };
+export type RightAnswer = Pick<Answer, 'word' | 'wordTranslate' | 'audio' | 'id'>;
 
 export type CurrentGameState = {
   wordsSource: wordsSourceType;

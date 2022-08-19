@@ -1,19 +1,18 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEventHandler } from 'react';
 import { Typography, List, Button } from 'antd';
-import { IWord } from '../../../../interfaces/IWord';
 import WordItem from '../../word-item';
 import '../modal.scss';
 import './result-game-modal.scss';
-
-type WordItemType = Pick<IWord, 'audio' | 'word' | 'wordTranslate'>;
+import { Answer, RightAnswer } from '../../../../store/slices/currentGame/currentGameSlice';
 
 type ResultProps = {
-  rightWords: WordItemType[];
-  wrongWords: WordItemType[];
+  rightWords: RightAnswer[];
+  wrongWords: Answer[];
+  clickHandler: MouseEventHandler
 }
 
 const ResultGameModal: FC<ResultProps> = (props) => {
-  const { rightWords, wrongWords } = props;
+  const { rightWords, wrongWords, clickHandler } = props;
 
   return (
     <div className="modal">
