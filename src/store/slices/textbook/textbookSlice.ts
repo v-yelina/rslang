@@ -22,8 +22,8 @@ export const textbookSlice = createSlice({
   name: 'textbook',
   initialState,
   reducers: {
-    setCurrentWords: (state, action: PayloadAction<IWord[]>) => {
-      state.currentWords = action.payload;
+    setCurrentGroup: (state, action: PayloadAction<number>) => {
+      state.currentGroup = action.payload;
     },
   },
   extraReducers: {
@@ -42,6 +42,6 @@ export const textbookSlice = createSlice({
   },
 });
 
-export const { setCurrentWords } = textbookSlice.actions;
+export const { setCurrentGroup } = textbookSlice.actions;
 
 export default textbookSlice.reducer;

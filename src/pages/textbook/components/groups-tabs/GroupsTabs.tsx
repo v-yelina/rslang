@@ -3,19 +3,17 @@ import { Tabs } from 'antd';
 
 import { wordsGroups } from '../../../../constants';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { fetchWordsByGroupAndPage } from '../../../../store/thunks';
 
 import './groups-tabs.scss';
+import { setCurrentGroup } from '../../../../store/slices/textbook';
 
 const { TabPane } = Tabs;
 
 const GroupsTabs: FC = () => {
   const dispatch = useAppDispatch();
-  const { currentGroup, currentPage } = useAppSelector((state) => state.textbook);
+  const { currentGroup } = useAppSelector((state) => state.textbook);
   const onGroupChange = (groupKey: string) => {
-    dispatch(
-      fetchWordsByGroupAndPage({ group: groupKey.toString(), page: currentPage.toString() }),
-    );
+    dispatch(setCurrentGroup(Number(groupKey)));
   };
 
   return (
