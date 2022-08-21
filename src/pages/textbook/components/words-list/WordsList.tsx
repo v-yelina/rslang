@@ -22,7 +22,7 @@ const WordsList: FC = () => {
   return (
     <div className="words-list-container">
       {isLoading && <h3>Loading words...</h3>}
-      {!!currentWords.length && (
+      {!isLoading && !!currentWords.length && (
         <div className="words-list">
           {currentWords.map((word) => (
             <WordCard key={word.id} wordData={word} />
