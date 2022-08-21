@@ -1,0 +1,30 @@
+.word-card {
+  max-width: 80%;
+  padding: 30px;
+  background: #ececec;
+
+  &--img-container {
+    & img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &--text-container {
+    height: 100%;
+  }
+
+  &--content-block {
+    margin-bottom: 2rem;
+    &__pronunciation {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 2rem;
+      & p {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
