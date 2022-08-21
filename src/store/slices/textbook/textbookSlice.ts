@@ -4,12 +4,16 @@ import { fetchWordsByGroupAndPage } from '../../thunks';
 
 export type TextbookState = {
   currentWords: IWord[];
+  currentGroup: number;
+  currentPage: number;
   isLoading: boolean;
   error: string | null;
 };
 
 const initialState: TextbookState = {
   currentWords: [],
+  currentGroup: 0,
+  currentPage: 1,
   isLoading: false,
   error: null,
 };
