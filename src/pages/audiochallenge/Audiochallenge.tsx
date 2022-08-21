@@ -11,16 +11,18 @@ import {
 import { clearCurrentGame, currentGameSlice } from '../../store/slices/currentGame/currentGameSlice';
 import ENV from '../../config/config';
 import ResultGameModal from '../../components/shared/modal/result-game-modal';
+import ConfirmModal from '../../components/shared/modal/confirm-modal';
+import LeaveGameButton from '../../components/shared/button/leave-game-button';
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
-  const { words, rightAnswers, wrongAnswers } = useAppSelector((state) => state
-    .rootReducer.currentGame);
+  const { words, rightAnswers, wrongAnswers } = useAppSelector((state) => state.currentGame);
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
   const [answerOptions, setAnswerOptions] = useState(getAnswerOptions(currentWord, words));
   const [wordAudio, setWordAudio] = useState(ENV.BASE_URL as string + currentWord.audio);
   const [isGameFinished, setIsGameFinished] = useState(false);
+  const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
 
   useEffect(() => {
     setCurrentWord(words[wordIndex]);
@@ -78,18 +80,35 @@ const Audiochallenge: FC = () => {
     setIsGameFinished(false);
   };
 
-  return !isGameFinished ? (
-    <section className="game game--audiochallenge">
-      <h2>Audiochallenge Page</h2>
-      <div className="audio"><PlayAudioButton audioUrl={wordAudio} /></div>
-      <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
-    </section>
-  ) : (
-    <ResultGameModal
-      rightWords={rightAnswers}
-      wrongWords={wrongAnswers}
-      clickHandler={restartGame}
-    />
+  return (
+    <>
+      {!isGameFinished ? (
+        <section className="game game--audiochallenge">
+          <h2>Audiochallenge Page</h2>
+          <div className="audio"><PlayAudioButton audioUrl={wordAudio} /></div>
+          <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
+        </section>
+      ) : (
+        <ResultGameModal
+          rightWords={rightAnswers}
+          wrongWords={wrongAnswers}
+          clickHandler={restartGame}
+        />
+      )}
+      <div className="leave-btn">
+        <LeaveGameButton setVisible={setVisibleLeaveModal} />
+        {
+          isVisibleLeaveModal
+          && (
+            <ConfirmModal
+              isVisible={isVisibleLeaveModal}
+              setVisible={setVisibleLeaveModal}
+            />
+          )
+        }
+      </div>
+
+    </>
   );
 };
 
