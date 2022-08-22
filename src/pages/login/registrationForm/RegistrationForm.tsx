@@ -31,6 +31,7 @@ const RegistrationForm: FC = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
+      <h3>Registration</h3>
       <Form.Item
         label="Username"
         name="username"

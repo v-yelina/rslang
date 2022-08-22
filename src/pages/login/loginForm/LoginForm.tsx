@@ -19,6 +19,7 @@ const LoginForm: FC = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
+      <h3>Log In</h3>
       <Form.Item
         label="Username"
         name="username"
