@@ -10,6 +10,7 @@ import Textbook from './pages/textbook';
 import Demo from './pages/demo';
 
 import './App.css';
+import Login from './pages/login';
 
 const App: FC = () => (
   <Routes>
@@ -20,6 +21,7 @@ const App: FC = () => (
       <Route path="audiochallenge" element={<Audiochallenge />} />
       <Route path="statistics" element={<Statistics />} />
       <Route path="demo" element={<Demo />} />
+      <Route path="login" element={<Login />} />
     </Route>
   </Routes>
 );

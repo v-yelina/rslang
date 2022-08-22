@@ -10,6 +10,7 @@ const Header: FC = () => (
       <Link to="/audiochallenge">Audiochallenge</Link>
       <Link to="/statistics">Statistics</Link>
       <Link to="/demo">Demo</Link>
+      <Link to="/login">Login</Link>
     </div>
     <Outlet />
   </>
