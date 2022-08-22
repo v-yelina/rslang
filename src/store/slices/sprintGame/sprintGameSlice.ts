@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IWord } from '../../../interfaces/IWord';
+import fetchWordsToSprintGame from './thunks';
 
 type WordsSourceType = 'group' | 'textbook' | undefined;
 
@@ -16,6 +17,7 @@ type SprintGameState = {
   wrongAnswers: WordToGame[];
   currentWord: RoundWord;
   score: number;
+  isLoading: boolean;
 }
 
 const initialState: SprintGameState = {
@@ -26,6 +28,7 @@ const initialState: SprintGameState = {
   wrongAnswers: [],
   currentWord: undefined,
   score: 0,
+  isLoading: false,
 };
 
 export const sprintGameSlice = createSlice({
@@ -34,9 +37,6 @@ export const sprintGameSlice = createSlice({
   reducers: {
     setWordsSource: (state, action: PayloadAction<WordsSourceType>) => {
       state.wordsSource = action.payload;
-    },
-    setWordsToTrain: (state, action: PayloadAction<WordToGame[]>) => {
-      state.words = action.payload;
     },
     addRightAnswer: (state, action: PayloadAction<WordToGame>) => {
       state.rightAnswers.push(action.payload);
@@ -52,12 +52,19 @@ export const sprintGameSlice = createSlice({
     },
     clearCurrentGame: () => initialState,
   },
-  extraReducers: () => {},
+  extraReducers: {
+    [fetchWordsToSprintGame.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchWordsToSprintGame.fulfilled.type]: (state, action: PayloadAction<WordToGame[]>) => {
+      state.isLoading = false;
+      state.words = action.payload;
+    },
+  },
 });
 
 export const {
   setWordsSource,
-  setWordsToTrain,
   addRightAnswer,
   addWrongAnswer,
   setCurrentRoundWord,
