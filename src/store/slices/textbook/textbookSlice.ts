@@ -5,6 +5,7 @@ import { PageData } from '../../types';
 
 export type TextbookState = {
   currentWords: IWord[];
+  // currentWordsRequestId: string | undefined;
   currentPageData: PageData;
   isLoading: boolean;
   error: string | null;
@@ -33,11 +34,11 @@ export const textbookSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     },
-    [fetchWordsByGroupAndPage.fulfilled.type]: (state, action: PayloadAction<IWord[]>) => {
+    [fetchWordsByGroupAndPage.fulfilled.type]: (state, action) => {
       state.isLoading = false;
       state.currentWords = action.payload;
     },
-    [fetchWordsByGroupAndPage.rejected.type]: (state, action: PayloadAction<string>) => {
+    [fetchWordsByGroupAndPage.rejected.type]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
