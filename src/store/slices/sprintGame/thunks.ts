@@ -12,7 +12,7 @@ const fetchWordsToSprintGame = createAsyncThunk(
         throw new Error('Words are not found, Server error!');
       }
 
-      const words: IWord = await response.json();
+      const words: IWord[] = await response.json();
 
       return words;
     } catch (error) {

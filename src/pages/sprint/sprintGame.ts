@@ -2,9 +2,9 @@ import { WORDS_FOR_GAME_SPRINT } from '../../constants';
 import { IWord } from '../../interfaces/IWord';
 import { getRandomIndex, shuffleArray } from '../../utils/gameUtils';
 
-type WordsToTrain = Pick<IWord, 'word' | 'wordTranslate'>
+export type WordsToTrain = Pick<IWord, 'word' | 'wordTranslate'>
 
-const getWordsToTrain = (words: WordsToTrain[]): WordsToTrain[] => {
+const getWordsToTrain = (words: IWord[]): WordsToTrain[] => {
   const wordsToTrain: WordsToTrain[] = [];
 
   for (let i = 0; i < words.length; i += 1) {
