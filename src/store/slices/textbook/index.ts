@@ -1,6 +1,6 @@
 import textbookSlice from './textbookSlice';
 
 export * from './textbookSlice';
-export * from './textbook.selector';
+export * from './textbookSelector';
 
 export default textbookSlice;
