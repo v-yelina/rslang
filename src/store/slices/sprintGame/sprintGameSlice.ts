@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IWord } from "../../../interfaces/IWord";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IWord } from '../../../interfaces/IWord';
 
 type WordsSourceType = 'group' | 'textbook' | undefined;
 
@@ -20,13 +20,13 @@ type SprintGameState = {
 
 const initialState: SprintGameState = {
   wordsSource: undefined,
-  gameType: "sprint",
+  gameType: 'sprint',
   words: [],
   rightAnswers: [],
   wrongAnswers: [],
   currentWord: undefined,
   score: 0,
-}
+};
 
 export const sprintGameSlice = createSlice({
   name: 'sprintGame',
@@ -62,7 +62,7 @@ export const {
   addWrongAnswer,
   setCurrentRoundWord,
   setGameScore,
-  clearCurrentGame
+  clearCurrentGame,
 } = sprintGameSlice.actions;
 
 export default sprintGameSlice.reducer;
