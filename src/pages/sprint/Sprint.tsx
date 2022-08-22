@@ -1,30 +1,17 @@
 import React, { FC, useState } from 'react';
-import LeaveGameButton from '../../components/shared/button/leave-game-button';
-import ConfirmModal from '../../components/shared/modal/confirm-modal';
-import Timer from '../../components/timer';
-import Counter from './counter';
-import SprintField from './sprint-field';
+import ResultGameModal from '../../components/shared/modal/result-game-modal';
+import SprintGameContainer from './sprint-game-container';
 import './sprint.scss';
 
 const Sprint: FC = () => {
-  const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
+  const [isGameFinished, setGameFinished] = useState(false);
 
   return (
     <section className="sprint">
-      <div className="sprint__header">
-        <Timer />
-        <LeaveGameButton setVisible={setVisibleLeaveModal} />
-      </div>
-      <Counter count={0} />
-      <SprintField />
       {
-        isVisibleLeaveModal
-        && (
-        <ConfirmModal
-          isVisible={isVisibleLeaveModal}
-          setVisible={setVisibleLeaveModal}
-        />
-        )
+        !isGameFinished
+          ? <SprintGameContainer />
+          : <ResultGameModal rightWords={[]} wrongWords={[]} />
       }
     </section>
   );
