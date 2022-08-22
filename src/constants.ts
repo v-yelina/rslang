@@ -1,2 +1,6 @@
-// eslint-disable-next-line
-export const wordsGroups = [0, 1, 2, 3, 4, 5];
+export const wordsGroups = [1, 2, 3, 4, 5, 6];
+
+export const TEXTBOOK_PARAMS = {
+  GROUP: 'group',
+  PAGE: 'page',
+};
