@@ -6,15 +6,15 @@ type WordsSourceType = 'group' | 'textbook' | undefined;
 
 type GameType = 'audiochallenge' | 'sprint' | undefined;
 
-type WordToGame = Pick<IWord, 'id' | 'word' | 'wordTranslate' | 'audio'>;
-type RoundWord = Pick<WordToGame, 'word' | 'wordTranslate'> | undefined;
+type WordToTrain = Pick<IWord, 'id' | 'word' | 'wordTranslate' | 'audio'>;
+type RoundWord = Pick<WordToTrain, 'word' | 'wordTranslate'>;
 
 type SprintGameState = {
   wordsSource: WordsSourceType;
   gameType: GameType;
-  words: IWord[];
-  rightAnswers: WordToGame[];
-  wrongAnswers: WordToGame[];
+  words: WordToTrain[];
+  rightAnswers: WordToTrain[];
+  wrongAnswers: WordToTrain[];
   currentWord: RoundWord;
   score: number;
   isLoading: boolean;
@@ -27,7 +27,10 @@ const initialState: SprintGameState = {
   words: [],
   rightAnswers: [],
   wrongAnswers: [],
-  currentWord: undefined,
+  currentWord: {
+    word: '',
+    wordTranslate: '',
+  },
   score: 0,
   isLoading: false,
   roundIndex: 0,
@@ -43,10 +46,10 @@ export const sprintGameSlice = createSlice({
     setGameWords: (state, action: PayloadAction<IWord[]>) => {
       state.words = action.payload;
     },
-    addRightAnswer: (state, action: PayloadAction<WordToGame>) => {
+    addRightAnswer: (state, action: PayloadAction<WordToTrain>) => {
       state.rightAnswers.push(action.payload);
     },
-    addWrongAnswer: (state, action: PayloadAction<WordToGame>) => {
+    addWrongAnswer: (state, action: PayloadAction<WordToTrain>) => {
       state.wrongAnswers.push(action.payload);
     },
     setCurrentRoundWord: (state, action: PayloadAction<RoundWord>) => {
@@ -64,7 +67,7 @@ export const sprintGameSlice = createSlice({
     [fetchWordsToSprintGame.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [fetchWordsToSprintGame.fulfilled.type]: (state, action: PayloadAction<IWord[]>) => {
+    [fetchWordsToSprintGame.fulfilled.type]: (state, action: PayloadAction<WordToTrain[]>) => {
       state.isLoading = false;
       state.words = action.payload;
     },
