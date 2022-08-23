@@ -34,8 +34,16 @@ const RegistrationForm: FC = () => {
       <h3>Registration</h3>
       <Form.Item
         label="Username"
-        name="username"
+        name="name"
         rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: 'Please input your email!' }]}
       >
         <Input />
       </Form.Item>
