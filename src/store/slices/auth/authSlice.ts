@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { registration } from '../../thunks';
 
 type AuthUser = {
   userId: string;
@@ -37,7 +38,20 @@ export const authSlice = createSlice({
     },
     clearAuth: () => initialState,
   },
-  extraReducers: () => {},
+  extraReducers: {
+    [registration.pending.type]: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [registration.fulfilled.type]: (state) => {
+      state.isLoading = false;
+      state.error = null;
+    },
+    [registration.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+  },
 });
 
 export const {
