@@ -7,34 +7,39 @@ import soud3 from '../../assets/demo/01_0003.mp3';
 import WordItem from '../../components/shared/word-item';
 import DemoLeaveModal from './demo-leave-modal/DemoLeaveModal';
 import ResultGameModal from '../../components/shared/modal/result-game-modal';
-import { IWord } from '../../interfaces/IWord';
 import './demo.scss';
 
 type DemoWord = {
+  id: string;
   audio: string;
   word: string;
   wordTranslate: string;
+  answer: string;
 };
 
 const data: DemoWord[] = [
   {
+    id: '1',
     audio: soud1,
     word: 'agree',
     wordTranslate: 'соглашаться',
+    answer: 'приезжать',
   },
   {
+    id: '2',
     audio: soud2,
     word: 'alcohol',
     wordTranslate: 'алкоголь',
+    answer: 'копать',
   },
   {
+    id: '3',
     audio: soud3,
     word: 'arrive',
     wordTranslate: 'прибыть',
+    answer: 'прибыть',
   },
 ];
-
-type WordItemType = Pick<IWord, 'audio' | 'word' | 'wordTranslate'>;
 
 const rightWords: DemoWord[] = [];
 const wrongWords: DemoWord[] = [];
@@ -76,8 +81,9 @@ const Demo: FC = () => (
     />
     <DemoLeaveModal />
     <ResultGameModal
-      rightWords={rightWords as WordItemType[]}
-      wrongWords={wrongWords as WordItemType[]}
+      rightWords={rightWords}
+      wrongWords={wrongWords}
+      clickHandler={() => { console.log('New game'); }}
     />
   </div>
 );
