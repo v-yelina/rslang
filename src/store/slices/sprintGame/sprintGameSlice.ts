@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IWord } from '../../../interfaces/IWord';
-import fetchWordsToSprintGame from './thunks';
+import { fetchWordsToSprintGame } from '../../thunks';
 
 type WordsSourceType = 'group' | 'textbook' | undefined;
 

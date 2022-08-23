@@ -7,7 +7,7 @@ import {
   addWrongAnswer,
   setMultiplier,
   setRoundIndex,
-} from '../../../store/slices/sprintGame/sprintGameSlice';
+} from '../../../store/slices/sprintGame';
 import { checkAnswer } from '../../../utils/gameUtils';
 
 import './sprint-controls.scss';

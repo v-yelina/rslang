@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Typography, Progress } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { setGameScore } from '../../../store/slices/sprintGame/sprintGameSlice';
+import { setGameScore } from '../../../store/slices/sprintGame';
 
 import './sprint-multiplier.scss';
 

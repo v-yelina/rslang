@@ -2,11 +2,12 @@ import React, { FC, useEffect, useState } from 'react';
 import { Spin } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { clearCurrentGame, setCurrentWord, setRoundDuration } from '../../store/slices/sprintGame/sprintGameSlice';
-import fetchWordsToSprintGame from '../../store/slices/sprintGame/thunks';
+import { clearCurrentGame, setCurrentWord, setRoundDuration } from '../../store/slices/sprintGame';
+import { fetchWordsToSprintGame } from '../../store/thunks';
 import ResultGameModal from '../../components/shared/modal/result-game-modal';
 import SprintGameContainer from './sprint-game-container';
 import getWordsToTrain from './sprintGame';
+import { DURATION_GAME_SPRINT } from '../../constants';
 
 import './sprint.scss';
 
@@ -22,7 +23,7 @@ const Sprint: FC = () => {
   } = useAppSelector((state) => state.sprintGame);
 
   const [isGameFinished, setGameFinished] = useState(false);
-  const [gameTime, setGameTime] = useState(60);
+  const [gameTime, setGameTime] = useState(DURATION_GAME_SPRINT);
   const [gameWords, setGameWords] = useState([currentWord]);
 
   useEffect(() => {
