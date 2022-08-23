@@ -1,8 +1,15 @@
-import { Button } from 'antd';
 import React, { FC } from 'react';
+import { Button } from 'antd';
+
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { addRightAnswer, addWrongAnswer, setRoundIndex } from '../../../store/slices/sprintGame/sprintGameSlice';
+import {
+  addRightAnswer,
+  addWrongAnswer,
+  setMultiplier,
+  setRoundIndex,
+} from '../../../store/slices/sprintGame/sprintGameSlice';
 import { checkAnswer } from '../../../utils/gameUtils';
+
 import './sprint-controls.scss';
 
 const SprintControls: FC = () => {
@@ -13,6 +20,7 @@ const SprintControls: FC = () => {
     wrongAnswers,
     words,
     roundDuration,
+    multiplier,
   } = useAppSelector((state) => state.sprintGame);
   const dispatch = useAppDispatch();
 
@@ -23,9 +31,14 @@ const SprintControls: FC = () => {
     if (answer === correctAnswer) {
       if (wrongAnswers.indexOf(word!) === -1 && rightAnswers.indexOf(word!) === -1) {
         dispatch(addRightAnswer(word!));
+        if (multiplier < 4) {
+          const m = multiplier + 1;
+          dispatch(setMultiplier(m));
+        }
       }
     } else if (wrongAnswers.indexOf(word!) === -1) {
       dispatch(addWrongAnswer(word!));
+      dispatch(setMultiplier(0));
     }
 
     if (roundIndex <= roundDuration) {

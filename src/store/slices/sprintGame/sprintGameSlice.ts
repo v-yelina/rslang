@@ -17,6 +17,7 @@ type SprintGameState = {
   wrongAnswers: WordToTrain[];
   currentWord: RoundWord;
   score: number;
+  multiplier: number;
   isLoading: boolean;
   roundIndex: number;
   roundDuration: number;
@@ -32,7 +33,8 @@ const initialState: SprintGameState = {
     word: '',
     wordTranslate: '',
   },
-  score: 0,
+  score: -10,
+  multiplier: 0,
   isLoading: true,
   roundIndex: 0,
   roundDuration: 0,
@@ -60,6 +62,9 @@ export const sprintGameSlice = createSlice({
     setGameScore: (state, action: PayloadAction<number>) => {
       state.score = action.payload;
     },
+    setMultiplier: (state, action: PayloadAction<number>) => {
+      state.multiplier = action.payload;
+    },
     setRoundIndex: (state, action: PayloadAction<number>) => {
       state.roundIndex = action.payload;
     },
@@ -86,6 +91,7 @@ export const {
   addWrongAnswer,
   setCurrentWord,
   setGameScore,
+  setMultiplier,
   setRoundIndex,
   setRoundDuration,
   clearCurrentGame,

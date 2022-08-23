@@ -1,6 +1,7 @@
 import React, {
   Dispatch, FC, SetStateAction, useState,
 } from 'react';
+
 import LeaveGameButton from '../../../components/shared/button/leave-game-button';
 import ConfirmModal from '../../../components/shared/modal/confirm-modal';
 import Timer from '../../../components/timer';
@@ -25,7 +26,7 @@ const SprintGameContainer: FC<GameContainerProps> = (props) => {
         />
         <LeaveGameButton setVisible={setVisibleLeaveModal} />
       </div>
-      <Counter count={0} />
+      <Counter />
       <SprintField />
       {
         isVisibleLeaveModal

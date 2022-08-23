@@ -1,43 +1,33 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Typography, Progress } from 'antd';
+
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+
 import './sprint-multiplier.scss';
+import { setGameScore } from '../../../store/slices/sprintGame/sprintGameSlice';
 
 const SprintMultiplier: FC = () => {
-  const [count, setCount] = useState(10);
+  const dispatch = useAppDispatch();
+  const { score, multiplier, currentWord } = useAppSelector((state) => state.sprintGame);
+
+  const [countPerWord, setCountPerWord] = useState(0);
   const [percent, setPercent] = useState(0);
-  const [multy, setMulty] = useState(0);
 
   useEffect(() => {
-    const multyCount = multy > 0 ? multy * 20 : 10;
-    const multyPercent = 25 * multy;
-    setCount(multyCount);
-    setPercent(multyPercent);
-  }, [multy]);
+    const currentCount = multiplier > 0 ? multiplier * 20 : 10;
+    const progressPercent = 25 * multiplier;
 
-  const increment = () => {
-    if (multy < 4) {
-      const m = multy + 1;
-      setMulty(m);
-    }
-  };
+    setCountPerWord(currentCount);
+    setPercent(progressPercent);
 
-  const decrement = () => {
-    if (multy > 0) {
-      const m = multy - 1;
-      setMulty(m);
-    }
-  };
-
-  // TODO заменить изменение multy на данные из логики
-  if (multy > 1) {
-    increment();
-    decrement();
-  }
+    const newGameScore = score + currentCount;
+    dispatch(setGameScore(newGameScore));
+  }, [currentWord]);
 
   return (
     <div className="sprint__multiplier multiplier">
       <Typography.Text className="multiplier__text">
-        {`+${count} очков за слово`}
+        {`+${countPerWord} очков за слово`}
       </Typography.Text>
       <Progress
         steps={4}

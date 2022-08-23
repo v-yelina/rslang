@@ -1,19 +1,19 @@
 import React, { FC } from 'react';
 import { Typography } from 'antd';
+
+import { useAppSelector } from '../../../store/hooks';
+
 import './counter.scss';
 
-type CounterProps = {
-  count: number;
-}
+const Counter: FC = () => {
+  const { score } = useAppSelector((state) => state.sprintGame);
 
-const Counter: FC<CounterProps> = (props) => {
-  const { count } = props;
   return (
     <div className="sprint__counter counter">
       <Typography.Title
         level={3}
       >
-        {count}
+        {score}
       </Typography.Title>
     </div>
   );
