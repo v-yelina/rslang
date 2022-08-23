@@ -52,9 +52,9 @@ const RegistrationForm: FC = () => {
         label="Password"
         name="password"
         rules={[{
-          required: true, message: 'Please input your password!', type: 'string', min: 6,
+          required: true, message: 'Please input your password!', type: 'string', min: 8,
         }]}
-        help="Should be at least 6 symbols"
+        help="Should be at least 8 symbols"
       >
         <Input.Password />
       </Form.Item>
