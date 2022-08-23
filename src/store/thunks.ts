@@ -4,7 +4,6 @@ import { ILogin } from '../interfaces/ILogin';
 import { IUser } from '../interfaces/IUser';
 import { PageData } from './types';
 
-// eslint-disable-next-line
 export const fetchWordsByGroupAndPage = createAsyncThunk(
   'textbook/fetchWords',
   async (pageData: PageData, thunkAPI) => {
