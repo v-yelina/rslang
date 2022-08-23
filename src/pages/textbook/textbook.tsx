@@ -18,6 +18,8 @@ import { TEXTBOOK_PARAMS } from '../../constants';
 import GroupsTabs from './components/groups-tabs';
 import WordsList from './components/words-list';
 
+import './textbook.scss';
+
 const Textbook: FC = () => {
   const [params, setParams] = useSearchParams();
   const dispatch = useAppDispatch();
@@ -64,11 +66,11 @@ const Textbook: FC = () => {
   }, [currentPageData, isReadyToFetchWords]);
 
   return (
-    <>
+    <main className="textbook-container">
       <h2>Textbook Page</h2>
       {isReadyToFetchWords && <GroupsTabs />}
       {isReadyToFetchWords && <WordsList />}
-    </>
+    </main>
   );
 };
 
