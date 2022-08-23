@@ -1,7 +1,5 @@
+import { getTranslations } from '../../helpers';
 import { WordToTrain } from '../../store/slices/currentGame/currentGameSlice';
-/* eslint-disable */
-
-export const getTranslations = (words: WordToTrain[]) => words.reduce((prev: string[], word) => [...prev, word.wordTranslate], []);
 
 // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 const shuffleArray = (array: string[]) => {
@@ -26,6 +24,7 @@ export const getAnswerOptions = (word: WordToTrain, words: WordToTrain[]) => {
   return shuffleArray(options);
 };
 
+// eslint-disable-next-line
 export const getAnswerText: (e:MouseEvent)=> string | undefined = (e) => {
   const { target, currentTarget } = e;
   let answerText;
