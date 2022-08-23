@@ -8,5 +8,5 @@ export default combineReducers({
   auth: authSlice,
   currentGame: currentGameSlice,
   sprintGame: sprintGameSlice,
-  textbook: textbookSlice
+  textbook: textbookSlice,
 });
