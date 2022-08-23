@@ -2,9 +2,9 @@ import React, { FC, useEffect, useState } from 'react';
 import { Typography, Progress } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setGameScore } from '../../../store/slices/sprintGame/sprintGameSlice';
 
 import './sprint-multiplier.scss';
-import { setGameScore } from '../../../store/slices/sprintGame/sprintGameSlice';
 
 const SprintMultiplier: FC = () => {
   const dispatch = useAppDispatch();
