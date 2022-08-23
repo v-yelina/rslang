@@ -33,8 +33,14 @@ const Audiochallenge: FC = () => {
     setAnswerOptions(getAnswerOptions(currentWord, words));
   }, [currentWord]);
 
-  const addAnswersToSlice = (isRight: boolean, answer:
-    string, word: string, wordTranslate: string, audio: string, id: string) => {
+  const addAnswersToSlice = (
+    isRight: boolean,
+    answer: string,
+    word: string,
+    wordTranslate: string,
+    audio: string,
+    id: string,
+  ) => {
     if (isRight) {
       dispatch(addRightAnswer({
         word, wordTranslate, audio, id,
