@@ -17,6 +17,7 @@ import { TEXTBOOK_PARAMS } from '../../constants';
 
 import GroupsTabs from './components/groups-tabs';
 import WordsList from './components/words-list';
+import GameButtonsBlock from './components/game-buttons-block';
 
 const Textbook: FC = () => {
   const [params, setParams] = useSearchParams();
@@ -66,6 +67,7 @@ const Textbook: FC = () => {
   return (
     <>
       <h2>Textbook Page</h2>
+      {isReadyToFetchWords && <GameButtonsBlock />}
       {isReadyToFetchWords && <GroupsTabs />}
       {isReadyToFetchWords && <WordsList />}
     </>
