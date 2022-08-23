@@ -9,7 +9,7 @@ import {
 } from '../../store/slices/textbook';
 import {
   checkSearchParamsCorrect,
-  preparePageData,
+  formatPageDataForSlice,
   SEARCH_INITIAL_GROUP,
   SEARCH_INITIAL_PAGE,
 } from './helpers';
@@ -38,8 +38,8 @@ const Textbook: FC = () => {
       setParams({ group: paramsGroup, page: paramsPage });
     }
     const newPageData = {
-      group: preparePageData(paramsGroup as string),
-      page: preparePageData(paramsPage as string),
+      group: formatPageDataForSlice(paramsGroup as string),
+      page: formatPageDataForSlice(paramsPage as string),
     };
     dispatch(setCurrentPageData(newPageData));
   };
