@@ -10,7 +10,8 @@ type AuthUser = {
 export type authState = {
   isLoading: boolean,
   user: AuthUser;
-  error: string | null
+  error: string | null;
+  isRegistred: boolean
 }
 
 const initialState: authState = {
@@ -21,6 +22,7 @@ const initialState: authState = {
     email: '',
   },
   error: null,
+  isRegistred: false,
 };
 
 export const authSlice = createSlice({
@@ -36,6 +38,12 @@ export const authSlice = createSlice({
     setError: (state, action: PayloadAction<string |null>) => {
       state.error = action.payload;
     },
+    clearIsRegistred: (state) => {
+      state.isRegistred = false;
+    },
+    clearError: (state) => {
+      state.error = null;
+    },
     clearAuth: () => initialState,
   },
   extraReducers: {
@@ -45,7 +53,7 @@ export const authSlice = createSlice({
     },
     [registration.fulfilled.type]: (state) => {
       state.isLoading = false;
-      state.error = null;
+      state.isRegistred = true;
     },
     [registration.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
@@ -55,7 +63,12 @@ export const authSlice = createSlice({
 });
 
 export const {
-  setIsLoading, setUser, setError, clearAuth,
+  setIsLoading,
+  setUser,
+  setError,
+  clearAuth,
+  clearIsRegistred,
+  clearError,
 } = authSlice.actions;
 
 export default authSlice.reducer;
