@@ -19,7 +19,7 @@ const GameButton: FC<GameButtonProps> = ({ game }) => {
   };
 
   return (
-    <Button type="primary" onClick={() => handleGameClick()}>
+    <Button type="primary" onClick={handleGameClick}>
       {game!.toUpperCase()}
     </Button>
   );
