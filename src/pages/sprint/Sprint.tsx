@@ -1,10 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
-import ResultGameModal from '../../components/shared/modal/result-game-modal';
+import { Spin } from 'antd';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { clearCurrentGame, setCurrentWord, setRoundDuration } from '../../store/slices/sprintGame/sprintGameSlice';
 import fetchWordsToSprintGame from '../../store/slices/sprintGame/thunks';
+import ResultGameModal from '../../components/shared/modal/result-game-modal';
 import SprintGameContainer from './sprint-game-container';
 import getWordsToTrain from './sprintGame';
-import { clearCurrentGame, setCurrentWord, setRoundDuration } from '../../store/slices/sprintGame/sprintGameSlice';
+
 import './sprint.scss';
 
 const Sprint: FC = () => {
@@ -24,6 +27,10 @@ const Sprint: FC = () => {
 
   useEffect(() => {
     dispatch(fetchWordsToSprintGame());
+
+    return function resetCurrentGame() {
+      dispatch(clearCurrentGame());
+    };
   }, []);
 
   useEffect(() => {
@@ -32,22 +39,28 @@ const Sprint: FC = () => {
       dispatch(setCurrentWord(gameWords[roundIndex]));
       dispatch(setRoundDuration(gameWords.length));
     }
-  }, [isLoading]);
+  }, [words]);
 
   useEffect(() => {
-    if (gameTime <= 0) {
-      setGameFinished(true);
+    if (!isLoading) {
+      if (gameTime <= 0) {
+        setGameFinished(true);
+      }
     }
-  }, [gameTime]);
+  }, [gameTime, isLoading]);
 
   useEffect(() => {
     if (roundIndex < gameWords.length) {
       dispatch(setCurrentWord(gameWords[roundIndex]));
     }
     if (roundIndex === gameWords.length - 2) {
-      gameWords.push(...getWordsToTrain(words));
-      dispatch(setRoundDuration(gameWords.length));
+      const newWords = [
+        ...gameWords,
+        ...getWordsToTrain(words),
+      ];
+      setGameWords(newWords);
     }
+    dispatch(setRoundDuration(gameWords.length));
   }, [roundIndex]);
 
   return (
@@ -55,7 +68,7 @@ const Sprint: FC = () => {
       {
         (() => {
           if (isLoading) {
-            return <h2>Loading...</h2>;
+            return <Spin size="large" />;
           }
           return (
             !isGameFinished
