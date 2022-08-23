@@ -4,8 +4,3 @@ export const TEXTBOOK_PARAMS = {
   GROUP: 'group',
   PAGE: 'page',
 };
-
-export const GAME_TYPE = {
-  SPRINT: 'sprint',
-  AUDIOCHALLENGE: 'audiochallenge',
-};
