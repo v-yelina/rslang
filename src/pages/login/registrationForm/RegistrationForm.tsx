@@ -1,21 +1,26 @@
 import { Button, Form, Input } from 'antd';
 import React, { FC } from 'react';
+import { useAppDispatch } from '../../../store/hooks';
+import { registration } from '../../../store/thunks';
 
 const RegistrationForm: FC = () => {
+  const dispatch = useAppDispatch();
   const [form] = Form.useForm();
 
   type Values = {
-    username: string;
+    name: string;
+    email: string;
     password: string;
   }
 
   const onFinish = (values: Values) => {
-    console.log('Success:', values);
+    dispatch(registration(values));
   };
 
   const onFinishFailed = () => {
-    console.log('Failed.');
+    console.log('Registration fails, please try again');
   };
+
   const onReset = () => {
     form.resetFields();
   };
