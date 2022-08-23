@@ -6,9 +6,9 @@ import './result-game-modal.scss';
 import { Answer, RightAnswer } from '../../../../store/slices/currentGame/currentGameSlice';
 
 type ResultProps = {
-  rightWords: RightAnswer[];
-  wrongWords: Answer[];
-  clickHandler: MouseEventHandler
+  rightWords: WordItemType[];
+  wrongWords: WordItemType[];
+  clickHandler: MouseEventHandler;
 }
 
 const ResultGameModal: FC<ResultProps> = (props) => {

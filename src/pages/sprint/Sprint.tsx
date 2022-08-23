@@ -4,13 +4,18 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import fetchWordsToSprintGame from '../../store/slices/sprintGame/thunks';
 import SprintGameContainer from './sprint-game-container';
 import getWordsToTrain from './sprintGame';
-import { setCurrentRoundWord } from '../../store/slices/sprintGame/sprintGameSlice';
+import { clearCurrentGame, setCurrentWord, setRoundDuration } from '../../store/slices/sprintGame/sprintGameSlice';
 import './sprint.scss';
 
 const Sprint: FC = () => {
   const dispatch = useAppDispatch();
   const {
-    words, roundIndex, rightAnswers, wrongAnswers, isLoading, currentWord,
+    words,
+    roundIndex,
+    rightAnswers,
+    wrongAnswers,
+    isLoading,
+    currentWord,
   } = useAppSelector((state) => state.sprintGame);
 
   const [isGameFinished, setGameFinished] = useState(false);
@@ -24,6 +29,8 @@ const Sprint: FC = () => {
   useEffect(() => {
     if (!isLoading) {
       setGameWords(getWordsToTrain(words));
+      dispatch(setCurrentWord(gameWords[roundIndex]));
+      dispatch(setRoundDuration(gameWords.length));
     }
   }, [isLoading]);
 
@@ -35,16 +42,33 @@ const Sprint: FC = () => {
 
   useEffect(() => {
     if (roundIndex < gameWords.length) {
-      dispatch(setCurrentRoundWord(gameWords[roundIndex]));
+      dispatch(setCurrentWord(gameWords[roundIndex]));
+    }
+    if (roundIndex === gameWords.length - 2) {
+      gameWords.push(...getWordsToTrain(words));
+      dispatch(setRoundDuration(gameWords.length));
     }
   }, [roundIndex]);
 
   return (
     <section className="sprint">
       {
-        !isGameFinished
-          ? <SprintGameContainer time={gameTime} setTime={setGameTime} />
-          : <ResultGameModal rightWords={rightAnswers} wrongWords={wrongAnswers} />
+        (() => {
+          if (isLoading) {
+            return <h2>Loading...</h2>;
+          }
+          return (
+            !isGameFinished
+              ? <SprintGameContainer time={gameTime} setTime={setGameTime} />
+              : (
+                <ResultGameModal
+                  rightWords={rightAnswers}
+                  wrongWords={wrongAnswers}
+                  clearGame={() => dispatch(clearCurrentGame())}
+                />
+              )
+          );
+        })()
       }
     </section>
   );

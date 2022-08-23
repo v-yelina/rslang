@@ -19,6 +19,7 @@ type SprintGameState = {
   score: number;
   isLoading: boolean;
   roundIndex: number;
+  roundDuration: number;
 }
 
 const initialState: SprintGameState = {
@@ -32,8 +33,9 @@ const initialState: SprintGameState = {
     wordTranslate: '',
   },
   score: 0,
-  isLoading: false,
+  isLoading: true,
   roundIndex: 0,
+  roundDuration: 0,
 };
 
 export const sprintGameSlice = createSlice({
@@ -52,7 +54,7 @@ export const sprintGameSlice = createSlice({
     addWrongAnswer: (state, action: PayloadAction<WordToTrain>) => {
       state.wrongAnswers.push(action.payload);
     },
-    setCurrentRoundWord: (state, action: PayloadAction<RoundWord>) => {
+    setCurrentWord: (state, action: PayloadAction<RoundWord>) => {
       state.currentWord = action.payload;
     },
     setGameScore: (state, action: PayloadAction<number>) => {
@@ -60,6 +62,9 @@ export const sprintGameSlice = createSlice({
     },
     setRoundIndex: (state, action: PayloadAction<number>) => {
       state.roundIndex = action.payload;
+    },
+    setRoundDuration: (state, action: PayloadAction<number>) => {
+      state.roundDuration = action.payload;
     },
     clearCurrentGame: () => initialState,
   },
@@ -79,9 +84,10 @@ export const {
   setGameWords,
   addRightAnswer,
   addWrongAnswer,
-  setCurrentRoundWord,
+  setCurrentWord,
   setGameScore,
   setRoundIndex,
+  setRoundDuration,
   clearCurrentGame,
 } = sprintGameSlice.actions;
 

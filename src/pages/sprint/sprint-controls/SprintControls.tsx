@@ -12,12 +12,13 @@ const SprintControls: FC = () => {
     rightAnswers,
     wrongAnswers,
     words,
+    roundDuration,
   } = useAppSelector((state) => state.sprintGame);
   const dispatch = useAppDispatch();
 
   const handleClick = (answer: boolean) => {
-    const word = words.find((findWord) => findWord.word === currentWord!.word);
-    const correctAnswer = checkAnswer(word!.wordTranslate, currentWord!.wordTranslate);
+    const word = words.find((findWord) => findWord.word === currentWord.word);
+    const correctAnswer = checkAnswer(word!.wordTranslate, currentWord.wordTranslate);
 
     if (answer === correctAnswer) {
       if (wrongAnswers.indexOf(word!) === -1 && rightAnswers.indexOf(word!) === -1) {
@@ -27,7 +28,7 @@ const SprintControls: FC = () => {
       dispatch(addWrongAnswer(word!));
     }
 
-    if (roundIndex <= words.length) {
+    if (roundIndex <= roundDuration) {
       const index = roundIndex + 1;
       dispatch(setRoundIndex(index));
     }
