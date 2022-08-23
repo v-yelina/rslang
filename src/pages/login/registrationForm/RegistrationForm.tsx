@@ -1,11 +1,15 @@
-import { Button, Form, Input } from 'antd';
+import {
+  Button, Form, Input, Alert,
+} from 'antd';
 import React, { FC } from 'react';
-import { useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { clearError, clearIsRegistred } from '../../../store/slices/auth';
 import { registration } from '../../../store/thunks';
 
 const RegistrationForm: FC = () => {
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
+  const { isRegistred, error } = useAppSelector((state) => state.auth);
 
   type Values = {
     name: string;
@@ -14,6 +18,8 @@ const RegistrationForm: FC = () => {
   }
 
   const onFinish = (values: Values) => {
+    dispatch(clearIsRegistred());
+    dispatch(clearError());
     dispatch(registration(values));
   };
 
@@ -36,6 +42,8 @@ const RegistrationForm: FC = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
+      {isRegistred && <Alert message="Your registration is successfully completed" type="success" />}
+      {error && <Alert message={error} type="error" />}
       <h3>Registration</h3>
       <Form.Item
         label="Username"
