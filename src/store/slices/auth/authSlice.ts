@@ -19,7 +19,7 @@ const initialState: authState = {
     name: '',
     email: '',
   },
-  error: null
+  error: null,
 };
 
 export const authSlice = createSlice({
