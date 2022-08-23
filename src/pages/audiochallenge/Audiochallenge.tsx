@@ -20,9 +20,10 @@ const Audiochallenge: FC = () => {
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
   const [answerOptions, setAnswerOptions] = useState(getAnswerOptions(currentWord, words));
-  const [wordAudio, setWordAudio] = useState(ENV.BASE_URL as string + currentWord.audio);
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
+
+  const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
 
   useEffect(() => {
     setCurrentWord(words[wordIndex]);
@@ -30,7 +31,6 @@ const Audiochallenge: FC = () => {
 
   useEffect(() => {
     setAnswerOptions(getAnswerOptions(currentWord, words));
-    setWordAudio(ENV.BASE_URL as string + currentWord.audio);
   }, [currentWord]);
 
   const addAnswersToSlice = (isRight: boolean, answer:
