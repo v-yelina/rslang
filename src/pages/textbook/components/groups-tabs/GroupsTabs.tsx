@@ -4,7 +4,7 @@ import { Tabs } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { wordsGroups } from '../../../../constants';
 import { setCurrentPageData, selectCurrentGroup } from '../../../../store/slices/textbook';
-import { preparePageData, SEARCH_INITIAL_PAGE } from '../../helpers';
+import { formatPageDataForSlice, formatPageDataForUI, SEARCH_INITIAL_PAGE } from '../../helpers';
 
 import './groups-tabs.scss';
 
@@ -19,14 +19,14 @@ const GroupsTabs: FC = () => {
   const onGroupChange = (groupKey: string) => {
     setParams({ group: groupKey, page: SEARCH_INITIAL_PAGE });
     const newPageData = {
-      page: preparePageData(SEARCH_INITIAL_PAGE),
-      group: preparePageData(groupKey),
+      page: formatPageDataForSlice(SEARCH_INITIAL_PAGE),
+      group: formatPageDataForSlice(groupKey),
     };
     dispatch(setCurrentPageData(newPageData));
   };
 
   return (
-    <Tabs defaultActiveKey={(Number(group) + 1).toString()} onChange={onGroupChange}>
+    <Tabs defaultActiveKey={formatPageDataForUI(group)} onChange={onGroupChange}>
       {[...wordsGroups].map((groupIndex) => (
         <TabPane key={groupIndex} tab={`Group ${groupIndex}`} />
       ))}

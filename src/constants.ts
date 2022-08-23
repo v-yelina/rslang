@@ -4,3 +4,6 @@ export const TEXTBOOK_PARAMS = {
   GROUP: 'group',
   PAGE: 'page',
 };
+
+export const WORDS_PER_PAGE = 20;
+export const WORDS_PER_GROUP = 600;
