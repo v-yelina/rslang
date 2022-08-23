@@ -8,11 +8,11 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   checkAnswer, getAnswerOptions, getAnswerText,
 } from './audioChallengeGame';
-import { clearCurrentGame, currentGameSlice } from '../../store/slices/currentGame/currentGameSlice';
 import ENV from '../../config/config';
 import ResultGameModal from '../../components/shared/modal/result-game-modal';
 import ConfirmModal from '../../components/shared/modal/confirm-modal';
 import LeaveGameButton from '../../components/shared/button/leave-game-button';
+import { clearCurrentGame, addRightAnswer, addWrongAnswer } from '../../store/slices/currentGame';
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
@@ -35,7 +35,6 @@ const Audiochallenge: FC = () => {
 
   const addAnswersToSlice = (isRight: boolean, answer:
     string, word: string, wordTranslate: string, audio: string, id: string) => {
-    const { addRightAnswer, addWrongAnswer } = currentGameSlice.actions;
     if (isRight) {
       dispatch(addRightAnswer({
         word, wordTranslate, audio, id,

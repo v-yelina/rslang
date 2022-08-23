@@ -184,14 +184,13 @@ export const currentGameSlice = createSlice({
     addWrongAnswer: (state, action: PayloadAction<Answer>) => {
       state.wrongAnswers.push(action.payload);
     },
-
     clearCurrentGame: () => initialState,
   },
   extraReducers: () => {},
 });
 
 export const {
-  setGameType, setWordsSource, setWordsToTrain, clearCurrentGame,
+  setGameType, setWordsSource, setWordsToTrain, clearCurrentGame, addRightAnswer, addWrongAnswer,
 } = currentGameSlice.actions;
 
 export default currentGameSlice.reducer;
