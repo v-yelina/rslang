@@ -1,0 +1,23 @@
+.level-select {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  span.ant-typography {
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 1.35;
+  }
+
+  &__list {
+    margin-bottom: 20px;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #000000;
+  }
+}
