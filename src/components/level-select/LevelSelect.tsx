@@ -22,10 +22,6 @@ const LevelSelect: FC<LevelSelectProps> = (props) => {
     console.log(`group: ${group}, page: ${randomPage}`);
   };
 
-  const backToHomePage = () => {
-    navigate('/', { replace: true });
-  };
-
   return (
     <div className="level-select">
       <Title level={2}>{gameName}</Title>
@@ -45,7 +41,6 @@ const LevelSelect: FC<LevelSelectProps> = (props) => {
           ))
         }
       </div>
-      <Button type="primary" onClick={backToHomePage}>Back to home page</Button>
     </div>
   );
 };
