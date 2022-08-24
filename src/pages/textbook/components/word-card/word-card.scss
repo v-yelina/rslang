@@ -3,6 +3,10 @@
   padding: 30px;
   background: #ececec;
 
+  &--learned {
+    background: #76b5f0;
+  }
+
   &--img-container {
     & img {
       width: 100%;

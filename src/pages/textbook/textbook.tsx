@@ -65,7 +65,7 @@ const Textbook: FC = () => {
           group,
           page,
           user: isLogged ? { userId: user.userId, token: user.token } : null,
-        })
+        }),
       );
     }
   }, [currentPageData, isReadyToFetchWords]);

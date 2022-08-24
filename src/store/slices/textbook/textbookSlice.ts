@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUserWord } from '../../../interfaces/IUserWord';
 import { IWord } from '../../../interfaces/IWord';
-import { fetchWordsForTextbook } from '../../thunks';
+import {
+  createUserWordFromTextbook,
+  fetchWordsForTextbook,
+  updateUserWordFromTextbook,
+} from '../../thunks';
 import { PageData } from '../../types';
 
 export interface AggregatedWord extends IWord {
@@ -45,6 +49,14 @@ export const textbookSlice = createSlice({
     [fetchWordsForTextbook.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    [createUserWordFromTextbook.fulfilled.type]: (state) => {
+      const pageData = { ...state.currentPageData };
+      state.currentPageData = pageData;
+    },
+    [updateUserWordFromTextbook.fulfilled.type]: (state) => {
+      const pageData = { ...state.currentPageData };
+      state.currentPageData = pageData;
     },
   },
 });
