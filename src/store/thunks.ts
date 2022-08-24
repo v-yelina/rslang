@@ -23,7 +23,7 @@ export const registration = createAsyncThunk(
   'user/register',
   async (userData: IUser, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${ENV.BASE_URL}users`, {
+      const response = await fetch(`${ENV.USERS_URL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
