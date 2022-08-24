@@ -1,5 +1,4 @@
 import React, { FC, MouseEventHandler } from 'react';
-import { Button } from 'antd';
 import AnswerOption from '../answerOption';
 
 /* eslint-disable */
@@ -12,7 +11,7 @@ const OptionsContainer: FC<OptionsContainerProps> = ({ options, clickHandler }) 
     <AnswerOption num="3" option={options[2]} />
     <AnswerOption num="4" option={options[3]} />
     <AnswerOption num="5" option={options[4]} />
-    <Button type="dashed">Don&lsquo;t know</Button>
+    <AnswerOption num="6" option='Don&lsquo;t know' />
   </div>
 );
 
