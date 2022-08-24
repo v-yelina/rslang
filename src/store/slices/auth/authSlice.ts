@@ -69,6 +69,7 @@ export const authSlice = createSlice({
     [login.fulfilled.type]: (state, action: PayloadAction<IAuth>) => {
       state.isLoading = false;
       state.isLogged = true;
+      state.user = action.payload;
       localStorage.setItem('user', JSON.stringify(action.payload));
     },
     [login.rejected.type]: (state, action: PayloadAction<string>) => {
