@@ -59,12 +59,11 @@ export const login = createAsyncThunk(
         },
         body: JSON.stringify(loginData),
       });
-
+      
       if (!response.ok) {
         throw new Error('Login failed, please try again');
       }
-      const loginInfo = await response.json();
-      return loginInfo;
+      return response.json();
     } catch (error) {
       return thunkAPI.rejectWithValue((error as Error).message);
     }
