@@ -16,7 +16,7 @@ export const fetchWordsForTextbook = createAsyncThunk(
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  }
+  },
 );
 
 export const registration = createAsyncThunk(
@@ -39,7 +39,7 @@ export const registration = createAsyncThunk(
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  }
+  },
 );
 
 export const login = createAsyncThunk(
@@ -62,7 +62,7 @@ export const login = createAsyncThunk(
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  }
+  },
 );
 
 export const fetchWordsToSprintGame = createAsyncThunk(
@@ -80,5 +80,5 @@ export const fetchWordsToSprintGame = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );
