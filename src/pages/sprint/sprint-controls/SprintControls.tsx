@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Button } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
@@ -24,7 +24,7 @@ const SprintControls: FC = () => {
   } = useAppSelector((state) => state.sprintGame);
   const dispatch = useAppDispatch();
 
-  const handleClick = (answer: boolean) => {
+  const chooseAnswer = (answer: boolean) => {
     const word = words.find((findWord) => findWord.word === currentWord.word);
     const correctAnswer = checkAnswer(word!.wordTranslate, currentWord.wordTranslate);
 
@@ -47,17 +47,33 @@ const SprintControls: FC = () => {
     }
   };
 
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (e.code === 'ArrowLeft') {
+      chooseAnswer(false);
+    } else if (e.code === 'ArrowRight') {
+      chooseAnswer(true);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
+
   return (
     <div className="sprint__controls controls">
       <Button
         type="primary"
-        onClick={() => handleClick(false)}
+        onClick={() => chooseAnswer(false)}
       >
         Неверно
       </Button>
       <Button
         type="primary"
-        onClick={() => handleClick(true)}
+        onClick={() => chooseAnswer(true)}
       >
         Верно
       </Button>
