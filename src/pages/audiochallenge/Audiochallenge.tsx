@@ -12,7 +12,11 @@ import ENV from '../../config/config';
 import ResultGameModal from '../../components/shared/modal/result-game-modal';
 import ConfirmModal from '../../components/shared/modal/confirm-modal';
 import LeaveGameButton from '../../components/shared/button/leave-game-button';
-import { clearCurrentGame, addRightAnswer, addWrongAnswer } from '../../store/slices/currentGame';
+import {
+  clearCurrentGame,
+  addRightAnswer,
+  addWrongAnswer,
+} from '../../store/slices/currentGame';
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +26,6 @@ const Audiochallenge: FC = () => {
   const [answerOptions, setAnswerOptions] = useState(getAnswerOptions(currentWord, words));
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
-
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
 
   useEffect(() => {
@@ -32,6 +35,12 @@ const Audiochallenge: FC = () => {
   useEffect(() => {
     setAnswerOptions(getAnswerOptions(currentWord, words));
   }, [currentWord]);
+
+  const restartGame = () => {
+    dispatch(clearCurrentGame());
+    setWordIndex(0);
+    setIsGameFinished(false);
+  };
 
   const addAnswersToSlice = (
     isRight: boolean,
@@ -77,12 +86,6 @@ const Audiochallenge: FC = () => {
     } else {
       setIsGameFinished(true);
     }
-  };
-
-  const restartGame = () => {
-    dispatch(clearCurrentGame);
-    setWordIndex(0);
-    setIsGameFinished(false);
   };
 
   return (
