@@ -7,6 +7,7 @@ import {
   setCurrentPageData,
   selectCurrentPageData,
 } from '../../store/slices/textbook';
+import { selectIsLogged, selectUser } from '../../store/slices/auth';
 import {
   checkSearchParamsCorrect,
   formatPageDataForSlice,
@@ -25,6 +26,8 @@ const Textbook: FC = () => {
   const [params, setParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const currentPageData = useAppSelector(selectCurrentPageData);
+  const isLogged = useAppSelector(selectIsLogged);
+  const user = useAppSelector(selectUser);
   const [isReadyToFetchWords, setIsReadyToFetchWords] = useState(false);
 
   let paramsGroup = params.get(TEXTBOOK_PARAMS.GROUP);
@@ -61,7 +64,8 @@ const Textbook: FC = () => {
         fetchWordsForTextbook({
           group,
           page,
-        }),
+          user: isLogged ? { userId: user.userId, token: user.token } : null,
+        })
       );
     }
   }, [currentPageData, isReadyToFetchWords]);
