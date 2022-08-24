@@ -3,11 +3,12 @@ import { Button } from 'antd';
 import { ReactComponent as PlayAudioIcon } from '../../../../assets/icons/volume.svg';
 
 type PlayAudioProps = {
+  autoplay: boolean,
   audioUrl: string
 }
 
 const PlayAudioButton: FC<PlayAudioProps> = (props) => {
-  const { audioUrl } = props;
+  const { audioUrl, autoplay } = props;
   const audio = new Audio(audioUrl);
   const [isPlay, setPlay] = useState(false);
 

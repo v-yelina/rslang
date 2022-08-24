@@ -63,6 +63,7 @@ const Demo: FC = () => (
           <PlayAudioButton
             key={item.word}
             audioUrl={item.audio}
+            autoplay={false}
           />
         )}
       />

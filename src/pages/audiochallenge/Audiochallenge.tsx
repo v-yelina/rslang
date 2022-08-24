@@ -93,7 +93,7 @@ const Audiochallenge: FC = () => {
       {!isGameFinished ? (
         <section className="game game--audiochallenge">
           <h2>Audiochallenge Page</h2>
-          <div className="audio"><PlayAudioButton audioUrl={wordAudio} /></div>
+          <div className="audio"><PlayAudioButton audioUrl={wordAudio} autoplay /></div>
           <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
         </section>
       ) : (
