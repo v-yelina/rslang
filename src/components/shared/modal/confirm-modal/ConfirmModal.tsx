@@ -6,6 +6,7 @@ import { Modal } from 'antd';
 import '../modal.scss';
 import { useAppDispatch } from '../../../../store/hooks';
 import { clearCurrentGame } from '../../../../store/slices/currentGame';
+import { clearSprintState } from '../../../../store/slices/sprintGame';
 
 type ModalProps = {
   isVisible: boolean;
@@ -25,6 +26,7 @@ const ConfirmModal: FC<ModalProps> = (props) => {
   const leaveGame = () => {
     hideModal();
     dispatch(clearCurrentGame());
+    dispatch(clearSprintState());
     navigate('/', { replace: true });
   };
 
