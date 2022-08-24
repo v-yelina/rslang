@@ -1,21 +1,32 @@
-import { Button, Form, Input } from 'antd';
+import {
+  Button, Form, Input, Alert,
+} from 'antd';
 import React, { FC } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { clearError, clearIsRegistred } from '../../../store/slices/auth';
+import { registration } from '../../../store/thunks';
 
 const RegistrationForm: FC = () => {
+  const dispatch = useAppDispatch();
   const [form] = Form.useForm();
+  const { isRegistred, error } = useAppSelector((state) => state.auth);
 
   type Values = {
-    username: string;
+    name: string;
+    email: string;
     password: string;
   }
 
   const onFinish = (values: Values) => {
-    console.log('Success:', values);
+    dispatch(clearIsRegistred());
+    dispatch(clearError());
+    dispatch(registration(values));
   };
 
   const onFinishFailed = () => {
-    console.log('Failed.');
+    console.log('Registration fails, please try again');
   };
+
   const onReset = () => {
     form.resetFields();
   };
@@ -31,11 +42,21 @@ const RegistrationForm: FC = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
+      {isRegistred && <Alert message="Your registration is successfully completed" type="success" />}
+      {error && <Alert message={error} type="error" />}
       <h3>Registration</h3>
       <Form.Item
         label="Username"
-        name="username"
+        name="name"
         rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: 'Please input your email!' }]}
       >
         <Input />
       </Form.Item>
@@ -44,9 +65,9 @@ const RegistrationForm: FC = () => {
         label="Password"
         name="password"
         rules={[{
-          required: true, message: 'Please input your password!', type: 'string', min: 6,
+          required: true, message: 'Please input your password!', type: 'string', min: 8,
         }]}
-        help="Should be at least 6 symbols"
+        help="Should be at least 8 symbols"
       >
         <Input.Password />
       </Form.Item>

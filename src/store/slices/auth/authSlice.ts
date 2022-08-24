@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { registration } from '../../thunks';
 
 type AuthUser = {
   userId: string;
@@ -9,7 +10,8 @@ type AuthUser = {
 export type authState = {
   isLoading: boolean,
   user: AuthUser;
-  error: string | null
+  error: string | null;
+  isRegistred: boolean
 }
 
 const initialState: authState = {
@@ -20,6 +22,7 @@ const initialState: authState = {
     email: '',
   },
   error: null,
+  isRegistred: false,
 };
 
 export const authSlice = createSlice({
@@ -35,13 +38,37 @@ export const authSlice = createSlice({
     setError: (state, action: PayloadAction<string |null>) => {
       state.error = action.payload;
     },
+    clearIsRegistred: (state) => {
+      state.isRegistred = false;
+    },
+    clearError: (state) => {
+      state.error = null;
+    },
     clearAuth: () => initialState,
   },
-  extraReducers: () => {},
+  extraReducers: {
+    [registration.pending.type]: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [registration.fulfilled.type]: (state) => {
+      state.isLoading = false;
+      state.isRegistred = true;
+    },
+    [registration.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+  },
 });
 
 export const {
-  setIsLoading, setUser, setError, clearAuth,
+  setIsLoading,
+  setUser,
+  setError,
+  clearAuth,
+  clearIsRegistred,
+  clearError,
 } = authSlice.actions;
 
 export default authSlice.reducer;

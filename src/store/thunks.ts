@@ -38,7 +38,7 @@ export const registration = createAsyncThunk(
       });
 
       if (!response.ok) {
-        throw new Error('User can\'t be created, please try again');
+        throw new Error(await response.text());
       }
       const authInfo = await response.json();
       return authInfo;
