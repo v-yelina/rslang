@@ -59,6 +59,7 @@ export const createUserWord = async (
     headers: {
       Authorization: `Bearer ${userToken}`,
       accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(userWord),
   });
@@ -101,6 +102,7 @@ export const updateUserWord = async (
     headers: {
       Authorization: `Bearer ${userToken}`,
       accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(userWord),
   });
