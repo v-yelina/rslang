@@ -68,6 +68,8 @@ export const authSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload;
       state.isLogged = true;
+      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('refreshToken', action.payload.refreshToken);
     },
     [login.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
