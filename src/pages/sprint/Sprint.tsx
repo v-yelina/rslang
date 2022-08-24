@@ -2,12 +2,14 @@ import React, { FC, useEffect, useState } from 'react';
 import { Spin } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { clearCurrentGame, setCurrentWord, setRoundDuration } from '../../store/slices/sprintGame';
+import { clearSprintState, setCurrentWord, setRoundDuration } from '../../store/slices/sprintGame';
 import { fetchWordsToSprintGame } from '../../store/thunks';
 import ResultGameModal from '../../components/shared/modal/result-game-modal';
 import SprintGameContainer from './sprint-game-container';
 import getWordsToTrain from './sprintGame';
 import { DURATION_GAME_SPRINT } from '../../constants';
+import { clearCurrentGame } from '../../store/slices/currentGame';
+import { Answer } from '../../store/types';
 
 import './sprint.scss';
 
@@ -26,11 +28,16 @@ const Sprint: FC = () => {
   const [gameTime, setGameTime] = useState(DURATION_GAME_SPRINT);
   const [gameWords, setGameWords] = useState([currentWord]);
 
+  const clearGame = () => {
+    dispatch(clearSprintState());
+    dispatch(clearCurrentGame());
+  };
+
   useEffect(() => {
     dispatch(fetchWordsToSprintGame());
 
     return function resetCurrentGame() {
-      dispatch(clearCurrentGame());
+      clearGame();
     };
   }, []);
 
@@ -77,8 +84,8 @@ const Sprint: FC = () => {
               : (
                 <ResultGameModal
                   rightWords={rightAnswers}
-                  wrongWords={wrongAnswers}
-                  clearGame={() => dispatch(clearCurrentGame())}
+                  wrongWords={wrongAnswers as unknown as Answer[]}
+                  clickHandler={clearGame}
                 />
               )
           );

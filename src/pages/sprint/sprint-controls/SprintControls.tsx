@@ -8,7 +8,7 @@ import {
   setMultiplier,
   setRoundIndex,
 } from '../../../store/slices/sprintGame';
-import { checkAnswer } from '../../../utils/gameUtils';
+import { checkAnswer } from '../../../utils/helpers/gameHelpers';
 
 import './sprint-controls.scss';
 

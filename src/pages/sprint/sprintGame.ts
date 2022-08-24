@@ -1,11 +1,10 @@
 import { WORDS_FOR_GAME_SPRINT } from '../../constants';
-import { IWord } from '../../interfaces/IWord';
-import { getRandomIndex, shuffleArray } from '../../utils/gameUtils';
+import { WordToTrain } from '../../store/types';
+import { getRandomIndex, shuffleArray } from '../../utils/helpers/gameHelpers';
 
-type WordsToTrain = Pick<IWord, 'word' | 'wordTranslate' | 'id' | 'audio'>
-type CurrentWord = Pick<WordsToTrain, 'word' | 'wordTranslate'>;
+type CurrentWord = Pick<WordToTrain, 'word' | 'wordTranslate'>;
 
-const getWordsToTrain = (words: WordsToTrain[]): CurrentWord[] => {
+const getWordsToTrain = (words: WordToTrain[]): CurrentWord[] => {
   const wordsToTrain: CurrentWord[] = [];
 
   for (let i = 0; i < words.length; i += 1) {
