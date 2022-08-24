@@ -1,14 +1,21 @@
-import { Button, Form, Input } from 'antd';
+import { Alert, Button, Form, Input } from 'antd';
 import React, { FC } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { clearError } from '../../../store/slices/auth';
 
 const LoginForm: FC = () => {
+  const dispatch = useAppDispatch();
+  const { error } = useAppSelector((state) => state.auth);
+
   const onFinish = (values: string) => {
     console.log('Success:', values);
+    dispatch(clearError());
   };
 
   const onFinishFailed = () => {
-    console.log('Failed.');
+    console.log('Login failed, please try again');
   };
+
   return (
     <Form
       name="basic"
@@ -19,6 +26,7 @@ const LoginForm: FC = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
+      {error && <Alert message={error} type="error" />}
       <h3>Log In</h3>
       <Form.Item
         label="Username"

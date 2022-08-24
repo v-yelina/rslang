@@ -24,7 +24,7 @@ const RegistrationForm: FC = () => {
   };
 
   const onFinishFailed = () => {
-    console.log('Registration fails, please try again');
+    console.log('Registration failed, please try again');
   };
 
   const onReset = () => {
