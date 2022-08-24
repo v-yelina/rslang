@@ -2,9 +2,9 @@ import React, { FC, useEffect, useState } from 'react';
 import { Alert, Button } from 'antd';
 import LoginForm from './loginForm';
 import RegistrationForm from './registrationForm';
-import './login.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearError, clearIsRegistred } from '../../store/slices/auth';
+import './login.scss';
 
 const Login: FC = () => {
   const dispatch = useAppDispatch();

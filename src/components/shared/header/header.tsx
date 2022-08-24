@@ -1,6 +1,6 @@
-import { Button } from 'antd';
 import React, { FC } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { Button } from 'antd';
 
 const Header: FC = () => (
   <>

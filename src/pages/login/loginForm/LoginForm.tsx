@@ -1,7 +1,7 @@
+import React, { FC } from 'react';
 import {
   Alert, Button, Form, Input,
 } from 'antd';
-import React, { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { clearError } from '../../../store/slices/auth';
 import { login } from '../../../store/thunks';
