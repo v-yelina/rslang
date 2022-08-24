@@ -4,6 +4,8 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 import { Modal } from 'antd';
 import '../modal.scss';
+import { useAppDispatch } from '../../../../store/hooks';
+import { clearCurrentGame } from '../../../../store/slices/currentGame';
 
 type ModalProps = {
   isVisible: boolean;
@@ -11,6 +13,7 @@ type ModalProps = {
 }
 
 const ConfirmModal: FC<ModalProps> = (props) => {
+  const dispatch = useAppDispatch();
   const { isVisible, setVisible } = props;
   const navigate = useNavigate();
   const [modal, contextHolder] = Modal.useModal();
@@ -21,6 +24,7 @@ const ConfirmModal: FC<ModalProps> = (props) => {
 
   const leaveGame = () => {
     hideModal();
+    dispatch(clearCurrentGame());
     navigate('/', { replace: true });
   };
 
