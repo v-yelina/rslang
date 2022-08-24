@@ -30,4 +30,4 @@ export type Answer = {
 
 export type RightAnswer = Pick<Answer, 'word' | 'wordTranslate' | 'audio' | 'id'>;
 
-export type DifficultyType = 'easy' | 'hard';
+export type DifficultyType = 'easy' | 'difficult';
