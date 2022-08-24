@@ -12,9 +12,11 @@ export type authState = {
   isLogged: boolean;
 }
 
+const user = localStorage.getItem('user');
+
 const initialState: authState = {
   isLoading: false,
-  user: {
+  user: user ? JSON.parse(user) : {
     userId: '',
     name: '',
     refreshToken: '',
@@ -22,7 +24,7 @@ const initialState: authState = {
   },
   error: null,
   isRegistred: false,
-  isLogged: false,
+  isLogged: !!user,
 };
 
 export const authSlice = createSlice({
@@ -66,10 +68,8 @@ export const authSlice = createSlice({
     },
     [login.fulfilled.type]: (state, action: PayloadAction<IAuth>) => {
       state.isLoading = false;
-      state.user = action.payload;
       state.isLogged = true;
-      localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('refreshToken', action.payload.refreshToken);
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
     [login.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;

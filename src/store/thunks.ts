@@ -60,13 +60,17 @@ export const login = createAsyncThunk(
         },
         body: JSON.stringify(loginData),
       });
-      
+
       if (!response.ok) {
         throw new Error('Login failed, please try again');
       }
       const authInfo:IAuth = await response.json();
-      const {userId, name, token, refreshToken} = authInfo;
-      return {userId, name, token, refreshToken}
+      const {
+        userId, name, token, refreshToken,
+      } = authInfo;
+      return {
+        userId, name, token, refreshToken,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue((error as Error).message);
     }
