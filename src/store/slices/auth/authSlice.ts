@@ -1,19 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IAuth } from '../../../interfaces/IAuth';
-import { ILogin } from '../../../interfaces/ILogin';
 import { login, registration } from '../../thunks';
 
-type AuthUser = {
-  userId: string;
-  name: string;
-  email: string;
-}
+type AuthUser = Pick<IAuth, 'userId' | 'name' | 'refreshToken' | 'token'>
 
 export type authState = {
   isLoading: boolean,
   user: AuthUser;
   error: string | null;
-  isRegistred: boolean
+  isRegistred: boolean;
+  isLogged: boolean;
 }
 
 const initialState: authState = {
@@ -21,10 +17,12 @@ const initialState: authState = {
   user: {
     userId: '',
     name: '',
-    email: '',
+    refreshToken: '',
+    token: '',
   },
   error: null,
   isRegistred: false,
+  isLogged: false,
 };
 
 export const authSlice = createSlice({
