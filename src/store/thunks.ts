@@ -5,8 +5,13 @@ import { ILogin } from '../interfaces/ILogin';
 import { IUser } from '../interfaces/IUser';
 import { IUserWord } from '../interfaces/IUserWord';
 import { IWord } from '../interfaces/IWord';
-import { fetchUserWords, fetchWordsByGroupAndPage } from '../utils/api/api';
-import { PageUserData } from './types';
+import {
+  createUserWord,
+  fetchUserWords,
+  fetchWordsByGroupAndPage,
+  updateUserWord,
+} from '../utils/api';
+import { WordDataForUpdate, PageUserData } from './types';
 
 export const fetchWordsForTextbook = createAsyncThunk(
   'textbook/fetchWords',
@@ -18,7 +23,7 @@ export const fetchWordsForTextbook = createAsyncThunk(
         const { userId, token } = user;
         const userWords: IUserWord[] = await fetchUserWords(userId, token);
         return words.map((item) => {
-          const newUserWord = userWords.find((elem) => elem.optional.wordId === item.id);
+          const newUserWord = userWords.find((elem) => elem.wordId === item.id);
           return { ...item, userWord: newUserWord || null };
         });
       }
@@ -95,6 +100,35 @@ export const fetchWordsToSprintGame = createAsyncThunk(
         wordTranslate: item.wordTranslate,
         audio: item.audio,
       }));
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const createUserWordFromTextbook = createAsyncThunk(
+  'textbook/createUserWord',
+  async (wordData: WordDataForUpdate, { rejectWithValue }) => {
+    const {
+      userId, token, wordId, userWord,
+    } = wordData;
+    try {
+      return await createUserWord(userId, token, wordId, userWord);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const updateUserWordFromTextbook = createAsyncThunk(
+  'textbook/updateUserWord',
+  async (wordData: WordDataForUpdate, { rejectWithValue }) => {
+    const {
+      userId, token, wordId, userWord,
+    } = wordData;
+    try {
+      const updatedWord = await updateUserWord(userId, token, wordId, userWord);
+      return updatedWord;
     } catch (error) {
       return rejectWithValue(error);
     }

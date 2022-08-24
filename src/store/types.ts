@@ -1,3 +1,4 @@
+import { IUserWord } from '../interfaces/IUserWord';
 import { IWord } from '../interfaces/IWord';
 
 export type PageData = {
@@ -14,6 +15,13 @@ export type PageUserData = {
   group: string;
   page: string;
   user: UserData | null;
+};
+
+export type WordDataForUpdate = {
+  userId: string;
+  token: string;
+  wordId: string;
+  userWord: IUserWord;
 };
 
 export type WordsSourceType = 'group' | 'textbook' | undefined;
