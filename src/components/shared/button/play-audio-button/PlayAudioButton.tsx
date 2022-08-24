@@ -12,6 +12,11 @@ const PlayAudioButton: FC<PlayAudioProps> = (props) => {
   const audio = new Audio(audioUrl);
   const [isPlay, setPlay] = useState(false);
 
+  if (autoplay) {
+    audio.play();
+    audio.addEventListener('ended', () => setPlay(false));
+  }
+
   useEffect(
     () => {
       if (isPlay) {
