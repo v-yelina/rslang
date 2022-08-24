@@ -7,3 +7,6 @@ export const TEXTBOOK_PARAMS = {
 
 export const WORDS_PER_PAGE = 20;
 export const WORDS_PER_GROUP = 600;
+export const WORDS_FOR_GAME_SPRINT = 20;
+
+export const DURATION_GAME_SPRINT = 60;

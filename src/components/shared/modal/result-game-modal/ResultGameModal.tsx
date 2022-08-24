@@ -1,14 +1,14 @@
 import React, { FC, MouseEventHandler } from 'react';
 import { Typography, List, Button } from 'antd';
 import WordItem from '../../word-item';
+import { RightAnswer, Answer } from '../../../../store/types';
 import '../modal.scss';
 import './result-game-modal.scss';
-import { Answer, RightAnswer } from '../../../../store/slices/currentGame/currentGameSlice';
 
 type ResultProps = {
   rightWords: RightAnswer[];
   wrongWords: Answer[];
-  clickHandler: MouseEventHandler
+  clickHandler: MouseEventHandler;
 }
 
 const ResultGameModal: FC<ResultProps> = (props) => {

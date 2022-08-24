@@ -1,6 +1,13 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, {
+  Dispatch, FC, SetStateAction, useEffect,
+} from 'react';
 import { Typography } from 'antd';
 import './timer.scss';
+
+type TimerProps = {
+  time: number;
+  setTime: Dispatch<SetStateAction<number>>;
+}
 
 const padNum = (num: number): string => (`${num > 9 ? '' : '0'}${num}`);
 
@@ -10,8 +17,8 @@ const decreaseOrStopTimer = (timerID: number) => (time: number): number => {
   return 0;
 };
 
-const Timer: FC = () => {
-  const [time, setTime] = useState(60);
+const Timer: FC<TimerProps> = (props) => {
+  const { time, setTime } = props;
 
   useEffect(() => {
     const interval = window.setInterval(
