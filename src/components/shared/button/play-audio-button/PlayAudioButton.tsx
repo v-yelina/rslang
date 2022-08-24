@@ -11,6 +11,20 @@ const PlayAudioButton: FC<PlayAudioProps> = (props) => {
   const audio = new Audio(audioUrl);
   const [isPlay, setPlay] = useState(false);
 
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (e.code === 'Space') {
+      setPlay(true);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
+
   useEffect(
     () => {
       if (isPlay) {
