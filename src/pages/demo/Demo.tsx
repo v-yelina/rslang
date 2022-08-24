@@ -8,6 +8,7 @@ import WordItem from '../../components/shared/word-item';
 import DemoLeaveModal from './demo-leave-modal/DemoLeaveModal';
 import ResultGameModal from '../../components/shared/modal/result-game-modal';
 import './demo.scss';
+import LevelSelect from '../../components/shared/level-select';
 
 type DemoWord = {
   id: string;
@@ -85,6 +86,7 @@ const Demo: FC = () => (
       wrongWords={wrongWords}
       clickHandler={() => { console.log('New game'); }}
     />
+    <LevelSelect gameName="Sprint" />
   </div>
 );
 
