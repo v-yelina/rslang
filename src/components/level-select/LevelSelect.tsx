@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Typography, Button } from 'antd';
 
 import { getRandomIndex } from '../../utils/helpers/gameHelpers';
@@ -15,7 +14,6 @@ type LevelSelectProps = {
 
 const LevelSelect: FC<LevelSelectProps> = (props) => {
   const { gameName } = props;
-  const navigate = useNavigate();
 
   const clickHandler = (group: number) => {
     const randomPage = getRandomIndex(30);
