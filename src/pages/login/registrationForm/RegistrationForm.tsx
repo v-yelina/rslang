@@ -6,16 +6,16 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { clearError, clearIsRegistred } from '../../../store/slices/auth';
 import { registration } from '../../../store/thunks';
 
+export type Values = {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const RegistrationForm: FC = () => {
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const { isRegistred, error } = useAppSelector((state) => state.auth);
-
-  type Values = {
-    name: string;
-    email: string;
-    password: string;
-  }
 
   const onFinish = (values: Values) => {
     dispatch(clearIsRegistred());
@@ -24,7 +24,7 @@ const RegistrationForm: FC = () => {
   };
 
   const onFinishFailed = () => {
-    console.log('Registration fails, please try again');
+    console.log('Registration failed, please try again');
   };
 
   const onReset = () => {

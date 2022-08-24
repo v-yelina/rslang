@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IWord } from '../../../interfaces/IWord';
-import { fetchWordsByGroupAndPage } from '../../thunks';
+import { fetchWordsForTextbook } from '../../thunks';
 import { PageData } from '../../types';
 
 export type TextbookState = {
@@ -29,15 +29,15 @@ export const textbookSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchWordsByGroupAndPage.pending.type]: (state) => {
+    [fetchWordsForTextbook.pending.type]: (state) => {
       state.isLoading = true;
       state.error = null;
     },
-    [fetchWordsByGroupAndPage.fulfilled.type]: (state, action: PayloadAction<IWord[]>) => {
+    [fetchWordsForTextbook.fulfilled.type]: (state, action: PayloadAction<IWord[]>) => {
       state.isLoading = false;
       state.currentWords = action.payload;
     },
-    [fetchWordsByGroupAndPage.rejected.type]: (state, action: PayloadAction<string>) => {
+    [fetchWordsForTextbook.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
     },

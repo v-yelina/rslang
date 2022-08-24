@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchWordsByGroupAndPage } from '../../store/thunks';
+import { fetchWordsForTextbook } from '../../store/thunks';
 import {
   clearCurrentWords,
   setCurrentPageData,
@@ -58,7 +58,7 @@ const Textbook: FC = () => {
     const { group, page } = currentPageData;
     if (isReadyToFetchWords && group.length && page.length) {
       dispatch(
-        fetchWordsByGroupAndPage({
+        fetchWordsForTextbook({
           group,
           page,
         }),
