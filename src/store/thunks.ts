@@ -16,48 +16,54 @@ export const fetchWordsForTextbook = createAsyncThunk(
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  },
+  }
 );
 
-export const registration = createAsyncThunk('user/register', async (userData: IUser, thunkAPI) => {
-  try {
-    const response = await fetch(`${ENV.BASE_URL}users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
+export const registration = createAsyncThunk(
+  'user/register',
+  async (userData: IUser, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${ENV.BASE_URL}users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
 
-    if (!response.ok) {
-      throw new Error(await response.text());
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+      const authInfo = await response.json();
+      return authInfo;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
     }
-    const authInfo = await response.json();
-    return authInfo;
-  } catch (error) {
-    return thunkAPI.rejectWithValue((error as Error).message);
   }
-});
+);
 
-export const login = createAsyncThunk('user/login', async (loginData: ILogin, thunkAPI) => {
-  try {
-    const response = await fetch(`${ENV.BASE_URL}signin`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginData),
-    });
+export const login = createAsyncThunk(
+  'user/login',
+  async (loginData: ILogin, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${ENV.BASE_URL}signin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
+      });
 
-    if (!response.ok) {
-      throw new Error('Login failed, please try again');
+      if (!response.ok) {
+        throw new Error('Login failed, please try again');
+      }
+      const loginInfo = await response.json();
+      return loginInfo;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
     }
-    const loginInfo = await response.json();
-    return loginInfo;
-  } catch (error) {
-    return thunkAPI.rejectWithValue((error as Error).message);
   }
-});
+);
 
 export const fetchWordsToSprintGame = createAsyncThunk(
   'sprintGame/fetchWords',
@@ -74,5 +80,5 @@ export const fetchWordsToSprintGame = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  },
+  }
 );
