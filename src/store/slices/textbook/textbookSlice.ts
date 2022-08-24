@@ -1,10 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IUserWord } from '../../../interfaces/IUserWord';
 import { IWord } from '../../../interfaces/IWord';
 import { fetchWordsForTextbook } from '../../thunks';
 import { PageData } from '../../types';
 
+export interface AggregatedWord extends IWord {
+  userWord: IUserWord | null;
+}
+
 export type TextbookState = {
-  currentWords: IWord[];
+  currentWords: AggregatedWord[];
   currentPageData: PageData;
   isLoading: boolean;
   error: string | null;
@@ -33,7 +38,7 @@ export const textbookSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     },
-    [fetchWordsForTextbook.fulfilled.type]: (state, action: PayloadAction<IWord[]>) => {
+    [fetchWordsForTextbook.fulfilled.type]: (state, action: PayloadAction<AggregatedWord[]>) => {
       state.isLoading = false;
       state.currentWords = action.payload;
     },
