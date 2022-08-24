@@ -1,28 +1,30 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { registration } from '../../thunks';
+import { IAuth } from '../../../interfaces/IAuth';
+import { login, registration } from '../../thunks';
 
-type AuthUser = {
-  userId: string;
-  name: string;
-  email: string;
-}
+type AuthUser = Pick<IAuth, 'userId' | 'name' | 'refreshToken' | 'token'>
 
 export type authState = {
   isLoading: boolean,
   user: AuthUser;
   error: string | null;
-  isRegistred: boolean
+  isRegistred: boolean;
+  isLogged: boolean;
 }
+
+const user = localStorage.getItem('user');
 
 const initialState: authState = {
   isLoading: false,
-  user: {
+  user: user ? JSON.parse(user) : {
     userId: '',
     name: '',
-    email: '',
+    refreshToken: '',
+    token: '',
   },
   error: null,
   isRegistred: false,
+  isLogged: !!user,
 };
 
 export const authSlice = createSlice({
@@ -57,6 +59,22 @@ export const authSlice = createSlice({
     },
     [registration.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
+      state.error = action.payload;
+    },
+    [login.pending.type]: (state) => {
+      state.isLoading = true;
+      state.isLogged = false;
+      state.error = null;
+    },
+    [login.fulfilled.type]: (state, action: PayloadAction<IAuth>) => {
+      state.isLoading = false;
+      state.isLogged = true;
+      state.user = action.payload;
+      localStorage.setItem('user', JSON.stringify(action.payload));
+    },
+    [login.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.isLogged = false;
       state.error = action.payload;
     },
   },

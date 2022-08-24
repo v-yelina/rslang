@@ -1,14 +1,25 @@
-import { Button, Form, Input } from 'antd';
 import React, { FC } from 'react';
+import {
+  Alert, Button, Form, Input,
+} from 'antd';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { clearError } from '../../../store/slices/auth';
+import { login } from '../../../store/thunks';
+import { Values } from '../registrationForm/RegistrationForm';
 
 const LoginForm: FC = () => {
-  const onFinish = (values: string) => {
-    console.log('Success:', values);
+  const dispatch = useAppDispatch();
+  const { error } = useAppSelector((state) => state.auth);
+
+  const onFinish = (values: Pick<Values, 'email' | 'password'>) => {
+    dispatch(clearError());
+    dispatch(login(values));
   };
 
   const onFinishFailed = () => {
-    console.log('Failed.');
+    console.log('Login failed, please try again');
   };
+
   return (
     <Form
       name="basic"
@@ -19,10 +30,11 @@ const LoginForm: FC = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
+      {error && <Alert message={error} type="error" />}
       <h3>Log In</h3>
       <Form.Item
-        label="Username"
-        name="username"
+        label="Email"
+        name="email"
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
         <Input />

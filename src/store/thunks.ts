@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import ENV from '../config/config';
+import { IAuth } from '../interfaces/IAuth';
 import { ILogin } from '../interfaces/ILogin';
 import { IUser } from '../interfaces/IUser';
 import { IWord } from '../interfaces/IWord';
@@ -63,8 +64,13 @@ export const login = createAsyncThunk(
       if (!response.ok) {
         throw new Error('Login failed, please try again');
       }
-      const loginInfo = await response.json();
-      return loginInfo;
+      const authInfo:IAuth = await response.json();
+      const {
+        userId, name, token, refreshToken,
+      } = authInfo;
+      return {
+        userId, name, token, refreshToken,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue((error as Error).message);
     }
