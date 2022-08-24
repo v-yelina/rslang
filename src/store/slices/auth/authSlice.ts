@@ -61,14 +61,17 @@ export const authSlice = createSlice({
     },
     [login.pending.type]: (state) => {
       state.isLoading = true;
+      state.isLogged = false;
       state.error = null;
     },
     [login.fulfilled.type]: (state, action: PayloadAction<IAuth>) => {
       state.isLoading = false;
-      console.log(action.payload);
+      state.user = action.payload;
+      state.isLogged = true;
     },
     [login.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
+      state.isLogged = false;
       state.error = action.payload;
     },
   },
