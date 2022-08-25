@@ -7,13 +7,9 @@ import {
   setCurrentPageData,
   selectCurrentPageData,
 } from '../../store/slices/textbook';
-import {
-  checkSearchParamsCorrect,
-  formatPageDataForSlice,
-  SEARCH_INITIAL_GROUP,
-  SEARCH_INITIAL_PAGE,
-} from './helpers';
-import { TEXTBOOK_PARAMS } from '../../constants';
+import { selectIsLogged, selectUser } from '../../store/slices/auth';
+import { checkSearchParamsCorrect, formatPageDataForSlice } from './helpers';
+import { TEXTBOOK_PARAMS, SEARCH_INITIAL_GROUP, SEARCH_INITIAL_PAGE } from '../../constants';
 
 import GroupsTabs from './components/groups-tabs';
 import WordsList from './components/words-list';
@@ -25,6 +21,8 @@ const Textbook: FC = () => {
   const [params, setParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const currentPageData = useAppSelector(selectCurrentPageData);
+  const isLogged = useAppSelector(selectIsLogged);
+  const user = useAppSelector(selectUser);
   const [isReadyToFetchWords, setIsReadyToFetchWords] = useState(false);
 
   let paramsGroup = params.get(TEXTBOOK_PARAMS.GROUP);
@@ -61,6 +59,7 @@ const Textbook: FC = () => {
         fetchWordsForTextbook({
           group,
           page,
+          user: isLogged ? { userId: user.userId, token: user.token } : null,
         }),
       );
     }

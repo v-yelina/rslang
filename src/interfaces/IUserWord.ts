@@ -1,4 +1,10 @@
+import { DifficultyType } from '../store/types';
+
 export interface IUserWord {
-    difficulty: string;
-    optional: {};
+  difficulty: DifficultyType;
+  optional: {
+    isLearned: boolean;
+    rightAnswersCounter: number;
+  };
+  wordId?: string;
 }

@@ -3,17 +3,31 @@ import ENV from '../config/config';
 import { IAuth } from '../interfaces/IAuth';
 import { ILogin } from '../interfaces/ILogin';
 import { IUser } from '../interfaces/IUser';
+import { IUserWord } from '../interfaces/IUserWord';
 import { IWord } from '../interfaces/IWord';
-import { fetchWordsByGroupAndPage } from '../utils/api/api';
-import { PageData } from './types';
+import {
+  createUserWord,
+  fetchUserWords,
+  fetchWordsByGroupAndPage,
+  updateUserWord,
+} from '../utils/api';
+import { WordDataForUpdate, PageUserData } from './types';
 
 export const fetchWordsForTextbook = createAsyncThunk(
   'textbook/fetchWords',
-  async (pageData: PageData, { rejectWithValue }) => {
-    const { group, page } = pageData;
+  async (pageData: PageUserData, { rejectWithValue }) => {
+    const { user, group, page } = pageData;
     try {
       const words = await fetchWordsByGroupAndPage(group, page);
-      return words;
+      if (user) {
+        const { userId, token } = user;
+        const userWords: IUserWord[] = await fetchUserWords(userId, token);
+        return words.map((item) => {
+          const newUserWord = userWords.find((elem) => elem.wordId === item.id);
+          return { ...item, userWord: newUserWord || null };
+        });
+      }
+      return words.map((item) => ({ ...item, userWord: null }));
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
@@ -58,12 +72,15 @@ export const login = createAsyncThunk(
       if (!response.ok) {
         throw new Error('Login failed, please try again');
       }
-      const authInfo:IAuth = await response.json();
+      const authInfo: IAuth = await response.json();
       const {
         userId, name, token, refreshToken,
       } = authInfo;
       return {
-        userId, name, token, refreshToken,
+        userId,
+        name,
+        token,
+        refreshToken,
       };
     } catch (error) {
       return rejectWithValue((error as Error).message);
@@ -83,6 +100,35 @@ export const fetchWordsToSprintGame = createAsyncThunk(
         wordTranslate: item.wordTranslate,
         audio: item.audio,
       }));
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const createUserWordFromTextbook = createAsyncThunk(
+  'textbook/createUserWord',
+  async (wordData: WordDataForUpdate, { rejectWithValue }) => {
+    const {
+      userId, token, wordId, userWord,
+    } = wordData;
+    try {
+      return await createUserWord(userId, token, wordId, userWord);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const updateUserWordFromTextbook = createAsyncThunk(
+  'textbook/updateUserWord',
+  async (wordData: WordDataForUpdate, { rejectWithValue }) => {
+    const {
+      userId, token, wordId, userWord,
+    } = wordData;
+    try {
+      const updatedWord = await updateUserWord(userId, token, wordId, userWord);
+      return updatedWord;
     } catch (error) {
       return rejectWithValue(error);
     }

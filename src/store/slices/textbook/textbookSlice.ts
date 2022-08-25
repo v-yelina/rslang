@@ -1,10 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IWord } from '../../../interfaces/IWord';
-import { fetchWordsForTextbook } from '../../thunks';
+import { AggregatedWord } from '../../../interfaces/IWord';
+import {
+  createUserWordFromTextbook,
+  fetchWordsForTextbook,
+  updateUserWordFromTextbook,
+} from '../../thunks';
 import { PageData } from '../../types';
 
 export type TextbookState = {
-  currentWords: IWord[];
+  currentWords: AggregatedWord[];
   currentPageData: PageData;
   isLoading: boolean;
   error: string | null;
@@ -33,13 +37,21 @@ export const textbookSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     },
-    [fetchWordsForTextbook.fulfilled.type]: (state, action: PayloadAction<IWord[]>) => {
+    [fetchWordsForTextbook.fulfilled.type]: (state, action: PayloadAction<AggregatedWord[]>) => {
       state.isLoading = false;
       state.currentWords = action.payload;
     },
     [fetchWordsForTextbook.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    [createUserWordFromTextbook.fulfilled.type]: (state) => {
+      const pageData = { ...state.currentPageData };
+      state.currentPageData = pageData;
+    },
+    [updateUserWordFromTextbook.fulfilled.type]: (state) => {
+      const pageData = { ...state.currentPageData };
+      state.currentPageData = pageData;
     },
   },
 });

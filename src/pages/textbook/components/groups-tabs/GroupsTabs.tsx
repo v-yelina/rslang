@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Tabs } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { wordsGroups } from '../../../../constants';
+import { SEARCH_INITIAL_PAGE, wordsGroups } from '../../../../constants';
 import { setCurrentPageData, selectCurrentGroup } from '../../../../store/slices/textbook';
-import { formatPageDataForSlice, formatPageDataForUI, SEARCH_INITIAL_PAGE } from '../../helpers';
+import { formatPageDataForSlice, formatPageDataForUI } from '../../helpers';
 
 import './groups-tabs.scss';
 

@@ -17,3 +17,8 @@ export const selectCurrentPage = createSelector(
   [selectCurrentPageData],
   (currentPageData) => currentPageData.page,
 );
+
+export const selectCurrentWords = createSelector(
+  [selectTextbookReducer],
+  (textbookSlice) => textbookSlice.currentWords,
+);
