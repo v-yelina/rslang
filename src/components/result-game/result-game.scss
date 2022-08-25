@@ -1,8 +1,15 @@
-.modal {
+.result {
   padding: 20px;
   width: 100%;
   max-width: 500px;
   border: 1px solid #000000;
+
+  &__header {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   &__subtitle {
     display: flex;
@@ -31,10 +38,16 @@
   }
 }
 
-#result-wrong-answer {
+#result-score {
   margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+#result-wrong-answer {
+  margin: 20px 0;
 }
 
 #result-right-answer {
-  margin-bottom: 30px;
+  margin: 20px 0;
 }

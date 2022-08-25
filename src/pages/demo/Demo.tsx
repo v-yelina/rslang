@@ -6,7 +6,7 @@ import soud2 from '../../assets/demo/01_0002.mp3';
 import soud3 from '../../assets/demo/01_0003.mp3';
 import WordItem from '../../components/shared/word-item';
 import DemoLeaveModal from './demo-leave-modal/DemoLeaveModal';
-import ResultGameModal from '../../components/shared/modal/result-game-modal';
+import ResultGame from '../../components/result-game';
 import LevelSelect from '../../components/level-select';
 import './demo.scss';
 
@@ -81,7 +81,7 @@ const Demo: FC = () => (
       )}
     />
     <DemoLeaveModal />
-    <ResultGameModal
+    <ResultGame
       rightWords={rightWords}
       wrongWords={wrongWords}
       clickHandler={() => { console.log('New game'); }}
