@@ -11,13 +11,16 @@ type ResultProps = {
   clickHandler: MouseEventHandler;
 }
 
+const { Title } = Typography;
+
 const ResultGameModal: FC<ResultProps> = (props) => {
   const { rightWords, wrongWords, clickHandler } = props;
 
   return (
     <div className="modal">
-      <Typography.Title level={3}>Результат игры</Typography.Title>
+      <Title level={3}>Результат игры</Title>
       <List
+        id="result-wrong-answer"
         header={(
           <div>
             <h3 className="modal__subtitle">
@@ -39,6 +42,7 @@ const ResultGameModal: FC<ResultProps> = (props) => {
         )}
       />
       <List
+        id="result-right-answer"
         header={(
           <div>
             <h3 className="modal__subtitle">

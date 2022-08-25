@@ -1,6 +1,7 @@
 .modal {
   padding: 20px;
-  width: 300px;
+  width: 100%;
+  max-width: 500px;
   border: 1px solid #000000;
 
   &__subtitle {
@@ -28,4 +29,12 @@
       background-color: rgb(172, 37, 37);
     }
   }
+}
+
+#result-wrong-answer {
+  margin-bottom: 20px;
+}
+
+#result-right-answer {
+  margin-bottom: 30px;
 }
