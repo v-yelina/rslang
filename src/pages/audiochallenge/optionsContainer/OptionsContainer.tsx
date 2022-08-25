@@ -3,10 +3,11 @@ import AnswerOption from '../answerOption';
 
 type OptionsContainerProps = { options: string[]; clickHandler: MouseEventHandler<HTMLDivElement> };
 
+/* eslint-disable */
 const OptionsContainer: FC<OptionsContainerProps> = ({ options, clickHandler }) => (
   <div className="options-container" onClick={(e) => clickHandler(e)}>
     {options.map((option, index) => (
-      <AnswerOption num={String(index + 1)} option={option} key={index + option} />
+      <AnswerOption num={String(index + 1)} option={option} key={option} />
     ))}
   </div>
 );
