@@ -28,12 +28,20 @@ const Audiochallenge: FC = () => {
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
 
+  const clearOptionsId = () => {
+    const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
+    optionButtons.forEach((option) => {
+      option.removeAttribute('id');
+    });
+  };
+
   useEffect(() => {
     setCurrentWord(words[wordIndex]);
   }, [wordIndex]);
 
   useEffect(() => {
     setAnswerOptions([...getAnswerOptions(currentWord, words), "Don't know"]);
+    clearOptionsId();
   }, [currentWord]);
 
   const restartGame = () => {
@@ -61,6 +69,22 @@ const Audiochallenge: FC = () => {
     }
   };
 
+  const changeAnswerColor = (isRightAnswer: boolean, answer: string) => {
+    const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
+    optionButtons.forEach((option) => {
+      const optionText = option.outerText.replace(/\d\./, '').trim();
+      if (optionText === answer && isRightAnswer) {
+        option.setAttribute('id', 'right-answer');
+      } else if (optionText === answer && !isRightAnswer) {
+        option.setAttribute('id', 'wrong-answer');
+      } else if (optionText === "Don't know" && answer === '-') {
+        option.setAttribute('id', 'wrong-answer');
+      } else {
+        option.removeAttribute('id');
+      }
+    });
+  };
+
   const handleAnswer = (userAnswer: string) => {
     let answer = userAnswer;
     let isRightAnswer: boolean;
@@ -78,11 +102,15 @@ const Audiochallenge: FC = () => {
       currentWord.audio,
       currentWord.id,
     );
-    if (wordIndex < words.length - 1) {
-      setWordIndex(wordIndex + 1);
-    } else {
-      setIsGameFinished(true);
-    }
+    changeAnswerColor(isRightAnswer, answer);
+
+    setTimeout(() => {
+      if (wordIndex < words.length - 1) {
+        setWordIndex(wordIndex + 1);
+      } else {
+        setIsGameFinished(true);
+      }
+    }, 300);
   };
 
   const handleClick: MouseEventHandler = (e) => {
