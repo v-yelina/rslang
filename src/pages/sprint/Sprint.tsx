@@ -28,16 +28,24 @@ const Sprint: FC = () => {
   const [gameTime, setGameTime] = useState(DURATION_GAME_SPRINT);
   const [gameWords, setGameWords] = useState([currentWord]);
 
-  const clearGame = () => {
+  const initGame = () => {
+    dispatch(fetchWordsToSprintGame());
+    setGameFinished(false);
+    setGameTime(DURATION_GAME_SPRINT);
+  };
+
+  const restartGame = () => {
     dispatch(clearSprintState());
     dispatch(clearCurrentGame());
+    initGame();
   };
 
   useEffect(() => {
-    dispatch(fetchWordsToSprintGame());
+    initGame();
 
     return function resetCurrentGame() {
-      clearGame();
+      dispatch(clearSprintState());
+      dispatch(clearCurrentGame());
     };
   }, []);
 
@@ -85,7 +93,7 @@ const Sprint: FC = () => {
                 <ResultGameModal
                   rightWords={rightAnswers}
                   wrongWords={wrongAnswers as unknown as Answer[]}
-                  clickHandler={clearGame}
+                  clickHandler={restartGame}
                 />
               )
           );
