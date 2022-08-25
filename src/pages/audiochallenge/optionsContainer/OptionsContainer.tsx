@@ -6,7 +6,7 @@ type OptionsContainerProps = { options: string[]; clickHandler: MouseEventHandle
 const OptionsContainer: FC<OptionsContainerProps> = ({ options, clickHandler }) => (
   <div className="options-container" onClick={(e) => clickHandler(e)}>
     {options.map((option, index) => (
-      <AnswerOption num={String(index + 1)} option={option} key={option} />
+      <AnswerOption num={String(index + 1)} option={option} key={index + option} />
     ))}
   </div>
 );
