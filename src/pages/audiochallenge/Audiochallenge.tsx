@@ -61,32 +61,70 @@ const Audiochallenge: FC = () => {
     }
   };
 
-  const handleClick: MouseEventHandler = (e) => {
-    e.preventDefault();
-    let answer = getAnswerText(e as unknown as MouseEvent);
-    if (answer) {
-      let isRightAnswer: boolean;
-      if (answer === "Don't know") {
-        isRightAnswer = false;
-        answer = '-';
-      } else {
-        isRightAnswer = checkAnswer(answer, currentWord.wordTranslate);
-      }
-      addAnswersToSlice(
-        isRightAnswer,
-        answer,
-        currentWord.word,
-        currentWord.wordTranslate,
-        currentWord.audio,
-        currentWord.id,
-      );
+  const handleAnswer = (userAnswer: string) => {
+    let answer = userAnswer;
+    let isRightAnswer: boolean;
+    if (answer === "Don't know") {
+      isRightAnswer = false;
+      answer = '-';
+    } else {
+      isRightAnswer = checkAnswer(answer, currentWord.wordTranslate);
     }
+    addAnswersToSlice(
+      isRightAnswer,
+      answer,
+      currentWord.word,
+      currentWord.wordTranslate,
+      currentWord.audio,
+      currentWord.id,
+    );
     if (wordIndex < words.length - 1) {
       setWordIndex(wordIndex + 1);
     } else {
       setIsGameFinished(true);
     }
   };
+
+  const handleClick: MouseEventHandler = (e) => {
+    e.preventDefault();
+    const answer = getAnswerText(e as unknown as MouseEvent);
+    if (answer) {
+      handleAnswer(answer);
+    }
+  };
+
+  const handleKeyPress = (e: KeyboardEvent) => {
+    switch (e.code) {
+      case 'Digit1':
+        handleAnswer(answerOptions[0]);
+        break;
+      case 'Digit2':
+        handleAnswer(answerOptions[1]);
+        break;
+      case 'Digit3':
+        handleAnswer(answerOptions[2]);
+        break;
+      case 'Digit4':
+        handleAnswer(answerOptions[3]);
+        break;
+      case 'Digit5':
+        handleAnswer(answerOptions[4]);
+        break;
+      case 'Digit6':
+        handleAnswer("Don't know");
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
 
   return (
     <>
