@@ -34,7 +34,7 @@ export const fetchUserWords = async (userId: string, userToken: string) => {
   const response = await fetch(`${ENV.USERS_URL}/${userId}/words`, {
     method: 'GET',
     headers: {
-      Authorisation: `Bearer ${userToken}`,
+      Authorization: `Bearer ${userToken}`,
       accept: 'application/json',
     },
   });
@@ -57,8 +57,9 @@ export const createUserWord = async (
   const response = await fetch(`${ENV.USERS_URL}/${userId}/words/${wordId}`, {
     method: 'POST',
     headers: {
-      Authorisation: `Bearer ${userToken}`,
+      Authorization: `Bearer ${userToken}`,
       accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(userWord),
   });
@@ -76,7 +77,7 @@ export const fetchUserWordById = async (userId: string, userToken: string, wordI
   const response = await fetch(`${ENV.USERS_URL}/${userId}/words/${wordId}`, {
     method: 'GET',
     headers: {
-      Authorisation: `Bearer ${userToken}`,
+      Authorization: `Bearer ${userToken}`,
       accept: 'application/json',
     },
   });
@@ -99,8 +100,9 @@ export const updateUserWord = async (
   const response = await fetch(`${ENV.USERS_URL}/${userId}/words/${wordId}`, {
     method: 'PUT',
     headers: {
-      Authorisation: `Bearer ${userToken}`,
+      Authorization: `Bearer ${userToken}`,
       accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(userWord),
   });
@@ -118,7 +120,7 @@ export const deleteUserWord = async (userId: string, userToken: string, wordId: 
   const response = await fetch(`${ENV.USERS_URL}/${userId}/words/${wordId}`, {
     method: 'DELETE',
     headers: {
-      Authorisation: `Bearer ${userToken}`,
+      Authorization: `Bearer ${userToken}`,
       accept: 'application/json',
     },
   });

@@ -23,17 +23,25 @@ const Audiochallenge: FC = () => {
   const { words, rightAnswers, wrongAnswers } = useAppSelector((state) => state.currentGame);
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
-  const [answerOptions, setAnswerOptions] = useState(getAnswerOptions(currentWord, words));
+  const [answerOptions, setAnswerOptions] = useState([...getAnswerOptions(currentWord, words), "Don't know"]);
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
+
+  const clearOptionsId = () => {
+    const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
+    optionButtons.forEach((option) => {
+      option.removeAttribute('id');
+    });
+  };
 
   useEffect(() => {
     setCurrentWord(words[wordIndex]);
   }, [wordIndex]);
 
   useEffect(() => {
-    setAnswerOptions(getAnswerOptions(currentWord, words));
+    setAnswerOptions([...getAnswerOptions(currentWord, words), "Don't know"]);
+    clearOptionsId();
   }, [currentWord]);
 
   const restartGame = () => {
@@ -61,32 +69,90 @@ const Audiochallenge: FC = () => {
     }
   };
 
+  const changeAnswerColor = (isRightAnswer: boolean, answer: string) => {
+    const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
+    optionButtons.forEach((option) => {
+      const optionText = option.outerText.replace(/\d\./, '').trim();
+      if (optionText === answer && isRightAnswer) {
+        option.setAttribute('id', 'right-answer');
+      } else if (optionText === answer && !isRightAnswer) {
+        option.setAttribute('id', 'wrong-answer');
+      } else if (optionText === "Don't know" && answer === '-') {
+        option.setAttribute('id', 'wrong-answer');
+      } else {
+        option.removeAttribute('id');
+      }
+    });
+  };
+
+  const handleAnswer = (userAnswer: string) => {
+    let answer = userAnswer;
+    let isRightAnswer: boolean;
+    if (answer === "Don't know") {
+      isRightAnswer = false;
+      answer = '-';
+    } else {
+      isRightAnswer = checkAnswer(answer, currentWord.wordTranslate);
+    }
+    addAnswersToSlice(
+      isRightAnswer,
+      answer,
+      currentWord.word,
+      currentWord.wordTranslate,
+      currentWord.audio,
+      currentWord.id,
+    );
+    changeAnswerColor(isRightAnswer, answer);
+
+    setTimeout(() => {
+      if (wordIndex < words.length - 1) {
+        setWordIndex(wordIndex + 1);
+      } else {
+        setIsGameFinished(true);
+      }
+    }, 300);
+  };
+
   const handleClick: MouseEventHandler = (e) => {
     e.preventDefault();
-    let answer = getAnswerText(e as unknown as MouseEvent);
+    const answer = getAnswerText(e as unknown as MouseEvent);
     if (answer) {
-      let isRightAnswer: boolean;
-      if (answer === "Don't know") {
-        isRightAnswer = false;
-        answer = '-';
-      } else {
-        isRightAnswer = checkAnswer(answer, currentWord.wordTranslate);
-      }
-      addAnswersToSlice(
-        isRightAnswer,
-        answer,
-        currentWord.word,
-        currentWord.wordTranslate,
-        currentWord.audio,
-        currentWord.id,
-      );
-    }
-    if (wordIndex < words.length - 1) {
-      setWordIndex(wordIndex + 1);
-    } else {
-      setIsGameFinished(true);
+      handleAnswer(answer);
     }
   };
+
+  const handleKeyPress = (e: KeyboardEvent) => {
+    switch (e.code) {
+      case 'Digit1':
+        handleAnswer(answerOptions[0]);
+        break;
+      case 'Digit2':
+        handleAnswer(answerOptions[1]);
+        break;
+      case 'Digit3':
+        handleAnswer(answerOptions[2]);
+        break;
+      case 'Digit4':
+        handleAnswer(answerOptions[3]);
+        break;
+      case 'Digit5':
+        handleAnswer(answerOptions[4]);
+        break;
+      case 'Digit6':
+        handleAnswer("Don't know");
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
 
   return (
     <>
