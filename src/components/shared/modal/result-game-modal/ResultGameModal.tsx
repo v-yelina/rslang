@@ -4,6 +4,7 @@ import WordItem from '../../word-item';
 import { RightAnswer, Answer } from '../../../../store/types';
 import '../modal.scss';
 import './result-game-modal.scss';
+import ENV from '../../../../config/config';
 
 type ResultProps = {
   rightWords: RightAnswer[];
@@ -35,7 +36,7 @@ const ResultGameModal: FC<ResultProps> = (props) => {
         renderItem={(item) => (
           <WordItem
             key={item.word}
-            audio={item.audio}
+            audio={`${ENV.BASE_URL}${item.audio}`}
             word={item.word}
             wordTranslate={item.wordTranslate}
           />
@@ -57,7 +58,7 @@ const ResultGameModal: FC<ResultProps> = (props) => {
         renderItem={(item) => (
           <WordItem
             key={item.word}
-            audio={item.audio}
+            audio={`${ENV.BASE_URL}${item.audio}`}
             word={item.word}
             wordTranslate={item.wordTranslate}
           />
