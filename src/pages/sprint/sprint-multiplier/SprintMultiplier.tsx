@@ -8,7 +8,7 @@ import './sprint-multiplier.scss';
 
 const SprintMultiplier: FC = () => {
   const dispatch = useAppDispatch();
-  const { score, multiplier, currentWord } = useAppSelector((state) => state.sprintGame);
+  const { score, multiplier, roundIndex } = useAppSelector((state) => state.sprintGame);
 
   const [countPerWord, setCountPerWord] = useState(0);
   const [percent, setPercent] = useState(0);
@@ -22,7 +22,7 @@ const SprintMultiplier: FC = () => {
 
     const newGameScore = score + currentCount;
     dispatch(setGameScore(newGameScore));
-  }, [currentWord]);
+  }, [roundIndex]);
 
   return (
     <div className="sprint__multiplier multiplier">

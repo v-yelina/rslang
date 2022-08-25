@@ -1,7 +1,10 @@
 .word-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 200px;
+  width: 100%;
   list-style: none;
+
+  .ant-typography {
+    margin: 0 20px;
+  }
 }

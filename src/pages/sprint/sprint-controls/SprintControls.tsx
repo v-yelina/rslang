@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
   addRightAnswer,
   addWrongAnswer,
+  removeRightAnswer,
   setMultiplier,
   setRoundIndex,
 } from '../../../store/slices/sprintGame';
@@ -39,6 +40,10 @@ const SprintControls: FC = () => {
     } else if (wrongAnswers.indexOf(word!) === -1) {
       dispatch(addWrongAnswer(word!));
       dispatch(setMultiplier(0));
+
+      if (rightAnswers.indexOf(word!) !== -1) {
+        dispatch(removeRightAnswer(word!));
+      }
     }
 
     if (roundIndex <= roundDuration) {

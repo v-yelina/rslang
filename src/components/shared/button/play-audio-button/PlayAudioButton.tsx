@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { ReactComponent as PlayAudioIcon } from '../../../../assets/icons/volume.svg';
+import { useAppSelector } from '../../../../store/hooks';
 
 type PlayAudioProps = {
   autoplay: boolean,
@@ -11,6 +12,7 @@ const PlayAudioButton: FC<PlayAudioProps> = (props) => {
   const { audioUrl, autoplay } = props;
   const audio = new Audio(audioUrl);
   const [isPlay, setPlay] = useState(false);
+  const { gameType } = useAppSelector((state) => state.currentGame);
 
   if (autoplay) {
     audio.play();
@@ -18,7 +20,7 @@ const PlayAudioButton: FC<PlayAudioProps> = (props) => {
   }
 
   const handleKeyPress = (e: KeyboardEvent) => {
-    if (e.code === 'Space') {
+    if (e.code === 'Space' && gameType === 'audiochallenge') {
       setPlay(true);
     }
   };
@@ -31,18 +33,16 @@ const PlayAudioButton: FC<PlayAudioProps> = (props) => {
     };
   }, [handleKeyPress]);
 
-  useEffect(
-    () => {
-      if (isPlay) {
-        audio.play();
-      } else {
-        audio.pause();
-        audio.currentTime = 0;
-      }
-      audio.addEventListener('ended', () => setPlay(false));
-    },
-    [isPlay],
-  );
+  useEffect(() => {
+    if (isPlay) {
+      audio.play();
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+      setPlay(false);
+    }
+    audio.addEventListener('ended', () => setPlay(false));
+  }, [isPlay]);
 
   return (
     <Button

@@ -4,11 +4,11 @@ import { Spin } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearSprintState, setCurrentWord, setRoundDuration } from '../../store/slices/sprintGame';
 import { fetchWordsToSprintGame } from '../../store/thunks';
-import ResultGameModal from '../../components/shared/modal/result-game-modal';
+import ResultGame from '../../components/result-game';
 import SprintGameContainer from './sprint-game-container';
 import getWordsToTrain from './sprintGame';
 import { DURATION_GAME_SPRINT } from '../../constants';
-import { clearCurrentGame } from '../../store/slices/currentGame';
+import { clearCurrentGame, setGameType } from '../../store/slices/currentGame';
 import { Answer } from '../../store/types';
 
 import './sprint.scss';
@@ -28,16 +28,25 @@ const Sprint: FC = () => {
   const [gameTime, setGameTime] = useState(DURATION_GAME_SPRINT);
   const [gameWords, setGameWords] = useState([currentWord]);
 
-  const clearGame = () => {
+  const initGame = () => {
+    dispatch(setGameType('sprint'));
+    dispatch(fetchWordsToSprintGame());
+    setGameFinished(false);
+    setGameTime(DURATION_GAME_SPRINT);
+  };
+
+  const restartGame = () => {
     dispatch(clearSprintState());
     dispatch(clearCurrentGame());
+    initGame();
   };
 
   useEffect(() => {
-    dispatch(fetchWordsToSprintGame());
+    initGame();
 
     return function resetCurrentGame() {
-      clearGame();
+      dispatch(clearSprintState());
+      dispatch(clearCurrentGame());
     };
   }, []);
 
@@ -82,10 +91,10 @@ const Sprint: FC = () => {
             !isGameFinished
               ? <SprintGameContainer time={gameTime} setTime={setGameTime} />
               : (
-                <ResultGameModal
+                <ResultGame
                   rightWords={rightAnswers}
                   wrongWords={wrongAnswers as unknown as Answer[]}
-                  clickHandler={clearGame}
+                  clickHandler={restartGame}
                 />
               )
           );

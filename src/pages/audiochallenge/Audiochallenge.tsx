@@ -9,9 +9,11 @@ import {
   checkAnswer, getAnswerOptions, getAnswerText,
 } from './audioChallengeGame';
 import ENV from '../../config/config';
-import ResultGameModal from '../../components/shared/modal/result-game-modal';
+import ResultGame from '../../components/result-game';
 import ConfirmModal from '../../components/shared/modal/confirm-modal';
 import LeaveGameButton from '../../components/shared/button/leave-game-button';
+import rightAnswerSound from '../../assets/sounds/right-answer.mp3';
+import wrongAnswerSound from '../../assets/sounds/wrong-answer.mp3';
 import {
   clearCurrentGame,
   addRightAnswer,
@@ -27,6 +29,8 @@ const Audiochallenge: FC = () => {
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
+  const rightAnswerAudio = new Audio(rightAnswerSound);
+  const wrongAnswerAudio = new Audio(wrongAnswerSound);
 
   const clearOptionsId = () => {
     const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
@@ -59,10 +63,12 @@ const Audiochallenge: FC = () => {
     id: string,
   ) => {
     if (isRight) {
+      rightAnswerAudio.play();
       dispatch(addRightAnswer({
         word, wordTranslate, audio, id,
       }));
     } else {
+      wrongAnswerAudio.play();
       dispatch(addWrongAnswer({
         answer, word, wordTranslate, audio, id,
       }));
@@ -163,7 +169,7 @@ const Audiochallenge: FC = () => {
           <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
         </section>
       ) : (
-        <ResultGameModal
+        <ResultGame
           rightWords={rightAnswers}
           wrongWords={wrongAnswers}
           clickHandler={restartGame}

@@ -6,18 +6,21 @@ import './word-item.scss';
 
 type WordItemProps = Pick<IWord, 'audio' | 'word' | 'wordTranslate'>;
 
+const { Text } = Typography;
+const { Item } = List;
+
 const WordItem: FC<WordItemProps> = (props) => {
   const { audio, word, wordTranslate } = props;
 
   return (
-    <List.Item>
+    <Item>
       <div className="word-item">
         <PlayAudioButton audioUrl={audio} autoplay={false} />
-        <Typography.Text strong>{word}</Typography.Text>
+        <Text strong>{word}</Text>
         -
-        <Typography.Text>{wordTranslate}</Typography.Text>
+        <Text>{wordTranslate}</Text>
       </div>
-    </List.Item>
+    </Item>
   );
 };
 
