@@ -23,7 +23,7 @@ const Audiochallenge: FC = () => {
   const { words, rightAnswers, wrongAnswers } = useAppSelector((state) => state.currentGame);
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
-  const [answerOptions, setAnswerOptions] = useState(getAnswerOptions(currentWord, words));
+  const [answerOptions, setAnswerOptions] = useState([...getAnswerOptions(currentWord, words), "Don't know"]);
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
@@ -33,7 +33,7 @@ const Audiochallenge: FC = () => {
   }, [wordIndex]);
 
   useEffect(() => {
-    setAnswerOptions(getAnswerOptions(currentWord, words));
+    setAnswerOptions([...getAnswerOptions(currentWord, words), "Don't know"]);
   }, [currentWord]);
 
   const restartGame = () => {
