@@ -9,7 +9,7 @@ import {
   checkAnswer, getAnswerOptions, getAnswerText,
 } from './audioChallengeGame';
 import ENV from '../../config/config';
-import ResultGameModal from '../../components/shared/modal/result-game-modal';
+import ResultGame from '../../components/result-game';
 import ConfirmModal from '../../components/shared/modal/confirm-modal';
 import LeaveGameButton from '../../components/shared/button/leave-game-button';
 import rightAnswerSound from '../../assets/sounds/right-answer.mp3';
@@ -169,7 +169,7 @@ const Audiochallenge: FC = () => {
           <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
         </section>
       ) : (
-        <ResultGameModal
+        <ResultGame
           rightWords={rightAnswers}
           wrongWords={wrongAnswers}
           clickHandler={restartGame}

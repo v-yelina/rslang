@@ -1,7 +1,15 @@
-.modal {
+.result {
   padding: 20px;
-  width: 300px;
+  width: 100%;
+  max-width: 500px;
   border: 1px solid #000000;
+
+  &__header {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   &__subtitle {
     display: flex;
@@ -28,4 +36,18 @@
       background-color: rgb(172, 37, 37);
     }
   }
+}
+
+#result-score {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+#result-wrong-answer {
+  margin: 20px 0;
+}
+
+#result-right-answer {
+  margin: 20px 0;
 }

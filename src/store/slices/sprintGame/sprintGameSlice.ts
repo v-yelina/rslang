@@ -42,6 +42,9 @@ export const sprintGameSlice = createSlice({
     addRightAnswer: (state, action: PayloadAction<WordToTrain>) => {
       state.rightAnswers.push(action.payload);
     },
+    removeRightAnswer: (state, action: PayloadAction<WordToTrain>) => {
+      state.rightAnswers = state.rightAnswers.filter((item) => item.word !== action.payload.word);
+    },
     addWrongAnswer: (state, action: PayloadAction<WordToTrain>) => {
       state.wrongAnswers.push(action.payload);
     },
@@ -76,6 +79,7 @@ export const sprintGameSlice = createSlice({
 export const {
   setGameWords,
   addRightAnswer,
+  removeRightAnswer,
   addWrongAnswer,
   setCurrentWord,
   setGameScore,
