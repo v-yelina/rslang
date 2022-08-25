@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import {
   Card, Row, Col, Button,
 } from 'antd';
-import { AggregatedWord } from '../../../../store/slices/textbook';
+import { AggregatedWord } from '../../../../interfaces/IWord';
 import PlayAudioButton from '../../../../components/shared/button/play-audio-button';
 import ENV from '../../../../config/config';
 

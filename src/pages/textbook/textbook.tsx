@@ -8,13 +8,8 @@ import {
   selectCurrentPageData,
 } from '../../store/slices/textbook';
 import { selectIsLogged, selectUser } from '../../store/slices/auth';
-import {
-  checkSearchParamsCorrect,
-  formatPageDataForSlice,
-  SEARCH_INITIAL_GROUP,
-  SEARCH_INITIAL_PAGE,
-} from './helpers';
-import { TEXTBOOK_PARAMS } from '../../constants';
+import { checkSearchParamsCorrect, formatPageDataForSlice } from './helpers';
+import { TEXTBOOK_PARAMS, SEARCH_INITIAL_GROUP, SEARCH_INITIAL_PAGE } from '../../constants';
 
 import GroupsTabs from './components/groups-tabs';
 import WordsList from './components/words-list';

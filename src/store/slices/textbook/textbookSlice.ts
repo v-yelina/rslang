@@ -1,16 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUserWord } from '../../../interfaces/IUserWord';
-import { IWord } from '../../../interfaces/IWord';
+import { AggregatedWord } from '../../../interfaces/IWord';
 import {
   createUserWordFromTextbook,
   fetchWordsForTextbook,
   updateUserWordFromTextbook,
 } from '../../thunks';
 import { PageData } from '../../types';
-
-export interface AggregatedWord extends IWord {
-  userWord: IUserWord | null;
-}
 
 export type TextbookState = {
   currentWords: AggregatedWord[];
