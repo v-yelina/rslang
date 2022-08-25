@@ -1,4 +1,7 @@
 import ENV from '../../config/config';
+import { IAuth } from '../../interfaces/IAuth';
+import { ILogin } from '../../interfaces/ILogin';
+import { IUser } from '../../interfaces/IUser';
 import { IUserWord } from '../../interfaces/IUserWord';
 import { IWord } from '../../interfaces/IWord';
 
@@ -128,4 +131,45 @@ export const deleteUserWord = async (userId: string, userToken: string, wordId: 
   if (!response.ok || response.status !== 204) {
     throw new Error('User word not deleted');
   }
+};
+
+// auth
+export const createUser = async (userData: IUser) => {
+  const response = await fetch(`${ENV.USERS_URL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  });
+
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const authInfo: IUser = await response.json();
+  return authInfo;
+};
+
+export const loginUser = async (loginData: ILogin) => {
+  const response = await fetch(`${ENV.BASE_URL}signin`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(loginData),
+  });
+
+  if (!response.ok) {
+    throw new Error('Login failed, please try again');
+  }
+  const authInfo: IAuth = await response.json();
+  const {
+    userId, name, token, refreshToken,
+  } = authInfo;
+  return {
+    userId,
+    name,
+    token,
+    refreshToken,
+  };
 };
