@@ -11,21 +11,17 @@ const WordRecipient: FC = () => {
   } = useAppSelector((state) => state.currentGame);
   const dispatch = useAppDispatch();
 
-  let index = 0;
-
   const getSprintWords = (group: string, page: string) => {
     dispatch(fetchWordsForGame({ group, page, user: null }));
+    let index = 1;
 
     if (Number(page) > 0) {
-      if (index < 2) {
-        index += 1;
-        console.log(index);
+      while (index < 2) {
         const newPage: string = (Number(page) - 1).toString();
-        getSprintWords(group, newPage);
-      } else {
-        // eslint-disable-next-line
-        return;
+        dispatch(fetchWordsForGame({ group, page: newPage, user: null }));
+        index += 1;
       }
+      console.log(index);
     }
   };
 
