@@ -2,13 +2,13 @@ import React, { FC } from 'react';
 import { Card, Row, Col } from 'antd';
 import { AggregatedWord } from '../../../../interfaces/IWord';
 import PlayAudioButton from '../../../../components/shared/button/play-audio-button';
+import UserWordButtons from '../user-word-buttons';
 import ENV from '../../../../config/config';
 
 import { useAppSelector } from '../../../../store/hooks';
 import { selectIsLogged } from '../../../../store/slices/auth';
 
 import './word-card.scss';
-import UserWordButtons from '../user-word-buttons';
 
 type WordCardProps = {
   wordData: AggregatedWord;
