@@ -1,5 +1,8 @@
 import React, { FC } from 'react';
-import { Button } from 'antd';
+import { Tooltip } from 'antd';
+import {
+  StarOutlined, StarFilled, FireOutlined, FireFilled,
+} from '@ant-design/icons';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { createUserWordFromTextbook, updateUserWordFromTextbook } from '../../../../store/thunks';
@@ -79,12 +82,23 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
 
   return (
     <div className="word-card--user-btns">
-      <Button type="primary" onClick={handleLearnedClick}>
-        {isLearned ? 'REMOVE FROM LEARNED' : 'ADD TO LEARNED'}
-      </Button>
-      <Button type="primary" onClick={handleDifficultClick}>
-        {isDifficult ? 'REMOVE FROM DIFFICULT' : 'ADD TO DIFFICULT'}
-      </Button>
+      <Tooltip placement="right" title={isLearned ? 'REMOVE FROM LEARNED' : 'ADD TO LEARNED'}>
+        {isLearned && (
+          <StarFilled style={{ fontSize: '24px', color: '#43c043' }} onClick={handleLearnedClick} />
+        )}
+        {!isLearned && <StarOutlined style={{ fontSize: '24px' }} onClick={handleLearnedClick} />}
+      </Tooltip>
+      <Tooltip placement="right" title={isDifficult ? 'REMOVE FROM DIFFICULT' : 'ADD TO DIFFICULT'}>
+        {isDifficult && (
+          <FireFilled
+            style={{ fontSize: '24px', color: '#de423a' }}
+            onClick={handleDifficultClick}
+          />
+        )}
+        {!isDifficult && (
+          <FireOutlined style={{ fontSize: '24px' }} onClick={handleDifficultClick} />
+        )}
+      </Tooltip>
     </div>
   );
 };
