@@ -39,7 +39,16 @@ export const prepareNewDifficultWord = (): IUserWord => ({
   difficulty: 'difficult',
   optional: {
     isLearned: false,
+    isNew: true,
     rightAnswersCounter: 0,
+    sprint: {
+      rightCounter: 0,
+      wrongCounter: 0,
+    },
+    audiochallenge: {
+      rightCounter: 0,
+      wrongCounter: 0,
+    },
   },
 });
 
