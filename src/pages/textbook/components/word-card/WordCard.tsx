@@ -9,7 +9,12 @@ import ENV from '../../../../config/config';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { selectIsLogged, selectUser } from '../../../../store/slices/auth';
 import { createUserWordFromTextbook, updateUserWordFromTextbook } from '../../../../store/thunks';
-import { prepareNewLearnedWord, updateLearnedWord } from '../../helpers';
+import {
+  prepareNewDifficultWord,
+  prepareNewLearnedWord,
+  updateDifficultWord,
+  updateLearnedWord,
+} from '../../helpers';
 
 import './word-card.scss';
 
@@ -61,6 +66,30 @@ const WordCard: FC<WordCardProps> = (props) => {
     }
   };
 
+  const handleDifficultClick = () => {
+    if (!userWord) {
+      const newUserWord = prepareNewDifficultWord();
+      dispatch(
+        createUserWordFromTextbook({
+          userId,
+          token,
+          wordId: id,
+          userWord: newUserWord,
+        }),
+      );
+    } else {
+      const newUserWord = updateDifficultWord(userWord);
+      dispatch(
+        updateUserWordFromTextbook({
+          userId,
+          token,
+          wordId: id,
+          userWord: newUserWord,
+        }),
+      );
+    }
+  };
+
   return (
     <div
       className={`word-card ${userWord && userWord.optional.isLearned ? 'word-card--learned' : ''}`}
@@ -92,6 +121,11 @@ const WordCard: FC<WordCardProps> = (props) => {
               <div className="word-card--user-btns">
                 <Button type="primary" onClick={handleLearnedClick}>
                   {userWord?.optional?.isLearned ? 'REMOVE FROM LEARNED' : 'ADD TO LEARNED'}
+                </Button>
+                <Button type="primary" onClick={handleDifficultClick}>
+                  {userWord?.difficulty === 'difficult'
+                    ? 'REMOVE FROM DIFFICULT'
+                    : 'ADD TO DIFFICULT'}
                 </Button>
               </div>
             )}
