@@ -42,7 +42,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        })
+        }),
       );
     } else {
       const newUserWord = updateLearnedWord(userWord);
@@ -52,7 +52,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        })
+        }),
       );
     }
   };
@@ -66,7 +66,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        })
+        }),
       );
     } else {
       const newUserWord = updateDifficultWord(userWord);
@@ -76,7 +76,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        })
+        }),
       );
     }
   };
