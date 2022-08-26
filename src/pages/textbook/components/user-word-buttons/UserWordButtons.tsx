@@ -33,9 +33,6 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
   const isLearned = userWord?.optional.isLearned;
   const isDifficult = userWord?.difficulty === 'difficult';
 
-  console.log('LEARNED??? ', isLearned);
-  console.log('DIFFICULT??? ', isDifficult);
-
   const handleLearnedClick = () => {
     if (!userWord) {
       const newUserWord = prepareNewLearnedWord();
@@ -45,7 +42,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        }),
+        })
       );
     } else {
       const newUserWord = updateLearnedWord(userWord);
@@ -55,7 +52,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        }),
+        })
       );
     }
   };
@@ -69,7 +66,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        }),
+        })
       );
     } else {
       const newUserWord = updateDifficultWord(userWord);
@@ -79,9 +76,13 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        }),
+        })
       );
     }
+  };
+
+  const handleProgressClick = () => {
+    console.log('progress click');
   };
 
   return (
@@ -95,7 +96,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
         {!isDifficult && <FireOutlined onClick={handleDifficultClick} />}
       </Tooltip>
       <Tooltip placement="right" title="SHOW PROGRESS">
-        <BarChartOutlined />
+        <BarChartOutlined onClick={handleProgressClick} />
       </Tooltip>
     </div>
   );
