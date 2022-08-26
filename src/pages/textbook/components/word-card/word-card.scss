@@ -31,4 +31,11 @@
       }
     }
   }
+
+  &--user-btns {
+    display: flex;
+    gap: 20px;
+    width: 80%;
+    justify-content: space-between;
+  }
 }
