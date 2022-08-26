@@ -56,11 +56,12 @@ export const login = createAsyncThunk(
   },
 );
 
-export const fetchWordsToSprintGame = createAsyncThunk(
-  'sprintGame/fetchWords',
-  async (_, { rejectWithValue }) => {
+export const fetchWordsForGame = createAsyncThunk(
+  'currentGame/fetchWords',
+  async (pageData: PageUserData, { rejectWithValue }) => {
+    const { group, page } = pageData;
     try {
-      const words = await fetchWordsByGroupAndPage('0', '0');
+      const words = await fetchWordsByGroupAndPage(group, page);
 
       return words.map((item: IWord) => ({
         id: item.id,

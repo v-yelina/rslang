@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IWord } from '../../../interfaces/IWord';
-import { fetchWordsToSprintGame } from '../../thunks';
+import { fetchWordsForGame } from '../../thunks';
 import { WordToTrain } from '../../types';
 
 type RoundWord = Pick<WordToTrain, 'word' | 'wordTranslate'>;
@@ -66,10 +66,10 @@ export const sprintGameSlice = createSlice({
     clearSprintState: () => initialState,
   },
   extraReducers: {
-    [fetchWordsToSprintGame.pending.type]: (state) => {
+    [fetchWordsForGame.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [fetchWordsToSprintGame.fulfilled.type]: (state, action: PayloadAction<WordToTrain[]>) => {
+    [fetchWordsForGame.fulfilled.type]: (state, action: PayloadAction<WordToTrain[]>) => {
       state.isLoading = false;
       state.words = action.payload;
     },

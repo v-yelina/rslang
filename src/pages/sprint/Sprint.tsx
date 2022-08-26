@@ -3,34 +3,37 @@ import { Spin } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearSprintState, setCurrentWord, setRoundDuration } from '../../store/slices/sprintGame';
-import { fetchWordsToSprintGame } from '../../store/thunks';
+// import { fetchWordsToGame } from '../../store/thunks';
 import ResultGame from '../../components/result-game';
 import SprintGameContainer from './sprint-game-container';
 import getWordsToTrain from './sprintGame';
 import { DURATION_GAME_SPRINT } from '../../constants';
-import { clearCurrentGame, setGameType } from '../../store/slices/currentGame';
+import { clearCurrentGame } from '../../store/slices/currentGame';
 import { Answer } from '../../store/types';
 
 import './sprint.scss';
+import WordRecipient from '../../components/word-recipient';
 
 const Sprint: FC = () => {
   const dispatch = useAppDispatch();
   const {
-    words,
     roundIndex,
     rightAnswers,
     wrongAnswers,
-    isLoading,
     currentWord,
   } = useAppSelector((state) => state.sprintGame);
+  const {
+    words,
+    isLoading,
+  } = useAppSelector((state) => state.currentGame);
 
   const [isGameFinished, setGameFinished] = useState(false);
   const [gameTime, setGameTime] = useState(DURATION_GAME_SPRINT);
   const [gameWords, setGameWords] = useState([currentWord]);
 
   const initGame = () => {
-    dispatch(setGameType('sprint'));
-    dispatch(fetchWordsToSprintGame());
+    // dispatch(setGameType('sprint'));
+    // dispatch(fetchWordsToGame());
     setGameFinished(false);
     setGameTime(DURATION_GAME_SPRINT);
   };
@@ -82,6 +85,7 @@ const Sprint: FC = () => {
 
   return (
     <section className="sprint">
+      <WordRecipient />
       {
         (() => {
           if (isLoading) {
