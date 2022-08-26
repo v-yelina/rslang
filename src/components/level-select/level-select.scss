@@ -1,5 +1,5 @@
 .level-select {
-  margin-bottom: 40px;
+  margin: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,13 +11,11 @@
   }
 
   &__list {
-    margin-bottom: 20px;
     padding: 20px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    max-width: 400px;
+    width: 350px;
     border: 1px solid #000000;
   }
 }

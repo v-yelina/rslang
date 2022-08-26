@@ -28,13 +28,13 @@ const Header: FC = () => {
         <Link to="/">Home</Link>
         <Link to="/textbook">Textbook</Link>
         <Link
-          to="/sprint"
+          to="/games"
           onClick={() => setSourceAndTypeGame('group', 'sprint')}
         >
           Sprint
         </Link>
         <Link
-          to="/audiochallenge"
+          to="/games"
           onClick={() => setSourceAndTypeGame('group', 'audiochallenge')}
         >
           Audiochallenge

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IWord } from '../../../interfaces/IWord';
+import { PageData } from '../../types';
 
 type wordsSourceType = 'group' | 'textbook' | undefined;
 
@@ -22,6 +23,7 @@ export type CurrentGameState = {
   rightAnswers: RightAnswer[];
   wrongAnswers: Answer[];
   maxCombo: number;
+  currentPageData: PageData;
 };
 
 const initialState: CurrentGameState = {
@@ -172,6 +174,10 @@ const initialState: CurrentGameState = {
   rightAnswers: [],
   wrongAnswers: [],
   maxCombo: 0,
+  currentPageData: {
+    group: '',
+    page: '',
+  },
 };
 
 export const currentGameSlice = createSlice({
@@ -196,6 +202,9 @@ export const currentGameSlice = createSlice({
     changeCombo: (state, action: PayloadAction<number>) => {
       state.maxCombo = action.payload;
     },
+    setCurrentGamePage: (state, action: PayloadAction<PageData>) => {
+      state.currentPageData = action.payload;
+    },
     clearCurrentGame: () => initialState,
   },
   extraReducers: () => {},
@@ -208,7 +217,6 @@ export const {
   clearCurrentGame,
   addRightAnswer,
   addWrongAnswer,
-  changeCombo,
 } = currentGameSlice.actions;
 
 export default currentGameSlice.reducer;

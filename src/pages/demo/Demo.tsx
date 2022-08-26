@@ -86,7 +86,7 @@ const Demo: FC = () => (
       wrongWords={wrongWords}
       clickHandler={() => { console.log('New game'); }}
     />
-    <LevelSelect gameName="Sprint" />
+    <LevelSelect />
   </div>
 );
 
