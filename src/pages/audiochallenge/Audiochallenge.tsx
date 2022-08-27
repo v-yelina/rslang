@@ -121,7 +121,7 @@ const Audiochallenge: FC = () => {
     changeAnswerColor(isRightAnswer, answer);
 
     setTimeout(() => {
-      if (wordIndex < words.length - 1) {
+      if (wordIndex < words.length - 1 && wordIndex < 20) {
         setWordIndex(wordIndex + 1);
       } else {
         setIsGameFinished(true);
