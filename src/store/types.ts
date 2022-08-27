@@ -11,7 +11,7 @@ export type PageData = {
 export interface IUserData {
   userId: string;
   token: string;
-};
+}
 
 export type PageUserData = {
   group: string;
