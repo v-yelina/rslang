@@ -1,0 +1,11 @@
+.word-card--user-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  & span {
+    font-size: 30px;
+  }
+}
