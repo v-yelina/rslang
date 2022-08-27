@@ -12,7 +12,7 @@ import { clearCurrentGame } from '../../store/slices/currentGame';
 import { Answer } from '../../store/types';
 
 import './sprint.scss';
-import WordRecipient from '../../components/word-recipient';
+// import WordRecipient from '../../components/word-recipient';
 
 const Sprint: FC = () => {
   const dispatch = useAppDispatch();
@@ -47,11 +47,11 @@ const Sprint: FC = () => {
   useEffect(() => {
     initGame();
 
-    return function resetCurrentGame() {
-      dispatch(clearSprintState());
-      dispatch(clearCurrentGame());
-    };
-  }, []);
+    // return function resetCurrentGame() {
+    //   dispatch(clearSprintState());
+    //   dispatch(clearCurrentGame());
+    // };
+  }, [isLoading]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -85,7 +85,7 @@ const Sprint: FC = () => {
 
   return (
     <section className="sprint">
-      <WordRecipient />
+      {/* <WordRecipient /> */}
       {
         (() => {
           if (isLoading) {

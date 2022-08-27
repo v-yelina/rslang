@@ -68,6 +68,7 @@ export const fetchWordsForGame = createAsyncThunk(
         word: item.word,
         wordTranslate: item.wordTranslate,
         audio: item.audio,
+        image: item.image,
       }));
     } catch (error) {
       return rejectWithValue(error);
