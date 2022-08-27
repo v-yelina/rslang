@@ -5,7 +5,9 @@ export interface IUserWord {
   optional: {
     isLearned: boolean;
     isNew: boolean;
-    rightAnswersCounter: number; // для выставления признака изученного слова, инкремент при правильном ответе, обнуление при неправильном
+    // для выставления признака изученного слова,
+    // инкремент при правильном ответе, обнуление при неправильном
+    rightAnswersCounter: number;
     sprint: {
       rightCounter: number;
       wrongCounter: number;

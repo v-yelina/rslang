@@ -34,3 +34,25 @@ export const updateLearnedWord = (userWord: IUserWord): IUserWord => {
   };
   return { difficulty: userWord.difficulty, optional: newOptional };
 };
+
+export const prepareNewDifficultWord = (): IUserWord => ({
+  difficulty: 'difficult',
+  optional: {
+    isLearned: false,
+    isNew: true,
+    rightAnswersCounter: 0,
+    sprint: {
+      rightCounter: 0,
+      wrongCounter: 0,
+    },
+    audiochallenge: {
+      rightCounter: 0,
+      wrongCounter: 0,
+    },
+  },
+});
+
+export const updateDifficultWord = (userWord: IUserWord): IUserWord => {
+  const newDifficulty = userWord.difficulty === 'easy' ? 'difficult' : 'easy';
+  return { difficulty: newDifficulty, optional: { ...userWord.optional } };
+};
