@@ -8,13 +8,15 @@ import {
   createUserWord,
   fetchUserWords,
   fetchWordsByGroupAndPage,
+  getUserSettings,
   getUserStatistic,
   loginUser,
+  updateUserSettings,
   updateUserStatistic,
   updateUserWord,
 } from '../utils/api';
 import {
-  WordDataForUpdate, PageUserData, StatisticDataForUpdate, UserData,
+  WordDataForUpdate, PageUserData, IStatisticDataForUpdate, IUserData, ISettingsDataForUpdate,
 } from './types';
 
 export const fetchWordsForTextbook = createAsyncThunk(
@@ -109,7 +111,7 @@ export const updateUserWordFromTextbook = createAsyncThunk(
 
 export const fetchUserStatistic = createAsyncThunk(
   'statistic/updateUserStatistic',
-  async (user:UserData, { rejectWithValue }) => {
+  async (user:IUserData, { rejectWithValue }) => {
     try {
       const { userId, token } = user;
       const statistic = await getUserStatistic(userId, token);
@@ -123,13 +125,42 @@ export const fetchUserStatistic = createAsyncThunk(
 
 export const updateStatistic = createAsyncThunk(
   'statistic/updateUserStatistic',
-  async (statisticData: StatisticDataForUpdate, { rejectWithValue }) => {
+  async (statisticData: IStatisticDataForUpdate, { rejectWithValue }) => {
     const {
       userId, token, statistic,
     } = statisticData;
     try {
       const updatedStatistic = await updateUserStatistic(userId, token, statistic);
       return updatedStatistic;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const fetchUserSettings = createAsyncThunk(
+  'statistic/updateUserSettings',
+  async (user:IUserData, { rejectWithValue }) => {
+    try {
+      const { userId, token } = user;
+      const settings = await getUserSettings(userId, token);
+
+      return settings;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const updateSettings = createAsyncThunk(
+  'statistic/updateUserSettings',
+  async (settingsData: ISettingsDataForUpdate, { rejectWithValue }) => {
+    const {
+      userId, token, settings,
+    } = settingsData;
+    try {
+      const updatedSettings = await updateUserSettings(userId, token, settings);
+      return updatedSettings;
     } catch (error) {
       return rejectWithValue(error);
     }
