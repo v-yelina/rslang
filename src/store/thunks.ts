@@ -8,10 +8,14 @@ import {
   createUserWord,
   fetchUserWords,
   fetchWordsByGroupAndPage,
+  getUserStatistic,
   loginUser,
+  updateUserStatistic,
   updateUserWord,
 } from '../utils/api';
-import { WordDataForUpdate, PageUserData } from './types';
+import {
+  WordDataForUpdate, PageUserData, StatisticDataForUpdate, UserData,
+} from './types';
 
 export const fetchWordsForTextbook = createAsyncThunk(
   'textbook/fetchWords',
@@ -97,6 +101,35 @@ export const updateUserWordFromTextbook = createAsyncThunk(
     try {
       const updatedWord = await updateUserWord(userId, token, wordId, userWord);
       return updatedWord;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const fetchUserStatistic = createAsyncThunk(
+  'statistic/updateUserStatistic',
+  async (user:UserData, { rejectWithValue }) => {
+    try {
+      const { userId, token } = user;
+      const statistic = await getUserStatistic(userId, token);
+
+      return statistic;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const updateStatistic = createAsyncThunk(
+  'statistic/updateUserStatistic',
+  async (statisticData: StatisticDataForUpdate, { rejectWithValue }) => {
+    const {
+      userId, token, statistic,
+    } = statisticData;
+    try {
+      const updatedStatistic = await updateUserStatistic(userId, token, statistic);
+      return updatedStatistic;
     } catch (error) {
       return rejectWithValue(error);
     }
