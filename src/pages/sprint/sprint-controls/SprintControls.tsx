@@ -19,10 +19,10 @@ const SprintControls: FC = () => {
     roundIndex,
     rightAnswers,
     wrongAnswers,
-    words,
     roundDuration,
     multiplier,
   } = useAppSelector((state) => state.sprintGame);
+  const { words } = useAppSelector((state) => state.currentGame);
   const dispatch = useAppDispatch();
 
   const chooseAnswer = (answer: boolean) => {

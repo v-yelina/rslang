@@ -32,8 +32,6 @@ const Sprint: FC = () => {
   const [gameWords, setGameWords] = useState([currentWord]);
 
   const initGame = () => {
-    // dispatch(setGameType('sprint'));
-    // dispatch(fetchWordsToGame());
     setGameFinished(false);
     setGameTime(DURATION_GAME_SPRINT);
   };
@@ -85,7 +83,6 @@ const Sprint: FC = () => {
 
   return (
     <section className="sprint">
-      {/* <WordRecipient /> */}
       {
         (() => {
           if (isLoading) {

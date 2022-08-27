@@ -14,14 +14,14 @@ import './level-select.scss';
 const { Title, Text } = Typography;
 
 const LevelSelect: FC = () => {
-  const { gameType, wordsSource } = useAppSelector((state) => state.currentGame);
+  const { gameType, wordsSource, isLoading } = useAppSelector((state) => state.currentGame);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const getWordsFromMenu = (pageData: PageData) => {
     const { group, page } = pageData;
     dispatch(fetchWordsForGame({ group, page, user: null }));
-    let index = 1;
+    let index = 0;
 
     if (Number(page) > 0) {
       while (index < 3) {
@@ -37,12 +37,12 @@ const LevelSelect: FC = () => {
     const currentGroup = (group - 1).toString();
 
     getWordsFromMenu({ group: currentGroup, page: randomPage });
-    navigate(`${gameType}`, { replace: true });
+    // navigate(`${gameType}`, { replace: true });
   };
 
   const getWordsFromTextbook = () => {
     getWordsFromMenu({ group: '0', page: '0' });
-    navigate(`${gameType}`, { replace: true });
+    // navigate(`${gameType}`, { replace: true });
   };
 
   useEffect(() => {
@@ -52,6 +52,12 @@ const LevelSelect: FC = () => {
       getWordsFromTextbook();
     }
   }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      navigate(`${gameType}`, { replace: true });
+    }
+  }, [isLoading]);
 
   return (
     <div>
