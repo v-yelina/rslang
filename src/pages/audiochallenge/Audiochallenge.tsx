@@ -72,7 +72,6 @@ const Audiochallenge: FC = () => {
         word, wordTranslate, audio, id,
       }));
       setCombo(combo + 1);
-
     } else {
       wrongAnswerAudio.play();
       dispatch(addWrongAnswer({
