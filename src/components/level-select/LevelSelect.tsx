@@ -37,12 +37,10 @@ const LevelSelect: FC = () => {
     const currentGroup = (group - 1).toString();
 
     getWordsFromMenu({ group: currentGroup, page: randomPage });
-    // navigate(`${gameType}`, { replace: true });
   };
 
   const getWordsFromTextbook = () => {
     getWordsFromMenu({ group: '0', page: '0' });
-    // navigate(`${gameType}`, { replace: true });
   };
 
   useEffect(() => {
