@@ -1,3 +1,4 @@
+import { IStatistic } from '../interfaces/IStatistic';
 import { IUserWord } from '../interfaces/IUserWord';
 import { IWord } from '../interfaces/IWord';
 
@@ -23,6 +24,12 @@ export type WordDataForUpdate = {
   wordId: string;
   userWord: IUserWord;
 };
+
+export type StatisticDataForUpdate = {
+  userId: string;
+  token: string;
+  statistic: IStatistic;
+}
 
 export type WordsSourceType = 'group' | 'textbook' | undefined;
 export type GameType = 'audiochallenge' | 'sprint' | undefined;
