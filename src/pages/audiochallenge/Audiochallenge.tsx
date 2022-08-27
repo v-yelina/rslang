@@ -18,16 +18,20 @@ import {
   clearCurrentGame,
   addRightAnswer,
   addWrongAnswer,
+  changeCombo,
 } from '../../store/slices/currentGame';
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
-  const { words, rightAnswers, wrongAnswers } = useAppSelector((state) => state.currentGame);
+  const {
+    words, rightAnswers, wrongAnswers, maxCombo,
+  } = useAppSelector((state) => state.currentGame);
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
   const [answerOptions, setAnswerOptions] = useState([...getAnswerOptions(currentWord, words), "Don't know"]);
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
+  const [combo, setCombo] = useState(0);
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
   const rightAnswerAudio = new Audio(rightAnswerSound);
   const wrongAnswerAudio = new Audio(wrongAnswerSound);
@@ -67,11 +71,17 @@ const Audiochallenge: FC = () => {
       dispatch(addRightAnswer({
         word, wordTranslate, audio, id,
       }));
+      setCombo(combo + 1);
+
     } else {
       wrongAnswerAudio.play();
       dispatch(addWrongAnswer({
         answer, word, wordTranslate, audio, id,
       }));
+      if (combo > maxCombo) {
+        dispatch(changeCombo(combo));
+      }
+      setCombo(0);
     }
   };
 
