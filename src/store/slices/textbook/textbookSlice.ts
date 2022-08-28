@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AggregatedWord } from '../../../interfaces/IWord';
 import {
   createUserWordFromTextbook,
+  fetchDifficultWordsForTextbook,
   fetchWordsForTextbook,
   updateUserWordFromTextbook,
 } from '../../thunks';
@@ -52,6 +53,21 @@ export const textbookSlice = createSlice({
     [updateUserWordFromTextbook.fulfilled.type]: (state) => {
       const pageData = { ...state.currentPageData };
       state.currentPageData = pageData;
+    },
+    [fetchDifficultWordsForTextbook.pending.type]: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [fetchDifficultWordsForTextbook.fulfilled.type]: (
+      state,
+      action: PayloadAction<AggregatedWord[]>,
+    ) => {
+      state.isLoading = false;
+      state.currentWords = action.payload;
+    },
+    [fetchDifficultWordsForTextbook.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });
