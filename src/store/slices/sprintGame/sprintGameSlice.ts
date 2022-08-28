@@ -10,7 +10,6 @@ type SprintGameState = {
   score: number;
   multiplier: number;
   roundIndex: number;
-  roundDuration: number;
 }
 
 const initialState: SprintGameState = {
@@ -23,7 +22,6 @@ const initialState: SprintGameState = {
   score: -10,
   multiplier: 0,
   roundIndex: 0,
-  roundDuration: 0,
 };
 
 export const sprintGameSlice = createSlice({
@@ -51,9 +49,6 @@ export const sprintGameSlice = createSlice({
     setRoundIndex: (state, action: PayloadAction<number>) => {
       state.roundIndex = action.payload;
     },
-    setRoundDuration: (state, action: PayloadAction<number>) => {
-      state.roundDuration = action.payload;
-    },
     clearSprintState: () => initialState,
   },
   extraReducers: {},
@@ -67,7 +62,6 @@ export const {
   setGameScore,
   setMultiplier,
   setRoundIndex,
-  setRoundDuration,
   clearSprintState,
 } = sprintGameSlice.actions;
 

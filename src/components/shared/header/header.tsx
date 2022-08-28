@@ -4,7 +4,8 @@ import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { clearAuth } from '../../../store/slices/auth';
 import { GameType, WordsSourceType } from '../../../store/types';
-import { setGameType, setWordsSource } from '../../../store/slices/currentGame';
+import { clearCurrentGame, setGameType, setWordsSource } from '../../../store/slices/currentGame';
+import { clearSprintState } from '../../../store/slices/sprintGame';
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +19,8 @@ const Header: FC = () => {
   };
 
   const setSourceAndTypeGame = (source: WordsSourceType, type: GameType): void => {
+    dispatch(clearCurrentGame());
+    dispatch(clearSprintState());
     dispatch(setWordsSource(source));
     dispatch(setGameType(type));
   };

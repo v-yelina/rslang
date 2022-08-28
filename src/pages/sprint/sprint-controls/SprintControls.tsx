@@ -19,7 +19,6 @@ const SprintControls: FC = () => {
     roundIndex,
     rightAnswers,
     wrongAnswers,
-    roundDuration,
     multiplier,
   } = useAppSelector((state) => state.sprintGame);
   const { words } = useAppSelector((state) => state.currentGame);
@@ -46,7 +45,7 @@ const SprintControls: FC = () => {
       }
     }
 
-    if (roundIndex <= roundDuration) {
+    if (roundIndex <= words.length - 1) {
       const index = roundIndex + 1;
       dispatch(setRoundIndex(index));
     }

@@ -10,7 +10,7 @@ const getWordsToTrain = (words: WordToTrain[]): CurrentWord[] => {
   for (let i = 0; i < words.length; i += 1) {
     const random = Math.random();
 
-    if (random > 0.7) {
+    if (random > 0.5) {
       wordsToTrain.push({
         word: words[i].word,
         wordTranslate: words[i].wordTranslate,

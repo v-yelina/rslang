@@ -26,6 +26,7 @@ type CurrentGameState = {
   maxCombo: number;
   currentPageData: PageData;
   isLoading: boolean;
+  steps: number;
 };
 
 const initialState: CurrentGameState = {
@@ -39,7 +40,8 @@ const initialState: CurrentGameState = {
     group: '',
     page: '',
   },
-  isLoading: true,
+  isLoading: false,
+  steps: 0,
 };
 
 export const currentGameSlice = createSlice({
@@ -79,6 +81,7 @@ export const currentGameSlice = createSlice({
         ...state.words,
         ...action.payload,
       ];
+      state.steps += 1;
     },
   },
 });

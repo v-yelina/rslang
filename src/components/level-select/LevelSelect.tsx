@@ -7,14 +7,16 @@ import { wordsGroups } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { PageData } from '../../store/types';
 import { fetchWordsForGame } from '../../store/thunks';
-import { setWordsToTrain } from '../../store/slices/currentGame';
+// import { clearCurrentGame, setWordsToTrain } from '../../store/slices/currentGame';
 
 import './level-select.scss';
 
 const { Title, Text } = Typography;
+const NUMBER_WORD_GENERATION_STEPS = 3;
+const LAST_PAGE = 29;
 
 const LevelSelect: FC = () => {
-  const { gameType, wordsSource, isLoading } = useAppSelector((state) => state.currentGame);
+  const { gameType, wordsSource, steps } = useAppSelector((state) => state.currentGame);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -22,13 +24,16 @@ const LevelSelect: FC = () => {
     const { group, page } = pageData;
     dispatch(fetchWordsForGame({ group, page, user: null }));
     let index = 0;
+    let currentPage = page;
 
-    if (Number(page) > 0) {
-      while (index < 3) {
-        const newPage: string = (Number(page) - 1).toString();
-        dispatch(fetchWordsForGame({ group, page: newPage, user: null }));
-        index += 1;
+    while (index < NUMBER_WORD_GENERATION_STEPS) {
+      if (Number(currentPage) <= 0) {
+        currentPage = LAST_PAGE.toString();
       }
+      const newPage: string = (Number(currentPage) - 1).toString();
+      dispatch(fetchWordsForGame({ group, page: newPage, user: null }));
+      currentPage = newPage;
+      index += 1;
     }
   };
 
@@ -44,18 +49,16 @@ const LevelSelect: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(setWordsToTrain([]));
-
     if (wordsSource === 'textbook') {
       getWordsFromTextbook();
     }
   }, []);
 
   useEffect(() => {
-    if (!isLoading) {
+    if (steps > NUMBER_WORD_GENERATION_STEPS && wordsSource === 'group') {
       navigate(`${gameType}`, { replace: true });
     }
-  }, [isLoading]);
+  }, [steps]);
 
   return (
     <div>
