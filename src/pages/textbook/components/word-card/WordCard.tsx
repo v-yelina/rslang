@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Card, Row, Col } from 'antd';
 import { AggregatedWord } from '../../../../interfaces/IWord';
-import PlayAudioButton from '../../../../components/shared/button/play-audio-button';
 import UserWordButtons from '../user-word-buttons';
+import AudioButton from '../audio-button';
 import ENV from '../../../../config/config';
 
 import { useAppSelector } from '../../../../store/hooks';
@@ -12,10 +12,11 @@ import './word-card.scss';
 
 type WordCardProps = {
   wordData: AggregatedWord;
+  player: HTMLAudioElement;
 };
 
 const WordCard: FC<WordCardProps> = (props) => {
-  const { wordData } = props;
+  const { wordData, player } = props;
   const {
     id,
     word,
@@ -27,10 +28,18 @@ const WordCard: FC<WordCardProps> = (props) => {
     textExample,
     textExampleTranslate,
     audio,
+    audioMeaning,
+    audioExample,
     userWord,
   } = wordData;
   const title = `${word[0].toUpperCase()}${word.slice(1)}`;
   const isLogged = useAppSelector(selectIsLogged);
+
+  const audioLinks = [
+    `${ENV.BASE_URL}${audio}`,
+    `${ENV.BASE_URL}${audioMeaning}`,
+    `${ENV.BASE_URL}${audioExample}`,
+  ];
 
   return (
     <div
@@ -45,7 +54,7 @@ const WordCard: FC<WordCardProps> = (props) => {
         <Col span={16}>
           <Card className="word-card--text-container" hoverable={false} title={title}>
             <div className="word-card--content-block__pronunciation">
-              <PlayAudioButton audioUrl={`${ENV.BASE_URL}${audio}`} />
+              <AudioButton player={player} audioLinks={audioLinks} />
               <p>{transcription}</p>
             </div>
             <div className="word-card--content-block">

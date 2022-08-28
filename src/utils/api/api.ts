@@ -1,6 +1,8 @@
 import ENV from '../../config/config';
 import { IAuth } from '../../interfaces/IAuth';
 import { ILogin } from '../../interfaces/ILogin';
+import { ISettings } from '../../interfaces/ISettings';
+import { IStatistic } from '../../interfaces/IStatistic';
 import { IUser } from '../../interfaces/IUser';
 import { IUserWord } from '../../interfaces/IUserWord';
 import { IWord } from '../../interfaces/IWord';
@@ -172,4 +174,90 @@ export const loginUser = async (loginData: ILogin) => {
     token,
     refreshToken,
   };
+};
+
+// statistics
+export const getUserStatistic = async (userId: string, userToken: string) => {
+  const response = await fetch(`${ENV.USERS_URL}/${userId}/statistics`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+      accept: 'application/json',
+    },
+  });
+
+  if (!response.ok || response.status !== 200) {
+    throw new Error('User statistics not found');
+  }
+
+  const userStatistics: IStatistic = await response.json();
+
+  return userStatistics;
+};
+
+export const updateUserStatistic = async (
+  userId: string,
+  userToken: string,
+  data: IStatistic,
+) => {
+  const response = await fetch(`${ENV.USERS_URL}/${userId}/statistics`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+      accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok || response.status !== 200) {
+    throw new Error('User statistic not updated');
+  }
+
+  const updatedStatistic: IStatistic = await response.json();
+
+  return updatedStatistic;
+};
+
+// settings
+export const getUserSettings = async (userId: string, userToken: string) => {
+  const response = await fetch(`${ENV.USERS_URL}/${userId}/settings`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+      accept: 'application/json',
+    },
+  });
+
+  if (!response.ok || response.status !== 200) {
+    throw new Error('User statistics not found');
+  }
+
+  const userSettings: ISettings = await response.json();
+
+  return userSettings;
+};
+
+export const updateUserSettings = async (
+  userId: string,
+  userToken: string,
+  data: ISettings,
+) => {
+  const response = await fetch(`${ENV.USERS_URL}/${userId}/settings`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+      accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok || response.status !== 200) {
+    throw new Error('User settings not updated');
+  }
+
+  const updatedSettings: ISettings = await response.json();
+
+  return updatedSettings;
 };

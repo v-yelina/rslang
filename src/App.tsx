@@ -8,10 +8,11 @@ import Sprint from './pages/sprint';
 import Statistics from './pages/statistics';
 import Textbook from './pages/textbook';
 import Demo from './pages/demo';
+import Login from './pages/login';
+import LevelSelect from './components/level-select';
+import Footer from './components/shared/footer';
 
 import './App.css';
-import Login from './pages/login';
-import Footer from './components/shared/footer';
 
 const App: FC = () => (
   <>
@@ -19,8 +20,9 @@ const App: FC = () => (
       <Route path="/" element={<Header />}>
         <Route index element={<Home />} />
         <Route path="textbook" element={<Textbook />} />
-        <Route path="sprint" element={<Sprint />} />
-        <Route path="audiochallenge" element={<Audiochallenge />} />
+        <Route path="games" element={<LevelSelect />} />
+        <Route path="games/sprint" element={<Sprint />} />
+        <Route path="games/audiochallenge" element={<Audiochallenge />} />
         <Route path="statistics" element={<Statistics />} />
         <Route path="demo" element={<Demo />} />
         <Route path="login" element={<Login />} />

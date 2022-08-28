@@ -1,3 +1,5 @@
+import { ISettings } from '../interfaces/ISettings';
+import { IStatistic } from '../interfaces/IStatistic';
 import { IUserWord } from '../interfaces/IUserWord';
 import { IWord } from '../interfaces/IWord';
 
@@ -6,15 +8,15 @@ export type PageData = {
   page: string;
 };
 
-export type UserData = {
+export interface IUserData {
   userId: string;
   token: string;
-};
+}
 
 export type PageUserData = {
   group: string;
   page: string;
-  user: UserData | null;
+  user: IUserData | null;
 };
 
 export type WordDataForUpdate = {
@@ -23,6 +25,14 @@ export type WordDataForUpdate = {
   wordId: string;
   userWord: IUserWord;
 };
+
+export interface IStatisticDataForUpdate extends IUserData {
+  statistic: IStatistic;
+}
+
+export interface ISettingsDataForUpdate extends IUserData {
+  settings: ISettings;
+}
 
 export type WordsSourceType = 'group' | 'textbook' | undefined;
 export type GameType = 'audiochallenge' | 'sprint' | undefined;

@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
-import { gameType, setGameType, setWordsSource } from '../../../../store/slices/currentGame';
+import { setGameType, setWordsSource } from '../../../../store/slices/currentGame';
 import { useAppDispatch } from '../../../../store/hooks';
+import { GameType } from '../../../../store/types';
 
 type GameButtonProps = {
-  game: gameType;
+  game: GameType;
 };
 
 const GameButton: FC<GameButtonProps> = ({ game }) => {
@@ -15,7 +16,7 @@ const GameButton: FC<GameButtonProps> = ({ game }) => {
   const handleGameClick = () => {
     dispatch(setGameType(game));
     dispatch(setWordsSource('textbook'));
-    navigate(`/${game}`);
+    navigate('/games');
   };
 
   return (
