@@ -93,6 +93,8 @@ export const {
   clearCurrentGame,
   addRightAnswer,
   addWrongAnswer,
+  changeCombo,
+  setCurrentGamePage,
 } = currentGameSlice.actions;
 
 export default currentGameSlice.reducer;
