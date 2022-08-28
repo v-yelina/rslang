@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import { setGameType, setWordsSource } from '../../../../store/slices/currentGame';
+import { RocketTwoTone, SoundTwoTone } from '@ant-design/icons';
 import { useAppDispatch } from '../../../../store/hooks';
 import { GameType } from '../../../../store/types';
 
@@ -20,7 +21,13 @@ const GameButton: FC<GameButtonProps> = ({ game }) => {
   };
 
   return (
-    <Button type="primary" onClick={handleGameClick}>
+    <Button
+      type="default"
+      shape="round"
+      size="large"
+      icon={game === 'sprint' ? <RocketTwoTone /> : <SoundTwoTone />}
+      onClick={handleGameClick}
+    >
       {game!.toUpperCase()}
     </Button>
   );
