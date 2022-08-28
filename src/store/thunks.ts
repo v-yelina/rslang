@@ -42,7 +42,7 @@ export const fetchWordsForTextbook = createAsyncThunk(
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  }
+  },
 );
 
 export const fetchDifficultWordsForTextbook = createAsyncThunk(
@@ -66,13 +66,13 @@ export const fetchDifficultWordsForTextbook = createAsyncThunk(
             ...item,
             userWord: difficultWords.find((word) => word.wordId! === item!.id)!,
           }));
-        }
+        },
       );
       return wordsPayload;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  }
+  },
 );
 
 export const registration = createAsyncThunk(
@@ -83,7 +83,7 @@ export const registration = createAsyncThunk(
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  }
+  },
 );
 
 export const login = createAsyncThunk(
@@ -94,7 +94,7 @@ export const login = createAsyncThunk(
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  }
+  },
 );
 
 export const fetchWordsToSprintGame = createAsyncThunk(
@@ -112,32 +112,36 @@ export const fetchWordsToSprintGame = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const createUserWordFromTextbook = createAsyncThunk(
   'textbook/createUserWord',
   async (wordData: WordDataForUpdate, { rejectWithValue }) => {
-    const { userId, token, wordId, userWord } = wordData;
+    const {
+      userId, token, wordId, userWord,
+    } = wordData;
     try {
       return await createUserWord(userId, token, wordId, userWord);
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const updateUserWordFromTextbook = createAsyncThunk(
   'textbook/updateUserWord',
   async (wordData: WordDataForUpdate, { rejectWithValue }) => {
-    const { userId, token, wordId, userWord } = wordData;
+    const {
+      userId, token, wordId, userWord,
+    } = wordData;
     try {
       const updatedWord = await updateUserWord(userId, token, wordId, userWord);
       return updatedWord;
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const fetchUserStatistic = createAsyncThunk(
@@ -151,7 +155,7 @@ export const fetchUserStatistic = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const updateStatistic = createAsyncThunk(
@@ -164,7 +168,7 @@ export const updateStatistic = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const fetchUserSettings = createAsyncThunk(
@@ -178,7 +182,7 @@ export const fetchUserSettings = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const updateSettings = createAsyncThunk(
@@ -191,5 +195,5 @@ export const updateSettings = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );
