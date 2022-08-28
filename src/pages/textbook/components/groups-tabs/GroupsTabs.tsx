@@ -4,6 +4,7 @@ import { Tabs } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { SEARCH_INITIAL_PAGE, wordsGroups } from '../../../../constants';
 import { setCurrentPageData, selectCurrentGroup } from '../../../../store/slices/textbook';
+import { selectIsLogged } from '../../../../store/slices/auth';
 import { formatPageDataForSlice, formatPageDataForUI } from '../../helpers';
 
 import './groups-tabs.scss';
@@ -15,6 +16,7 @@ const GroupsTabs: FC = () => {
   const [_, setParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const group = useAppSelector(selectCurrentGroup);
+  const isLogged = useAppSelector(selectIsLogged);
 
   const onGroupChange = (groupKey: string) => {
     setParams({ group: groupKey, page: SEARCH_INITIAL_PAGE });
@@ -30,6 +32,7 @@ const GroupsTabs: FC = () => {
       {[...wordsGroups].map((groupIndex) => (
         <TabPane key={groupIndex} tab={`Group ${groupIndex}`} />
       ))}
+      {isLogged && <TabPane key={7} tab="Difficult Words" />}
     </Tabs>
   );
 };
