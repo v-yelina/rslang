@@ -21,6 +21,7 @@ export type CurrentGameState = {
   words: WordToTrain[];
   rightAnswers: RightAnswer[];
   wrongAnswers: Answer[];
+  maxCombo: number;
 };
 
 const initialState: CurrentGameState = {
@@ -170,6 +171,7 @@ const initialState: CurrentGameState = {
   ],
   rightAnswers: [],
   wrongAnswers: [],
+  maxCombo: 0,
 };
 
 export const currentGameSlice = createSlice({
@@ -191,6 +193,9 @@ export const currentGameSlice = createSlice({
     addWrongAnswer: (state, action: PayloadAction<Answer>) => {
       state.wrongAnswers.push(action.payload);
     },
+    changeCombo: (state, action: PayloadAction<number>) => {
+      state.maxCombo = action.payload;
+    },
     clearCurrentGame: () => initialState,
   },
   extraReducers: () => {},
@@ -203,6 +208,7 @@ export const {
   clearCurrentGame,
   addRightAnswer,
   addWrongAnswer,
+  changeCombo,
 } = currentGameSlice.actions;
 
 export default currentGameSlice.reducer;

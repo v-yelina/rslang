@@ -11,19 +11,23 @@ import Demo from './pages/demo';
 
 import './App.css';
 import Login from './pages/login';
+import Footer from './components/shared/footer';
 
 const App: FC = () => (
-  <Routes>
-    <Route path="/" element={<Header />}>
-      <Route index element={<Home />} />
-      <Route path="textbook" element={<Textbook />} />
-      <Route path="sprint" element={<Sprint />} />
-      <Route path="audiochallenge" element={<Audiochallenge />} />
-      <Route path="statistics" element={<Statistics />} />
-      <Route path="demo" element={<Demo />} />
-      <Route path="login" element={<Login />} />
-    </Route>
-  </Routes>
+  <>
+    <Routes>
+      <Route path="/" element={<Header />}>
+        <Route index element={<Home />} />
+        <Route path="textbook" element={<Textbook />} />
+        <Route path="sprint" element={<Sprint />} />
+        <Route path="audiochallenge" element={<Audiochallenge />} />
+        <Route path="statistics" element={<Statistics />} />
+        <Route path="demo" element={<Demo />} />
+        <Route path="login" element={<Login />} />
+      </Route>
+    </Routes>
+    <Footer />
+  </>
 );
 
 export default App;
