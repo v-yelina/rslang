@@ -7,7 +7,6 @@ import { wordsGroups } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { PageData } from '../../store/types';
 import { fetchWordsForGame } from '../../store/thunks';
-// import { clearCurrentGame, setWordsToTrain } from '../../store/slices/currentGame';
 
 import './level-select.scss';
 
