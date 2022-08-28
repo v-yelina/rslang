@@ -2,11 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ILogin } from '../interfaces/ILogin';
 import { IUser } from '../interfaces/IUser';
 import { IUserWord } from '../interfaces/IUserWord';
-import { IWord } from '../interfaces/IWord';
+import { AggregatedWord, IWord } from '../interfaces/IWord';
 import {
   createUser,
   createUserWord,
   fetchUserWords,
+  fetchWordById,
   fetchWordsByGroupAndPage,
   getUserSettings,
   getUserStatistic,
@@ -16,7 +17,11 @@ import {
   updateUserWord,
 } from '../utils/api';
 import {
-  WordDataForUpdate, PageUserData, IStatisticDataForUpdate, IUserData, ISettingsDataForUpdate,
+  WordDataForUpdate,
+  PageUserData,
+  IStatisticDataForUpdate,
+  IUserData,
+  ISettingsDataForUpdate,
 } from './types';
 
 export const fetchWordsForTextbook = createAsyncThunk(
@@ -37,7 +42,37 @@ export const fetchWordsForTextbook = createAsyncThunk(
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  },
+  }
+);
+
+export const fetchDifficultWordsForTextbook = createAsyncThunk(
+  'textbook/fetchDifficultWords',
+  async (userData: IUserData, { rejectWithValue }) => {
+    const { userId, token } = userData;
+    try {
+      const userWords = await fetchUserWords(userId, token);
+      const difficultWords = userWords.filter((userWord) => userWord.difficulty === 'difficult');
+      const wordRequests = difficultWords.map((item) => fetchWordById(item.wordId!));
+      // eslint-disable-next-line
+      const wordsPayload: AggregatedWord[] = await Promise.allSettled(wordRequests).then(
+        (results) => {
+          const newWords: IWord[] = [];
+          results.forEach((result) => {
+            if (result.status === 'fulfilled') {
+              newWords.push(result.value as IWord);
+            }
+          });
+          return [...newWords].map((item) => ({
+            ...item,
+            userWord: difficultWords.find((word) => word.wordId! === item!.id)!,
+          }));
+        }
+      );
+      return wordsPayload;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
 );
 
 export const registration = createAsyncThunk(
@@ -48,7 +83,7 @@ export const registration = createAsyncThunk(
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  },
+  }
 );
 
 export const login = createAsyncThunk(
@@ -59,7 +94,7 @@ export const login = createAsyncThunk(
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  },
+  }
 );
 
 export const fetchWordsToSprintGame = createAsyncThunk(
@@ -77,41 +112,37 @@ export const fetchWordsToSprintGame = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  },
+  }
 );
 
 export const createUserWordFromTextbook = createAsyncThunk(
   'textbook/createUserWord',
   async (wordData: WordDataForUpdate, { rejectWithValue }) => {
-    const {
-      userId, token, wordId, userWord,
-    } = wordData;
+    const { userId, token, wordId, userWord } = wordData;
     try {
       return await createUserWord(userId, token, wordId, userWord);
     } catch (error) {
       return rejectWithValue(error);
     }
-  },
+  }
 );
 
 export const updateUserWordFromTextbook = createAsyncThunk(
   'textbook/updateUserWord',
   async (wordData: WordDataForUpdate, { rejectWithValue }) => {
-    const {
-      userId, token, wordId, userWord,
-    } = wordData;
+    const { userId, token, wordId, userWord } = wordData;
     try {
       const updatedWord = await updateUserWord(userId, token, wordId, userWord);
       return updatedWord;
     } catch (error) {
       return rejectWithValue(error);
     }
-  },
+  }
 );
 
 export const fetchUserStatistic = createAsyncThunk(
   'statistic/updateUserStatistic',
-  async (user:IUserData, { rejectWithValue }) => {
+  async (user: IUserData, { rejectWithValue }) => {
     try {
       const { userId, token } = user;
       const statistic = await getUserStatistic(userId, token);
@@ -120,27 +151,25 @@ export const fetchUserStatistic = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  },
+  }
 );
 
 export const updateStatistic = createAsyncThunk(
   'statistic/updateUserStatistic',
   async (statisticData: IStatisticDataForUpdate, { rejectWithValue }) => {
-    const {
-      userId, token, statistic,
-    } = statisticData;
+    const { userId, token, statistic } = statisticData;
     try {
       const updatedStatistic = await updateUserStatistic(userId, token, statistic);
       return updatedStatistic;
     } catch (error) {
       return rejectWithValue(error);
     }
-  },
+  }
 );
 
 export const fetchUserSettings = createAsyncThunk(
   'statistic/updateUserSettings',
-  async (user:IUserData, { rejectWithValue }) => {
+  async (user: IUserData, { rejectWithValue }) => {
     try {
       const { userId, token } = user;
       const settings = await getUserSettings(userId, token);
@@ -149,20 +178,18 @@ export const fetchUserSettings = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  },
+  }
 );
 
 export const updateSettings = createAsyncThunk(
   'statistic/updateUserSettings',
   async (settingsData: ISettingsDataForUpdate, { rejectWithValue }) => {
-    const {
-      userId, token, settings,
-    } = settingsData;
+    const { userId, token, settings } = settingsData;
     try {
       const updatedSettings = await updateUserSettings(userId, token, settings);
       return updatedSettings;
     } catch (error) {
       return rejectWithValue(error);
     }
-  },
+  }
 );
