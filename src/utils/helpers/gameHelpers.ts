@@ -19,4 +19,5 @@ export const checkAnswer = (answer:string, word:string): boolean => answer === w
 export const getRandomIndex = (arraySize: number): number => Math.floor(Math.random() * arraySize);
 
 export const getTranslations = <T extends WordTranslateProp>(words: T[]) => (
-  words.reduce((prev: string[], word) => [...prev, word.wordTranslate], []));
+  words.reduce((prev: string[], word) => [...prev, word.wordTranslate], [])
+);
