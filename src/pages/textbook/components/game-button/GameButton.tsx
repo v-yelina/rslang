@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import { setGameType, setWordsSource } from '../../../../store/slices/currentGame';
 import { RocketTwoTone, SoundTwoTone } from '@ant-design/icons';
-import { useAppDispatch } from '../../../../store/hooks';
 import { GameType } from '../../../../store/types';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import { selectCurrentWords } from '../../../../store/slices/textbook';
 
 type GameButtonProps = {
   game: GameType;
@@ -13,6 +14,12 @@ type GameButtonProps = {
 const GameButton: FC<GameButtonProps> = ({ game }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const currentWords = useAppSelector(selectCurrentWords);
+
+  const isPageLearned = currentWords.every(
+    (word) => word.userWord && word.userWord.optional.isLearned
+  );
 
   const handleGameClick = () => {
     dispatch(setGameType(game));
@@ -27,6 +34,7 @@ const GameButton: FC<GameButtonProps> = ({ game }) => {
       size="large"
       icon={game === 'sprint' ? <RocketTwoTone /> : <SoundTwoTone />}
       onClick={handleGameClick}
+      disabled={isPageLearned}
     >
       {game!.toUpperCase()}
     </Button>
