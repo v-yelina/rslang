@@ -45,7 +45,7 @@ const WordCard: FC<WordCardProps> = (props) => {
         <Col span={16}>
           <Card className="word-card--text-container" hoverable={false} title={title}>
             <div className="word-card--content-block__pronunciation">
-              <PlayAudioButton audioUrl={`${ENV.BASE_URL}${audio}`} autoplay={false} />
+              <PlayAudioButton audioUrl={`${ENV.BASE_URL}${audio}`} />
               <p>{transcription}</p>
             </div>
             <div className="word-card--content-block">

@@ -15,7 +15,7 @@ const WordItem: FC<WordItemProps> = (props) => {
   return (
     <Item>
       <div className="word-item">
-        <PlayAudioButton audioUrl={audio} autoplay={false} />
+        <PlayAudioButton audioUrl={audio} />
         <Text strong>{word}</Text>
         -
         <Text>{wordTranslate}</Text>
