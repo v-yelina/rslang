@@ -7,6 +7,7 @@ import './words-list.scss';
 
 const WordsList: FC = () => {
   const { isLoading, currentWords } = useAppSelector((state) => state.textbook);
+  const player = new Audio();
 
   return (
     <div className="words-list-container">
@@ -15,7 +16,7 @@ const WordsList: FC = () => {
         <>
           <div className="words-list">
             {currentWords.map((word) => (
-              <WordCard key={word.id} wordData={word} />
+              <WordCard key={word.id} wordData={word} player={player} />
             ))}
           </div>
           <PaginationBlock />
