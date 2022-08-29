@@ -19,6 +19,7 @@ const Sprint: FC = () => {
   } = useAppSelector((state) => state.sprintGame);
   const {
     words,
+    randomWords,
   } = useAppSelector((state) => state.currentGame);
 
   const [isGameFinished, setGameFinished] = useState(false);
@@ -43,7 +44,7 @@ const Sprint: FC = () => {
 
   useEffect(() => {
     if (roundIndex < words.length) {
-      dispatch(setCurrentWord(getRandomTranslate(words[roundIndex], words)));
+      dispatch(setCurrentWord(getRandomTranslate(words[roundIndex], randomWords)));
     }
   }, [roundIndex]);
 

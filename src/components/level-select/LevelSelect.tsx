@@ -6,7 +6,7 @@ import { getRandomIndex } from '../../utils/helpers/gameHelpers';
 import { wordsGroups } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { PageData } from '../../store/types';
-import { fetchWordsForGame } from '../../store/thunks';
+import { fetchRandomWordsForGame, fetchWordsForGame } from '../../store/thunks';
 import {
   clearCurrentGame,
   setGameType,
@@ -56,7 +56,7 @@ const LevelSelect: FC = () => {
   const clickHandler = (group: number) => {
     const randomPage = getRandomIndex(30).toString();
     const currentGroup = (group - 1).toString();
-
+    dispatch(fetchRandomWordsForGame({ group: currentGroup, page: randomPage, user: null }));
     getWordsFromMenu({ group: currentGroup, page: randomPage });
   };
 
@@ -71,6 +71,7 @@ const LevelSelect: FC = () => {
     if (wordsSource === 'textbook') {
       const { group, page } = currentPageData;
       setThisPageData({ group, page });
+      dispatch(fetchRandomWordsForGame({ group, page, user: null }));
     }
   }, []);
 
@@ -104,7 +105,7 @@ const LevelSelect: FC = () => {
   }, [fulfilledCount]);
 
   useEffect(() => {
-    if (fulfilledCount > NUMBER_WORD_GENERATION_STEPS && wordsSource === 'group') {
+    if (fulfilledCount > NUMBER_WORD_GENERATION_STEPS + 1 && wordsSource === 'group') {
       navigate(`${gameType}`, { replace: true });
     }
   }, [fulfilledCount]);

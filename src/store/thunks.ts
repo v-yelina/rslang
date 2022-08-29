@@ -138,6 +138,40 @@ export const fetchWordsForGame = createAsyncThunk(
   },
 );
 
+export const fetchRandomWordsForGame = createAsyncThunk(
+  'currentGame/fetchRandomWords',
+  async (pageData: PageUserData, { rejectWithValue }) => {
+    const { group } = pageData;
+    const pages: string[] = [];
+    const words: IWord[] = [];
+
+    for (let i = 0; i < 3; i += 1) {
+      const randomPage = (Math.random() * 30).toString();
+      if (!pages.includes(randomPage)) {
+        pages.push(randomPage);
+      } else {
+        i -= 1;
+      }
+    }
+
+    try {
+      const promises = pages.map((randomPage) => fetchWordsByGroupAndPage(group, randomPage));
+      await Promise.all(promises)
+        .then((res) => res.map((item) => words.push(...item)));
+
+      return words.map((item: IWord) => ({
+        id: item.id,
+        word: item.word,
+        wordTranslate: item.wordTranslate,
+        audio: item.audio,
+        image: item.image,
+      }));
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 export const createUserWordFromTextbook = createAsyncThunk(
   'textbook/createUserWord',
   async (wordData: WordDataForUpdate, { rejectWithValue }) => {

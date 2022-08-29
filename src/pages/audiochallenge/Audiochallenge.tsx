@@ -25,11 +25,11 @@ import AudioBtn from './audioBtn';
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
   const {
-    words, rightAnswers, wrongAnswers, maxCombo,
+    words, randomWords, rightAnswers, wrongAnswers, maxCombo,
   } = useAppSelector((state) => state.currentGame);
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
-  const [answerOptions, setAnswerOptions] = useState([...getAnswerOptions(currentWord, words), "Don't know"]);
+  const [answerOptions, setAnswerOptions] = useState([...getAnswerOptions(currentWord, randomWords), "Don't know"]);
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
   const [combo, setCombo] = useState(0);
@@ -49,7 +49,7 @@ const Audiochallenge: FC = () => {
   }, [wordIndex]);
 
   useEffect(() => {
-    setAnswerOptions([...getAnswerOptions(currentWord, words), "Don't know"]);
+    setAnswerOptions([...getAnswerOptions(currentWord, randomWords), "Don't know"]);
     clearOptionsId();
   }, [currentWord]);
 

@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { fetchRandomWordsForGame, fetchWordsForGame } from '../../thunks';
 import { IWord } from '../../../interfaces/IWord';
-import { fetchWordsForGame } from '../../thunks';
-import { PageData } from '../../types';
 
 type wordsSourceType = 'group' | 'textbook' | undefined;
 
@@ -21,10 +20,10 @@ type CurrentGameState = {
   wordsSource: wordsSourceType;
   gameType: gameType;
   words: WordToTrain[];
+  randomWords: WordToTrain[];
   rightAnswers: RightAnswer[];
   wrongAnswers: Answer[];
   maxCombo: number;
-  currentPageData: PageData;
   isLoading: boolean;
   fulfilledCount: number;
   pendingCount: number;
@@ -34,13 +33,10 @@ const initialState: CurrentGameState = {
   wordsSource: undefined,
   gameType: undefined,
   words: [],
+  randomWords: [],
   rightAnswers: [],
   wrongAnswers: [],
   maxCombo: 0,
-  currentPageData: {
-    group: '',
-    page: '',
-  },
   isLoading: false,
   fulfilledCount: 0,
   pendingCount: 0,
@@ -59,6 +55,12 @@ export const currentGameSlice = createSlice({
     setWordsToTrain: (state, action: PayloadAction<WordToTrain[]>) => {
       state.words = action.payload;
     },
+    setRandomWords: (state, action: PayloadAction<WordToTrain[]>) => {
+      state.randomWords = [
+        ...state.randomWords,
+        ...action.payload,
+      ];
+    },
     addRightAnswer: (state, action: PayloadAction<RightAnswer>) => {
       state.rightAnswers.push(action.payload);
     },
@@ -67,9 +69,6 @@ export const currentGameSlice = createSlice({
     },
     changeCombo: (state, action: PayloadAction<number>) => {
       state.maxCombo = action.payload;
-    },
-    setCurrentGamePage: (state, action: PayloadAction<PageData>) => {
-      state.currentPageData = action.payload;
     },
     clearCurrentGame: () => initialState,
   },
@@ -86,6 +85,14 @@ export const currentGameSlice = createSlice({
       ];
       state.fulfilledCount += 1;
     },
+    [fetchRandomWordsForGame.pending.type]: (state) => {
+      state.pendingCount += 1;
+    },
+    [fetchRandomWordsForGame.fulfilled.type]: (state, action: PayloadAction<WordToTrain[]>) => {
+      state.isLoading = false;
+      state.randomWords = action.payload;
+      state.fulfilledCount += 1;
+    },
   },
 });
 
@@ -97,7 +104,7 @@ export const {
   addRightAnswer,
   addWrongAnswer,
   changeCombo,
-  setCurrentGamePage,
+  setRandomWords,
 } = currentGameSlice.actions;
 
 export default currentGameSlice.reducer;
