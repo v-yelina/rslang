@@ -8,6 +8,7 @@ import { DURATION_GAME_SPRINT } from '../../constants';
 import { Answer } from '../../store/types';
 
 import './sprint.scss';
+import { getRandomTranslate } from './sprintGame';
 
 const Sprint: FC = () => {
   const dispatch = useAppDispatch();
@@ -41,7 +42,9 @@ const Sprint: FC = () => {
   }, [gameTime, roundIndex]);
 
   useEffect(() => {
-    dispatch(setCurrentWord(words[roundIndex]));
+    if (roundIndex < words.length) {
+      dispatch(setCurrentWord(getRandomTranslate(words[roundIndex], words)));
+    }
   }, [roundIndex]);
 
   return (
