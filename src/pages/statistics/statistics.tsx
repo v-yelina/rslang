@@ -1,24 +1,22 @@
 import React, { FC } from 'react';
 import {
-  Carousel,
+  Tabs
 } from 'antd';
-import GameStatistic from './gameStatistic';
-import WordsStatistics from './wordsStatistic/WordsStatistic';
+import OneDayStat from './oneDayStat';
 
-const Statistics: FC = () => (
-  <>
-    <h2>Statistics</h2>
-    <WordsStatistics />
-    <Carousel>
-      <div>
-        <GameStatistic gameName="Audiochallenge" />
-      </div>
-      <div>
-        <GameStatistic gameName="Sprint" />
-      </div>
-    </Carousel>
+const Statistics: FC = () => {
+  const { TabPane } = Tabs;
+  return (
+    <>
+      <h2>Statistics</h2>
+      <Tabs defaultActiveKey="1" centered>
+        <TabPane tab="Today" key="1">
+          <OneDayStat />
+        </TabPane>
+      </Tabs>
+    </>
+  );
+}
 
-  </>
-);
 
 export default Statistics;
