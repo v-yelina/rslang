@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import {
-  Carousel
+  Carousel,
 } from 'antd';
 import WordsStatistics from '../wordsStatistic/WordsStatistic';
 import GameStatistic from '../gameStatistic';

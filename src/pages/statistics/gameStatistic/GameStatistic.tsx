@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import {
-  Space, Typography, List, Divider, Progress,
+  Space, Typography, List, Divider,
 } from 'antd';
+import GameWinPercent from '../gameWinPercent';
 
 type GameStatisticsProps = {
   gameName: string
@@ -15,7 +16,7 @@ const GameStatistics: FC<GameStatisticsProps> = (props) => {
   const contentStyle: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
-    background: '#e7c6ff',
+    background: '#caf0f8',
     width: '60%',
     margin: '0 auto',
     height: 'max-content',
@@ -37,7 +38,7 @@ const GameStatistics: FC<GameStatisticsProps> = (props) => {
         <Text> 0</Text>
       </Item>
       <Item>
-        <Progress type="circle" percent={60} />
+        <GameWinPercent />
       </Item>
     </Space>
   );

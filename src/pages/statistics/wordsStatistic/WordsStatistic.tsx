@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import {
-  Space, Typography, List, Divider, Progress,
+  Space, Typography, List, Divider,
 } from 'antd';
+import WinPercent from '../winPercent';
 
-const WordsStatistics: FC = (props) => {
+const WordsStatistics: FC = () => {
   const { Text } = Typography;
   const { Item } = List;
 
@@ -31,7 +32,7 @@ const WordsStatistics: FC = (props) => {
         </Item>
       </List>
       <Item>
-        <Progress type="dashboard" percent={30} />
+        <WinPercent />
       </Item>
     </Space>
   );
