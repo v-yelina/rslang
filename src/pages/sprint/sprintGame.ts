@@ -33,7 +33,7 @@ export const getRandomTranslate = (word: WordToTrain, randomArray: WordToTrain[]
   const newCurrentWord: CurrentWord = { ...word };
   const random = Math.random();
 
-  if (random > 0.5) {
+  if (random > 0.6) {
     return newCurrentWord;
   }
 

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WordToTrain } from '../../types';
 
-type RoundWord = Pick<WordToTrain, 'word' | 'wordTranslate'>;
+type RoundWord = Pick<WordToTrain, 'word' | 'wordTranslate' | 'id'>;
 
 type SprintGameState = {
   rightAnswers: WordToTrain[];
@@ -18,6 +18,7 @@ const initialState: SprintGameState = {
   currentWord: {
     word: '',
     wordTranslate: '',
+    id: '',
   },
   score: -10,
   multiplier: 0,
