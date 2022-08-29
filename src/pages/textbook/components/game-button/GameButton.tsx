@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
-import { setGameType, setWordsSource } from '../../../../store/slices/currentGame';
 import { RocketTwoTone, SoundTwoTone } from '@ant-design/icons';
+import { setGameType, setWordsSource } from '../../../../store/slices/currentGame';
 import { GameType } from '../../../../store/types';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { selectCurrentWords } from '../../../../store/slices/textbook';
@@ -18,7 +18,7 @@ const GameButton: FC<GameButtonProps> = ({ game }) => {
   const currentWords = useAppSelector(selectCurrentWords);
 
   const isPageLearned = currentWords.every(
-    (word) => word.userWord && word.userWord.optional.isLearned
+    (word) => word.userWord && word.userWord.optional.isLearned,
   );
 
   const handleGameClick = () => {
