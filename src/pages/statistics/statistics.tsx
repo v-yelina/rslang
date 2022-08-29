@@ -3,10 +3,12 @@ import {
   Carousel,
 } from 'antd';
 import GameStatistic from './gameStatistic';
+import WordsStatistics from './wordsStatistic/WordsStatistic';
 
 const Statistics: FC = () => (
   <>
     <h2>Statistics</h2>
+    <WordsStatistics />
     <Carousel>
       <div>
         <GameStatistic gameName="Audiochallenge" />
