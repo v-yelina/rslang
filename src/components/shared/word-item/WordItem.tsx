@@ -9,7 +9,7 @@ type WordItemProps = Pick<IWord, 'audio' | 'word' | 'wordTranslate'>;
 const { Text } = Typography;
 const { Item } = List;
 
-const WordItem:FC<WordItemProps> = (props) => {
+const WordItem: FC<WordItemProps> = (props) => {
   const { audio, word, wordTranslate } = props;
 
   return (

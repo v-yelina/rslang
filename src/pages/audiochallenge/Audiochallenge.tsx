@@ -1,11 +1,11 @@
 import React, {
   FC, MouseEventHandler, useEffect, useState,
 } from 'react';
-import PlayAudioButton from '../../components/shared/button/play-audio-button';
 import OptionsContainer from './optionsContainer';
 import './audiochallenge.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
+  changeAnswerColor,
   checkAnswer, getAnswerOptions, getAnswerText,
 } from './audioChallengeGame';
 import ENV from '../../config/config';
@@ -20,6 +20,7 @@ import {
   addWrongAnswer,
   changeCombo,
 } from '../../store/slices/currentGame';
+import AudioBtn from './audioBtn';
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
@@ -82,22 +83,6 @@ const Audiochallenge: FC = () => {
       }
       setCombo(0);
     }
-  };
-
-  const changeAnswerColor = (isRightAnswer: boolean, answer: string) => {
-    const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
-    optionButtons.forEach((option) => {
-      const optionText = option.outerText.replace(/\d\./, '').trim();
-      if (optionText === answer && isRightAnswer) {
-        option.setAttribute('id', 'right-answer');
-      } else if (optionText === answer && !isRightAnswer) {
-        option.setAttribute('id', 'wrong-answer');
-      } else if (optionText === "Don't know" && answer === '-') {
-        option.setAttribute('id', 'wrong-answer');
-      } else {
-        option.removeAttribute('id');
-      }
-    });
   };
 
   const handleAnswer = (userAnswer: string) => {
@@ -174,7 +159,9 @@ const Audiochallenge: FC = () => {
       {!isGameFinished ? (
         <section className="game game--audiochallenge">
           <h2>Audiochallenge Page</h2>
-          <div className="audio"><PlayAudioButton audioUrl={wordAudio} /></div>
+          <div className="audio">
+            <AudioBtn src={wordAudio} />
+          </div>
           <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
         </section>
       ) : (
