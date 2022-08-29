@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import {
-  Tabs
+  Tabs,
 } from 'antd';
 import OneDayStat from './oneDayStat';
 import AllTimeStat from './allTimeStat';
@@ -20,7 +20,6 @@ const Statistics: FC = () => {
       </Tabs>
     </>
   );
-}
-
+};
 
 export default Statistics;

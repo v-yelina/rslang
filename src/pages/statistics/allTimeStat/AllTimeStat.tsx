@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import { Divider, Space } from 'antd';
-import WordsPerDay from '../wordsPerDay';
 import Item from 'antd/lib/descriptions/Item';
+import WordsPerDay from '../wordsPerDay';
+import LearnedWordsGrowth from '../learnedWordsGrowth/LearnedWordsGrowth';
 
 const AllTimeStat: FC = () => (
   <Space>
@@ -9,7 +10,10 @@ const AllTimeStat: FC = () => (
     <Item>
       <WordsPerDay />
     </Item>
-
+    <Divider>Learned words growth:</Divider>
+    <Item>
+      <LearnedWordsGrowth />
+    </Item>
   </Space>
 );
 
