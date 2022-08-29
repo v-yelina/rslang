@@ -100,9 +100,30 @@ export const login = createAsyncThunk(
 export const fetchWordsForGame = createAsyncThunk(
   'currentGame/fetchWords',
   async (pageData: PageUserData, { rejectWithValue }) => {
-    const { group, page } = pageData;
+    const { group, page, user } = pageData;
     try {
       const words = await fetchWordsByGroupAndPage(group, page);
+
+      if (user) {
+        const { userId, token } = user;
+        const userWords: IUserWord[] = await fetchUserWords(userId, token);
+
+        const aggregatedWord: AggregatedWord[] = words.map((item) => {
+          const newUserWord = userWords.find((el) => el.wordId === item.id);
+
+          return { ...item, userWord: newUserWord || null };
+        });
+
+        return aggregatedWord
+          .filter((item) => item.userWord === null || !item.userWord.optional.isLearned)
+          .map((item) => ({
+            id: item.id,
+            word: item.word,
+            wordTranslate: item.wordTranslate,
+            audio: item.audio,
+            image: item.image,
+          }));
+      }
 
       return words.map((item: IWord) => ({
         id: item.id,

@@ -6,7 +6,6 @@ import ResultGame from '../../components/result-game';
 import SprintGameContainer from './sprint-game-container';
 import { DURATION_GAME_SPRINT } from '../../constants';
 import { Answer } from '../../store/types';
-import getWordsToTrain from './sprintGame';
 
 import './sprint.scss';
 
@@ -42,7 +41,7 @@ const Sprint: FC = () => {
   }, [gameTime, roundIndex]);
 
   useEffect(() => {
-    dispatch(setCurrentWord(getWordsToTrain(words)[roundIndex]));
+    dispatch(setCurrentWord(words[roundIndex]));
   }, [roundIndex]);
 
   return (

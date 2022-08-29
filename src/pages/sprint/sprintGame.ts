@@ -7,7 +7,7 @@ type CurrentWord = Pick<WordToTrain, 'word' | 'wordTranslate'>;
 const getWordsToTrain = (words: WordToTrain[]): CurrentWord[] => {
   const wordsToTrain: CurrentWord[] = [];
 
-  for (let i = 0; i < words.length; i += 1) {
+  for (let i = 0; i < words.length - 1; i += 1) {
     const random = Math.random();
 
     if (random > 0.5) {
