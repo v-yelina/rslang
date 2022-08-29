@@ -26,7 +26,7 @@ type CurrentGameState = {
   maxCombo: number;
   currentPageData: PageData;
   isLoading: boolean;
-  steps: number;
+  fulfilledCount: number;
   pendingCount: number;
 };
 
@@ -42,7 +42,7 @@ const initialState: CurrentGameState = {
     page: '',
   },
   isLoading: false,
-  steps: 0,
+  fulfilledCount: 0,
   pendingCount: 0,
 };
 
@@ -84,7 +84,7 @@ export const currentGameSlice = createSlice({
         ...state.words,
         ...action.payload,
       ];
-      state.steps += 1;
+      state.fulfilledCount += 1;
     },
   },
 });

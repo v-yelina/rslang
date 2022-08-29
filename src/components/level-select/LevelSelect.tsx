@@ -26,7 +26,7 @@ const LevelSelect: FC = () => {
     gameType,
     wordsSource,
     words,
-    steps,
+    fulfilledCount,
     pendingCount,
   } = useAppSelector((state) => state.currentGame);
   const { currentPageData } = useAppSelector((state) => state.textbook);
@@ -90,7 +90,7 @@ const LevelSelect: FC = () => {
   }, [thisPageData]);
 
   useEffect(() => {
-    if (wordsSource === 'textbook' && isReadyToFetchWords && pendingCount === steps) {
+    if (wordsSource === 'textbook' && isReadyToFetchWords && pendingCount === fulfilledCount) {
       if (words.length > WORDS_PER_PAGE) {
         console.log(words.length);
         const arr = [];
@@ -101,13 +101,13 @@ const LevelSelect: FC = () => {
       }
       navigate(`${gameType}`, { replace: true });
     }
-  }, [steps]);
+  }, [fulfilledCount]);
 
   useEffect(() => {
-    if (steps > NUMBER_WORD_GENERATION_STEPS && wordsSource === 'group') {
+    if (fulfilledCount > NUMBER_WORD_GENERATION_STEPS && wordsSource === 'group') {
       navigate(`${gameType}`, { replace: true });
     }
-  }, [steps]);
+  }, [fulfilledCount]);
 
   return (
     <div>
