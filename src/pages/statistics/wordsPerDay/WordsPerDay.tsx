@@ -1,17 +1,51 @@
 import React, { FC } from 'react';
-import { TinyLine } from '@ant-design/plots';
+import { Column } from '@ant-design/plots';
 
 const WordsPerDay: FC = () => {
   const data = [
-    264, 417, 438, 887, 309, 397, 550, 575, 563, 430, 525, 592, 492, 467, 513, 546, 983, 340, 539, 243, 226, 192,
+    {
+      date: '01.02',
+      words: 38,
+    },
+    {
+      date: '02.02',
+      words: 52,
+    },
+    {
+      date: '03.02',
+      words: 61,
+    },
+    {
+      date: '04.02',
+      words: 145,
+    },
+    {
+      date: '05.02',
+      words: 48,
+    },
+    {
+      date: '06.02',
+      words: 38,
+    },
+    {
+      date: '07.02',
+      words: 38,
+    },
+    {
+      date: '08.02',
+      words: 38,
+    },
   ];
-  const config = {
-    height: 60,
-    autoFit: false,
-    data,
-    smooth: true,
-  };
-  return <TinyLine {...config} />;
+
+  return (
+    <Column
+      height={60}
+      autoFit={false}
+      data={data}
+      yField="words"
+      xField="date"
+    />
+  );
 };
 
 export default WordsPerDay;
