@@ -7,19 +7,27 @@ import { wordsGroups } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { PageData } from '../../store/types';
 import { fetchWordsForGame } from '../../store/thunks';
+import {
+  clearCurrentGame,
+  setGameType,
+  setWordsSource,
+  setWordsToTrain,
+} from '../../store/slices/currentGame';
 
 import './level-select.scss';
 
 const { Title, Text } = Typography;
 const NUMBER_WORD_GENERATION_STEPS = 3;
 const LAST_PAGE = 29;
+const WORDS_PER_PAGE = 20;
 
 const LevelSelect: FC = () => {
   const {
     gameType,
     wordsSource,
-    steps,
     words,
+    steps,
+    pendingCount,
   } = useAppSelector((state) => state.currentGame);
   const { currentPageData } = useAppSelector((state) => state.textbook);
   const { isLogged, user } = useAppSelector((state) => state.auth);
@@ -53,6 +61,13 @@ const LevelSelect: FC = () => {
   };
 
   useEffect(() => {
+    const localGame = gameType;
+    const localSource = wordsSource;
+
+    dispatch(clearCurrentGame());
+    dispatch(setGameType(localGame));
+    dispatch(setWordsSource(localSource));
+
     if (wordsSource === 'textbook') {
       const { group, page } = currentPageData;
       setThisPageData({ group, page });
@@ -61,7 +76,7 @@ const LevelSelect: FC = () => {
 
   useEffect(() => {
     const { group, page } = thisPageData;
-    if (wordsSource === 'textbook' && page >= '0' && words.length < 20) {
+    if (wordsSource === 'textbook' && page >= '0' && words.length < WORDS_PER_PAGE) {
       dispatch(fetchWordsForGame({ group, page, user: isLogged ? user : null }));
       if (Number(page) > 0) {
         const newPage: string = (Number(page) - 1).toString();
@@ -75,10 +90,18 @@ const LevelSelect: FC = () => {
   }, [thisPageData]);
 
   useEffect(() => {
-    if (wordsSource === 'textbook' && isReadyToFetchWords) {
+    if (wordsSource === 'textbook' && isReadyToFetchWords && pendingCount === steps) {
+      if (words.length > WORDS_PER_PAGE) {
+        console.log(words.length);
+        const arr = [];
+        for (let i = 0; i <= WORDS_PER_PAGE - 1; i += 1) {
+          arr.push(words[i]);
+        }
+        dispatch(setWordsToTrain(arr));
+      }
       navigate(`${gameType}`, { replace: true });
     }
-  }, [words]);
+  }, [steps]);
 
   useEffect(() => {
     if (steps > NUMBER_WORD_GENERATION_STEPS && wordsSource === 'group') {

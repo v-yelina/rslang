@@ -27,6 +27,7 @@ type CurrentGameState = {
   currentPageData: PageData;
   isLoading: boolean;
   steps: number;
+  pendingCount: number;
 };
 
 const initialState: CurrentGameState = {
@@ -42,6 +43,7 @@ const initialState: CurrentGameState = {
   },
   isLoading: false,
   steps: 0,
+  pendingCount: 0,
 };
 
 export const currentGameSlice = createSlice({
@@ -74,6 +76,7 @@ export const currentGameSlice = createSlice({
   extraReducers: {
     [fetchWordsForGame.pending.type]: (state) => {
       state.isLoading = true;
+      state.pendingCount += 1;
     },
     [fetchWordsForGame.fulfilled.type]: (state, action: PayloadAction<WordToTrain[]>) => {
       state.isLoading = false;
