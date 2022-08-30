@@ -76,7 +76,7 @@ const LevelSelect: FC = () => {
 
   useEffect(() => {
     const { group, page } = thisPageData;
-    if (wordsSource === 'textbook' && page >= '0' && words.length === WORDS_PER_PAGE) {
+    if (wordsSource === 'textbook' && page >= '0' && words.length < WORDS_PER_PAGE) {
       dispatch(fetchWordsForGame({ group, page, user: isLogged ? user : null }));
       if (Number(page) > 0) {
         const newPage: string = (Number(page) - 1).toString();
@@ -90,7 +90,7 @@ const LevelSelect: FC = () => {
   }, [thisPageData]);
 
   useEffect(() => {
-    if (wordsSource === 'textbook' && isReadyToFetchWords && pendingCount < fulfilledCount) {
+    if (wordsSource === 'textbook' && isReadyToFetchWords && pendingCount === fulfilledCount) {
       if (words.length > WORDS_PER_PAGE) {
         const arr = [];
         for (let i = 0; i <= WORDS_PER_PAGE - 1; i += 1) {
