@@ -9,25 +9,27 @@ type StatisticState = {
 
 const initialState: StatisticState = {
   isLoading: false,
-  statistic: {learnedWords: 0,
-  optional: {
-    statisticDay: new Date(),
-    audiochallenge: {
-      newWords: 0,
-      correctAnswers: 0,
-      wrongAnswers: 0,
-      longestCombo: 0,
-      gamesPlayed: 0,
+  statistic: {
+    learnedWords: 0,
+    optional: {
+      statisticDay: new Date(),
+      audiochallenge: {
+        newWords: 0,
+        correctAnswers: 0,
+        wrongAnswers: 0,
+        longestCombo: 0,
+        gamesPlayed: 0,
+      },
+      sprint: {
+        newWords: 0,
+        correctAnswers: 0,
+        wrongAnswers: 0,
+        longestCombo: 0,
+        gamesPlayed: 0,
+      },
     },
-    sprint: {
-      newWords: 0,
-      correctAnswers: 0,
-      wrongAnswers: 0,
-      longestCombo: 0,
-      gamesPlayed: 0,
-    },
-  },}
-  
+  },
+
 };
 
 export const statisticSlice = createSlice({
@@ -44,13 +46,13 @@ export const statisticSlice = createSlice({
       state.isLoading = false;
       state.statistic = {
         ...action.payload,
-      }
+      };
     },
   },
 });
 
 export const {
-clearstatistic
+  clearstatistic,
 } = statisticSlice.actions;
 
 export default statisticSlice.reducer;
