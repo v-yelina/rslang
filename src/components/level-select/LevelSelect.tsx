@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, Button } from 'antd';
 
 import { getRandomIndex } from '../../utils/helpers/gameHelpers';
-import { wordsGroups } from '../../constants';
+import { wordsGroups, WORDS_PER_PAGE } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { PageData } from '../../store/types';
 import { fetchRandomWordsForGame, fetchWordsForGame } from '../../store/thunks';
@@ -19,7 +19,6 @@ import './level-select.scss';
 const { Title, Text } = Typography;
 const NUMBER_WORD_GENERATION_STEPS = 3;
 const LAST_PAGE = 29;
-const WORDS_PER_PAGE = 20;
 
 const LevelSelect: FC = () => {
   const {
@@ -93,7 +92,6 @@ const LevelSelect: FC = () => {
   useEffect(() => {
     if (wordsSource === 'textbook' && isReadyToFetchWords && pendingCount === fulfilledCount) {
       if (words.length > WORDS_PER_PAGE) {
-        console.log(words.length);
         const arr = [];
         for (let i = 0; i <= WORDS_PER_PAGE - 1; i += 1) {
           arr.push(words[i]);
