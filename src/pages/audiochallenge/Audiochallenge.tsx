@@ -1,11 +1,11 @@
 import React, {
   FC, MouseEventHandler, useEffect, useState,
 } from 'react';
-import PlayAudioButton from '../../components/shared/button/play-audio-button';
+import { Button } from 'antd';
 import OptionsContainer from './optionsContainer';
-import './audiochallenge.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
+  changeAnswerColor,
   checkAnswer, getAnswerOptions, getAnswerText,
 } from './audioChallengeGame';
 import ENV from '../../config/config';
@@ -20,6 +20,8 @@ import {
   addWrongAnswer,
   changeCombo,
 } from '../../store/slices/currentGame';
+import AudioBtn from './audioBtn';
+import './audiochallenge.scss';
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
@@ -84,20 +86,16 @@ const Audiochallenge: FC = () => {
     }
   };
 
-  const changeAnswerColor = (isRightAnswer: boolean, answer: string) => {
-    const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
-    optionButtons.forEach((option) => {
-      const optionText = option.outerText.replace(/\d\./, '').trim();
-      if (optionText === answer && isRightAnswer) {
-        option.setAttribute('id', 'right-answer');
-      } else if (optionText === answer && !isRightAnswer) {
-        option.setAttribute('id', 'wrong-answer');
-      } else if (optionText === "Don't know" && answer === '-') {
-        option.setAttribute('id', 'wrong-answer');
-      } else {
-        option.removeAttribute('id');
-      }
-    });
+  const nextWord = () => {
+    if (wordIndex < words.length - 1 && wordIndex < 20) {
+      setWordIndex(wordIndex + 1);
+    } else {
+      setIsGameFinished(true);
+    }
+    const nextBtn = document.querySelector('.audiochallenge__btn-next');
+    if (nextBtn) {
+      nextBtn.setAttribute('disabled', 'true');
+    }
   };
 
   const handleAnswer = (userAnswer: string) => {
@@ -118,14 +116,11 @@ const Audiochallenge: FC = () => {
       currentWord.id,
     );
     changeAnswerColor(isRightAnswer, answer);
-
-    setTimeout(() => {
-      if (wordIndex < words.length - 1 && wordIndex < 20) {
-        setWordIndex(wordIndex + 1);
-      } else {
-        setIsGameFinished(true);
-      }
-    }, 300);
+    const nextBtn = document.querySelector('.audiochallenge__btn-next');
+    if (nextBtn) {
+      nextBtn.removeAttribute('disabled');
+      nextBtn.addEventListener('click', nextWord);
+    }
   };
 
   const handleClick: MouseEventHandler = (e) => {
@@ -139,22 +134,32 @@ const Audiochallenge: FC = () => {
   const handleKeyPress = (e: KeyboardEvent) => {
     switch (e.code) {
       case 'Digit1':
+      case 'Numpad1':
         handleAnswer(answerOptions[0]);
         break;
       case 'Digit2':
+      case 'Numpad2':
         handleAnswer(answerOptions[1]);
         break;
       case 'Digit3':
+      case 'Numpad3':
         handleAnswer(answerOptions[2]);
         break;
       case 'Digit4':
+      case 'Numpad4':
         handleAnswer(answerOptions[3]);
         break;
       case 'Digit5':
+      case 'Numpad5':
         handleAnswer(answerOptions[4]);
         break;
       case 'Digit6':
+      case 'Numpad6':
         handleAnswer("Don't know");
+        break;
+      case 'Enter':
+      case 'NumpadEnter':
+        nextWord();
         break;
       default:
         break;
@@ -174,8 +179,11 @@ const Audiochallenge: FC = () => {
       {!isGameFinished ? (
         <section className="game game--audiochallenge">
           <h2>Audiochallenge Page</h2>
-          <div className="audio"><PlayAudioButton audioUrl={wordAudio} /></div>
+          <div className="audio">
+            <AudioBtn src={wordAudio} />
+          </div>
           <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
+          <Button type="primary" disabled className="audiochallenge__btn-next">Next word</Button>
         </section>
       ) : (
         <ResultGame

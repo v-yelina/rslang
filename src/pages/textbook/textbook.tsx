@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchWordsForTextbook } from '../../store/thunks';
+import { fetchDifficultWordsForTextbook, fetchWordsForTextbook } from '../../store/thunks';
 import {
   clearCurrentWords,
   setCurrentPageData,
@@ -9,7 +9,13 @@ import {
 } from '../../store/slices/textbook';
 import { selectIsLogged, selectUser } from '../../store/slices/auth';
 import { checkSearchParamsCorrect, formatPageDataForSlice } from './helpers';
-import { TEXTBOOK_PARAMS, SEARCH_INITIAL_GROUP, SEARCH_INITIAL_PAGE } from '../../constants';
+import {
+  TEXTBOOK_PARAMS,
+  SEARCH_INITIAL_GROUP,
+  SEARCH_INITIAL_PAGE,
+  DIFFICULT_GROUP_SLICE_NUM,
+  DIFFICULT_GROUP_UI_NUM,
+} from '../../constants';
 
 import GroupsTabs from './components/groups-tabs';
 import WordsList from './components/words-list';
@@ -29,7 +35,12 @@ const Textbook: FC = () => {
   let paramsPage = params.get(TEXTBOOK_PARAMS.PAGE);
 
   const setPageDataFromParams = () => {
-    const isSearchParamsCorrect = checkSearchParamsCorrect(paramsGroup, paramsPage);
+    const isSearchParamsCorrect = checkSearchParamsCorrect(paramsGroup, paramsPage)
+      || (isLogged && paramsGroup === DIFFICULT_GROUP_UI_NUM);
+
+    if (paramsGroup === DIFFICULT_GROUP_UI_NUM) {
+      setParams({ group: paramsGroup, page: SEARCH_INITIAL_PAGE });
+    }
 
     if (!isSearchParamsCorrect) {
       paramsGroup = SEARCH_INITIAL_GROUP;
@@ -55,13 +66,17 @@ const Textbook: FC = () => {
   useEffect(() => {
     const { group, page } = currentPageData;
     if (isReadyToFetchWords && group.length && page.length) {
-      dispatch(
-        fetchWordsForTextbook({
-          group,
-          page,
-          user: isLogged ? { userId: user.userId, token: user.token } : null,
-        }),
-      );
+      if (group === DIFFICULT_GROUP_SLICE_NUM) {
+        dispatch(fetchDifficultWordsForTextbook({ userId: user.userId, token: user.token }));
+      } else {
+        dispatch(
+          fetchWordsForTextbook({
+            group,
+            page,
+            user: isLogged ? { userId: user.userId, token: user.token } : null,
+          }),
+        );
+      }
     }
   }, [currentPageData, isReadyToFetchWords]);
 
