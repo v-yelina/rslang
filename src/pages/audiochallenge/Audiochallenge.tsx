@@ -96,7 +96,7 @@ const Audiochallenge: FC = () => {
     if (nextBtn) {
       nextBtn.setAttribute('disabled', 'true');
     }
-  }
+  };
 
   const handleAnswer = (userAnswer: string) => {
     let answer = userAnswer;
@@ -119,7 +119,7 @@ const Audiochallenge: FC = () => {
     const nextBtn = document.querySelector('.audiochallenge__btn-next');
     if (nextBtn) {
       nextBtn.removeAttribute('disabled');
-      nextBtn.addEventListener('click', nextWord)
+      nextBtn.addEventListener('click', nextWord);
     }
   };
 
@@ -177,7 +177,7 @@ const Audiochallenge: FC = () => {
             <AudioBtn src={wordAudio} />
           </div>
           <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
-          <Button type="primary" disabled className='audiochallenge__btn-next'>Next word</Button>
+          <Button type="primary" disabled className="audiochallenge__btn-next">Next word</Button>
         </section>
       ) : (
         <ResultGame
