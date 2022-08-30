@@ -48,6 +48,10 @@ const Sprint: FC = () => {
     }
   }, [roundIndex]);
 
+  useEffect(() => function clearState() {
+    dispatch(clearSprintState());
+  }, []);
+
   return (
     <section className="sprint">
       {

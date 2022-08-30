@@ -90,7 +90,7 @@ const LevelSelect: FC = () => {
   }, [thisPageData]);
 
   useEffect(() => {
-    if (wordsSource === 'textbook' && isReadyToFetchWords && pendingCount === fulfilledCount) {
+    if (wordsSource === 'textbook' && isReadyToFetchWords && pendingCount < fulfilledCount) {
       if (words.length > WORDS_PER_PAGE) {
         const arr = [];
         for (let i = 0; i <= WORDS_PER_PAGE - 1; i += 1) {
