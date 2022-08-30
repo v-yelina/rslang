@@ -100,9 +100,64 @@ export const login = createAsyncThunk(
 export const fetchWordsForGame = createAsyncThunk(
   'currentGame/fetchWords',
   async (pageData: PageUserData, { rejectWithValue }) => {
-    const { group, page } = pageData;
+    const { group, page, user } = pageData;
     try {
       const words = await fetchWordsByGroupAndPage(group, page);
+
+      if (user) {
+        const { userId, token } = user;
+        const userWords: IUserWord[] = await fetchUserWords(userId, token);
+
+        const aggregatedWord: AggregatedWord[] = words.map((item) => {
+          const newUserWord = userWords.find((el) => el.wordId === item.id);
+
+          return { ...item, userWord: newUserWord || null };
+        });
+
+        return aggregatedWord
+          .filter((item) => item.userWord === null || !item.userWord.optional.isLearned)
+          .map((item) => ({
+            id: item.id,
+            word: item.word,
+            wordTranslate: item.wordTranslate,
+            audio: item.audio,
+            image: item.image,
+          }));
+      }
+
+      return words.map((item: IWord) => ({
+        id: item.id,
+        word: item.word,
+        wordTranslate: item.wordTranslate,
+        audio: item.audio,
+        image: item.image,
+      }));
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const fetchRandomWordsForGame = createAsyncThunk(
+  'currentGame/fetchRandomWords',
+  async (pageData: PageUserData, { rejectWithValue }) => {
+    const { group } = pageData;
+    const pages: string[] = [];
+    const words: IWord[] = [];
+
+    for (let i = 0; i < 3; i += 1) {
+      const randomPage = (Math.random() * 30).toString();
+      if (!pages.includes(randomPage)) {
+        pages.push(randomPage);
+      } else {
+        i -= 1;
+      }
+    }
+
+    try {
+      const promises = pages.map((randomPage) => fetchWordsByGroupAndPage(group, randomPage));
+      await Promise.all(promises)
+        .then((res) => res.map((item) => words.push(...item)));
 
       return words.map((item: IWord) => ({
         id: item.id,

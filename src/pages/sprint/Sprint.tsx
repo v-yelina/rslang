@@ -6,9 +6,9 @@ import ResultGame from '../../components/result-game';
 import SprintGameContainer from './sprint-game-container';
 import { DURATION_GAME_SPRINT } from '../../constants';
 import { Answer } from '../../store/types';
-import getWordsToTrain from './sprintGame';
 
 import './sprint.scss';
+import { getRandomTranslate } from './sprintGame';
 
 const Sprint: FC = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +19,7 @@ const Sprint: FC = () => {
   } = useAppSelector((state) => state.sprintGame);
   const {
     words,
+    randomWords,
   } = useAppSelector((state) => state.currentGame);
 
   const [isGameFinished, setGameFinished] = useState(false);
@@ -42,8 +43,14 @@ const Sprint: FC = () => {
   }, [gameTime, roundIndex]);
 
   useEffect(() => {
-    dispatch(setCurrentWord(getWordsToTrain(words)[roundIndex]));
+    if (roundIndex < words.length) {
+      dispatch(setCurrentWord(getRandomTranslate(words[roundIndex], randomWords)));
+    }
   }, [roundIndex]);
+
+  useEffect(() => function clearState() {
+    dispatch(clearSprintState());
+  }, []);
 
   return (
     <section className="sprint">

@@ -25,7 +25,7 @@ const SprintControls: FC = () => {
   const dispatch = useAppDispatch();
 
   const chooseAnswer = (answer: boolean) => {
-    const word = words.find((findWord) => findWord.word === currentWord.word);
+    const word = words.find((findWord) => findWord.id === currentWord.id);
     const correctAnswer = checkAnswer(word!.wordTranslate, currentWord.wordTranslate);
 
     if (answer === correctAnswer) {

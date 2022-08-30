@@ -1,12 +1,18 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Button } from 'antd';
 
 import { getRandomIndex } from '../../utils/helpers/gameHelpers';
-import { wordsGroups } from '../../constants';
+import { wordsGroups, WORDS_PER_PAGE } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { PageData } from '../../store/types';
-import { fetchWordsForGame } from '../../store/thunks';
+import { fetchRandomWordsForGame, fetchWordsForGame } from '../../store/thunks';
+import {
+  clearCurrentGame,
+  setGameType,
+  setWordsSource,
+  setWordsToTrain,
+} from '../../store/slices/currentGame';
 
 import './level-select.scss';
 
@@ -15,9 +21,19 @@ const NUMBER_WORD_GENERATION_STEPS = 3;
 const LAST_PAGE = 29;
 
 const LevelSelect: FC = () => {
-  const { gameType, wordsSource, steps } = useAppSelector((state) => state.currentGame);
+  const {
+    gameType,
+    wordsSource,
+    words,
+    fulfilledCount,
+    pendingCount,
+  } = useAppSelector((state) => state.currentGame);
+  const { currentPageData } = useAppSelector((state) => state.textbook);
+  const { isLogged, user } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [isReadyToFetchWords, setIsReadyToFetchWords] = useState(false);
+  const [thisPageData, setThisPageData] = useState<PageData>({ group: '', page: '' });
 
   const getWordsFromMenu = (pageData: PageData) => {
     const { group, page } = pageData;
@@ -39,25 +55,58 @@ const LevelSelect: FC = () => {
   const clickHandler = (group: number) => {
     const randomPage = getRandomIndex(30).toString();
     const currentGroup = (group - 1).toString();
-
+    dispatch(fetchRandomWordsForGame({ group: currentGroup, page: randomPage, user: null }));
     getWordsFromMenu({ group: currentGroup, page: randomPage });
   };
 
-  const getWordsFromTextbook = () => {
-    getWordsFromMenu({ group: '0', page: '0' });
-  };
-
   useEffect(() => {
+    const localGame = gameType;
+    const localSource = wordsSource;
+
+    dispatch(clearCurrentGame());
+    dispatch(setGameType(localGame));
+    dispatch(setWordsSource(localSource));
+
     if (wordsSource === 'textbook') {
-      getWordsFromTextbook();
+      const { group, page } = currentPageData;
+      setThisPageData({ group, page });
+      dispatch(fetchRandomWordsForGame({ group, page, user: null }));
     }
   }, []);
 
   useEffect(() => {
-    if (steps > NUMBER_WORD_GENERATION_STEPS && wordsSource === 'group') {
+    const { group, page } = thisPageData;
+    if (wordsSource === 'textbook' && page >= '0' && words.length < WORDS_PER_PAGE) {
+      dispatch(fetchWordsForGame({ group, page, user: isLogged ? user : null }));
+      if (Number(page) > 0) {
+        const newPage: string = (Number(page) - 1).toString();
+        setThisPageData({ group, page: newPage });
+      } else {
+        setIsReadyToFetchWords(true);
+      }
+    } else {
+      setIsReadyToFetchWords(true);
+    }
+  }, [thisPageData]);
+
+  useEffect(() => {
+    if (wordsSource === 'textbook' && isReadyToFetchWords && pendingCount === fulfilledCount) {
+      if (words.length > WORDS_PER_PAGE) {
+        const arr = [];
+        for (let i = 0; i <= WORDS_PER_PAGE - 1; i += 1) {
+          arr.push(words[i]);
+        }
+        dispatch(setWordsToTrain(arr));
+      }
       navigate(`${gameType}`, { replace: true });
     }
-  }, [steps]);
+  }, [fulfilledCount]);
+
+  useEffect(() => {
+    if (fulfilledCount > NUMBER_WORD_GENERATION_STEPS + 1 && wordsSource === 'group') {
+      navigate(`${gameType}`, { replace: true });
+    }
+  }, [fulfilledCount]);
 
   return (
     <div>
