@@ -1,3 +1,3 @@
-import RightAnswerCard from "./RightAnswerCard";
+import RightAnswerCard from './RightAnswerCard';
 
 export default RightAnswerCard;
