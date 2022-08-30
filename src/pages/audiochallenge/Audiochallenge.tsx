@@ -124,21 +124,27 @@ const Audiochallenge: FC = () => {
   const handleKeyPress = (e: KeyboardEvent) => {
     switch (e.code) {
       case 'Digit1':
+      case 'Numpad1':
         handleAnswer(answerOptions[0]);
         break;
       case 'Digit2':
+      case 'Numpad2':
         handleAnswer(answerOptions[1]);
         break;
       case 'Digit3':
+      case 'Numpad3':
         handleAnswer(answerOptions[2]);
         break;
       case 'Digit4':
+      case 'Numpad4':
         handleAnswer(answerOptions[3]);
         break;
       case 'Digit5':
+      case 'Numpad5':
         handleAnswer(answerOptions[4]);
         break;
       case 'Digit6':
+      case 'Numpad6':
         handleAnswer("Don't know");
         break;
       default:
