@@ -151,6 +151,10 @@ const Audiochallenge: FC = () => {
       case 'Digit6':
         handleAnswer("Don't know");
         break;
+      case 'Enter':
+      case 'NumpadEnter':
+        nextWord();
+        break;
       default:
         break;
     }
