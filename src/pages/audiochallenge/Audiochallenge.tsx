@@ -1,6 +1,7 @@
 import React, {
   FC, MouseEventHandler, useEffect, useState,
 } from 'react';
+import { Button } from 'antd';
 import OptionsContainer from './optionsContainer';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
@@ -20,7 +21,6 @@ import {
   changeCombo,
 } from '../../store/slices/currentGame';
 import AudioBtn from './audioBtn';
-import { Button } from 'antd';
 import './audiochallenge.scss';
 
 const Audiochallenge: FC = () => {
@@ -86,6 +86,18 @@ const Audiochallenge: FC = () => {
     }
   };
 
+  const nextWord = () => {
+    if (wordIndex < words.length - 1 && wordIndex < 20) {
+      setWordIndex(wordIndex + 1);
+    } else {
+      setIsGameFinished(true);
+    }
+    const nextBtn = document.querySelector('.audiochallenge__btn-next');
+    if (nextBtn) {
+      nextBtn.setAttribute('disabled', 'true');
+    }
+  }
+
   const handleAnswer = (userAnswer: string) => {
     let answer = userAnswer;
     let isRightAnswer: boolean;
@@ -104,15 +116,12 @@ const Audiochallenge: FC = () => {
       currentWord.id,
     );
     changeAnswerColor(isRightAnswer, answer);
-  };
-
-  const nextWord = () => {
-    if (wordIndex < words.length - 1 && wordIndex < 20) {
-      setWordIndex(wordIndex + 1);
-    } else {
-      setIsGameFinished(true);
+    const nextBtn = document.querySelector('.audiochallenge__btn-next');
+    if (nextBtn) {
+      nextBtn.removeAttribute('disabled');
+      nextBtn.addEventListener('click', nextWord)
     }
-  }
+  };
 
   const handleClick: MouseEventHandler = (e) => {
     e.preventDefault();
@@ -164,7 +173,7 @@ const Audiochallenge: FC = () => {
             <AudioBtn src={wordAudio} />
           </div>
           <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
-          <Button type="primary" onClick={nextWord}>Next word</Button>
+          <Button type="primary" disabled className='audiochallenge__btn-next'>Next word</Button>
         </section>
       ) : (
         <ResultGame
