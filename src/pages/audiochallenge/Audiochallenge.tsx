@@ -2,7 +2,6 @@ import React, {
   FC, MouseEventHandler, useEffect, useState,
 } from 'react';
 import OptionsContainer from './optionsContainer';
-import './audiochallenge.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   changeAnswerColor,
@@ -21,6 +20,8 @@ import {
   changeCombo,
 } from '../../store/slices/currentGame';
 import AudioBtn from './audioBtn';
+import { Button } from 'antd';
+import './audiochallenge.scss';
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
@@ -103,15 +104,15 @@ const Audiochallenge: FC = () => {
       currentWord.id,
     );
     changeAnswerColor(isRightAnswer, answer);
-
-    setTimeout(() => {
-      if (wordIndex < words.length - 1 && wordIndex < 20) {
-        setWordIndex(wordIndex + 1);
-      } else {
-        setIsGameFinished(true);
-      }
-    }, 300);
   };
+
+  const nextWord = () => {
+    if (wordIndex < words.length - 1 && wordIndex < 20) {
+      setWordIndex(wordIndex + 1);
+    } else {
+      setIsGameFinished(true);
+    }
+  }
 
   const handleClick: MouseEventHandler = (e) => {
     e.preventDefault();
@@ -163,6 +164,7 @@ const Audiochallenge: FC = () => {
             <AudioBtn src={wordAudio} />
           </div>
           <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
+          <Button type="primary" onClick={nextWord}>Next word</Button>
         </section>
       ) : (
         <ResultGame
