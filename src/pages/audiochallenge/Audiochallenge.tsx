@@ -1,8 +1,8 @@
 import React, {
   FC, MouseEventHandler, useEffect, useState,
 } from 'react';
+import { Button } from 'antd';
 import OptionsContainer from './optionsContainer';
-import './audiochallenge.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   changeAnswerColor,
@@ -21,6 +21,7 @@ import {
   changeCombo,
 } from '../../store/slices/currentGame';
 import AudioBtn from './audioBtn';
+import './audiochallenge.scss';
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
@@ -85,6 +86,18 @@ const Audiochallenge: FC = () => {
     }
   };
 
+  const nextWord = () => {
+    if (wordIndex < words.length - 1 && wordIndex < 20) {
+      setWordIndex(wordIndex + 1);
+    } else {
+      setIsGameFinished(true);
+    }
+    const nextBtn = document.querySelector('.audiochallenge__btn-next');
+    if (nextBtn) {
+      nextBtn.setAttribute('disabled', 'true');
+    }
+  };
+
   const handleAnswer = (userAnswer: string) => {
     let answer = userAnswer;
     let isRightAnswer: boolean;
@@ -103,14 +116,11 @@ const Audiochallenge: FC = () => {
       currentWord.id,
     );
     changeAnswerColor(isRightAnswer, answer);
-
-    setTimeout(() => {
-      if (wordIndex < words.length - 1 && wordIndex < 20) {
-        setWordIndex(wordIndex + 1);
-      } else {
-        setIsGameFinished(true);
-      }
-    }, 300);
+    const nextBtn = document.querySelector('.audiochallenge__btn-next');
+    if (nextBtn) {
+      nextBtn.removeAttribute('disabled');
+      nextBtn.addEventListener('click', nextWord);
+    }
   };
 
   const handleClick: MouseEventHandler = (e) => {
@@ -147,6 +157,10 @@ const Audiochallenge: FC = () => {
       case 'Numpad6':
         handleAnswer("Don't know");
         break;
+      case 'Enter':
+      case 'NumpadEnter':
+        nextWord();
+        break;
       default:
         break;
     }
@@ -169,6 +183,7 @@ const Audiochallenge: FC = () => {
             <AudioBtn src={wordAudio} />
           </div>
           <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
+          <Button type="primary" disabled className="audiochallenge__btn-next">Next word</Button>
         </section>
       ) : (
         <ResultGame
