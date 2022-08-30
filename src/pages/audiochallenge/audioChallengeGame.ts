@@ -42,7 +42,7 @@ export const getAnswerText: (e:MouseEvent)=> string | undefined = (e) => {
 
 export const checkAnswer = (answer:string, word:string) => answer === word;
 
-export const changeAnswerColor = (isRightAnswer: boolean, answer: string) => {
+export const changeAnswerColor = (isRightAnswer: boolean, answer: string, word: string) => {
   const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
   optionButtons.forEach((option) => {
     const optionText = option.outerText.replace(/\d\./, '').trim();
@@ -52,6 +52,8 @@ export const changeAnswerColor = (isRightAnswer: boolean, answer: string) => {
       option.setAttribute('id', 'wrong-answer');
     } else if (optionText === "Don't know" && answer === '-') {
       option.setAttribute('id', 'wrong-answer');
+    } else if (optionText === word && !isRightAnswer) {
+      option.setAttribute('id', 'right-answer');
     } else {
       option.removeAttribute('id');
     }

@@ -115,7 +115,7 @@ const Audiochallenge: FC = () => {
       currentWord.audio,
       currentWord.id,
     );
-    changeAnswerColor(isRightAnswer, answer);
+    changeAnswerColor(isRightAnswer, answer, currentWord.wordTranslate);
     const nextBtn = document.querySelector('.audiochallenge__btn-next');
     if (nextBtn) {
       nextBtn.removeAttribute('disabled');
