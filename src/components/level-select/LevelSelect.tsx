@@ -37,7 +37,8 @@ const LevelSelect: FC = () => {
 
   const getWordsFromMenu = (pageData: PageData) => {
     const { group, page } = pageData;
-    dispatch(fetchWordsForGame({ group, page, user: null }));
+
+    dispatch(fetchWordsForGame({ group, page, user: isLogged ? user : null }));
     let index = 0;
     let currentPage = page;
 
@@ -46,7 +47,7 @@ const LevelSelect: FC = () => {
         currentPage = LAST_PAGE.toString();
       }
       const newPage: string = (Number(currentPage) - 1).toString();
-      dispatch(fetchWordsForGame({ group, page: newPage, user: null }));
+      dispatch(fetchWordsForGame({ group, page: newPage, user: isLogged ? user : null }));
       currentPage = newPage;
       index += 1;
     }
@@ -70,7 +71,7 @@ const LevelSelect: FC = () => {
     if (wordsSource === 'textbook') {
       const { group, page } = currentPageData;
       setThisPageData({ group, page });
-      dispatch(fetchRandomWordsForGame({ group, page, user: null }));
+      dispatch(fetchRandomWordsForGame({ group, page, user: isLogged ? user : null }));
     }
   }, []);
 
