@@ -3,22 +3,30 @@ import { Typography, Progress } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setGameScore } from '../../../store/slices/sprintGame';
+import { NUMBER_OF_ANSWERS_TO_INCREASE } from '../../../constants';
 
 import './sprint-multiplier.scss';
 
 const SprintMultiplier: FC = () => {
   const dispatch = useAppDispatch();
-  const { score, multiplier, roundIndex } = useAppSelector((state) => state.sprintGame);
+  const { score, counter: multiplier, roundIndex } = useAppSelector((state) => state.sprintGame);
 
   const [countPerWord, setCountPerWord] = useState(0);
   const [percent, setPercent] = useState(0);
 
   useEffect(() => {
     const currentCount = multiplier > 0 ? multiplier * 20 : 10;
-    const progressPercent = 25 * multiplier;
+
+    if (multiplier === 0) {
+      setPercent(0);
+    } else {
+      const progressPercent = multiplier % NUMBER_OF_ANSWERS_TO_INCREASE === 0
+        ? 100
+        : (multiplier / NUMBER_OF_ANSWERS_TO_INCREASE) % 1;
+      setPercent(progressPercent * 100);
+    }
 
     setCountPerWord(currentCount);
-    setPercent(progressPercent);
 
     const newGameScore = score + currentCount;
     dispatch(setGameScore(newGameScore));
