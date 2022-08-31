@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ISettings } from '../../../interfaces/ISettings';
-import { IStatistic } from '../../../interfaces/IStatistic';
+import { IMiniGameStat, IStatistic } from '../../../interfaces/IStatistic';
 import {
   fetchUserSettings, fetchUserStatistic, updateSettings, updateStatistic,
 } from '../../thunks';
@@ -50,6 +50,15 @@ export const statisticSlice = createSlice({
   name: 'statistic',
   initialState,
   reducers: {
+    setDate: (state, action: PayloadAction<string>) => {
+      state.statistic.optional.statisticDay = action.payload;
+    },
+    setAudiochallengeResults:(state, action: PayloadAction<Omit<IMiniGameStat, 'gamesPlayed'>>) => {
+      state.statistic.optional.audiochallenge = {...action.payload,gamesPlayed: state.statistic.optional.audiochallenge.gamesPlayed += 1}
+    },
+    setSprintResults:(state, action: PayloadAction<Omit<IMiniGameStat, 'gamesPlayed'>>) => {
+      state.statistic.optional.sprint = {...action.payload,gamesPlayed: state.statistic.optional.sprint.gamesPlayed += 1}
+    },
     clearstatistic: () => initialState,
   },
   extraReducers: {
