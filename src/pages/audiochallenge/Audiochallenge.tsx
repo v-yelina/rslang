@@ -22,6 +22,7 @@ import {
 } from '../../store/slices/currentGame';
 import AudioBtn from './audioBtn';
 import './audiochallenge.scss';
+import RightAnswerCard from './rightAnswerCard';
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +35,7 @@ const Audiochallenge: FC = () => {
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
   const [combo, setCombo] = useState(0);
+  const [isAnswered, setIsAnswered] = useState(false);
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
   const rightAnswerAudio = new Audio(rightAnswerSound);
   const wrongAnswerAudio = new Audio(wrongAnswerSound);
@@ -96,6 +98,7 @@ const Audiochallenge: FC = () => {
     if (nextBtn) {
       nextBtn.setAttribute('disabled', 'true');
     }
+    setIsAnswered(false);
   };
 
   const handleAnswer = (userAnswer: string) => {
@@ -115,7 +118,8 @@ const Audiochallenge: FC = () => {
       currentWord.audio,
       currentWord.id,
     );
-    changeAnswerColor(isRightAnswer, answer);
+    changeAnswerColor(isRightAnswer, answer, currentWord.wordTranslate);
+    setIsAnswered(true);
     const nextBtn = document.querySelector('.audiochallenge__btn-next');
     if (nextBtn) {
       nextBtn.removeAttribute('disabled');
@@ -182,6 +186,7 @@ const Audiochallenge: FC = () => {
           <div className="audio">
             <AudioBtn src={wordAudio} />
           </div>
+          {isAnswered && <RightAnswerCard word={currentWord} />}
           <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
           <Button type="primary" disabled className="audiochallenge__btn-next">Next word</Button>
         </section>
