@@ -1,5 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import ENV from '../config/config';
 import { ILogin } from '../interfaces/ILogin';
+import { ISettings } from '../interfaces/ISettings';
+import { IStatistic } from '../interfaces/IStatistic';
 import { IUser } from '../interfaces/IUser';
 import { IUserWord } from '../interfaces/IUserWord';
 import { AggregatedWord, IWord } from '../interfaces/IWord';
@@ -9,11 +12,7 @@ import {
   fetchUserWords,
   fetchWordById,
   fetchWordsByGroupAndPage,
-  getUserSettings,
-  getUserStatistic,
   loginUser,
-  updateUserSettings,
-  updateUserStatistic,
   updateUserWord,
 } from '../utils/api';
 import {
@@ -206,9 +205,20 @@ export const fetchUserStatistic = createAsyncThunk(
   async (user: IUserData, { rejectWithValue }) => {
     try {
       const { userId, token } = user;
-      const statistic = await getUserStatistic(userId, token);
+      const response = await fetch(`${ENV.USERS_URL}/${userId}/statistics`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          accept: 'application/json',
+        },
+      });
 
-      return statistic;
+      if (!response.ok || response.status !== 200) {
+        throw new Error('User statistics not found');
+      }
+
+      const userStatistics: IStatistic = await response.json();
+      return userStatistics;
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -220,7 +230,22 @@ export const updateStatistic = createAsyncThunk(
   async (statisticData: IStatisticDataForUpdate, { rejectWithValue }) => {
     const { userId, token, statistic } = statisticData;
     try {
-      const updatedStatistic = await updateUserStatistic(userId, token, statistic);
+      const response = await fetch(`${ENV.USERS_URL}/${userId}/statistics`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(statistic),
+      });
+
+      if (!response.ok || response.status !== 200) {
+        throw new Error('User statistic not updated');
+      }
+
+      const updatedStatistic: IStatistic = await response.json();
+
       return updatedStatistic;
     } catch (error) {
       return rejectWithValue(error);
@@ -233,9 +258,21 @@ export const fetchUserSettings = createAsyncThunk(
   async (user: IUserData, { rejectWithValue }) => {
     try {
       const { userId, token } = user;
-      const settings = await getUserSettings(userId, token);
+      const response = await fetch(`${ENV.USERS_URL}/${userId}/settings`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          accept: 'application/json',
+        },
+      });
 
-      return settings;
+      if (!response.ok || response.status !== 200) {
+        throw new Error('User statistics not found');
+      }
+
+      const userSettings: ISettings = await response.json();
+
+      return userSettings;
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -247,7 +284,22 @@ export const updateSettings = createAsyncThunk(
   async (settingsData: ISettingsDataForUpdate, { rejectWithValue }) => {
     const { userId, token, settings } = settingsData;
     try {
-      const updatedSettings = await updateUserSettings(userId, token, settings);
+      const response = await fetch(`${ENV.USERS_URL}/${userId}/settings`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(settings),
+      });
+
+      if (!response.ok || response.status !== 200) {
+        throw new Error('User settings not updated');
+      }
+
+      const updatedSettings: ISettings = await response.json();
+
       return updatedSettings;
     } catch (error) {
       return rejectWithValue(error);
