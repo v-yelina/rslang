@@ -25,7 +25,7 @@ import AudioBtn from './audioBtn';
 import RightAnswerCard from './rightAnswerCard';
 import './audiochallenge.scss';
 
-type addAnswersToSliceArgs = Answer & { isRight: boolean };
+type addAnswersToSliceArgs = { isRight: boolean; answer: Answer };
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
@@ -69,11 +69,11 @@ const Audiochallenge: FC = () => {
     const { isRight } = answerArr;
     if (isRight) {
       rightAnswerAudio.play();
-      dispatch(addRightAnswer(answerArr));
+      dispatch(addRightAnswer(answerArr.answer));
       setCombo(combo + 1);
     } else {
       wrongAnswerAudio.play();
-      dispatch(addWrongAnswer(answerArr));
+      dispatch(addWrongAnswer(answerArr.answer));
       if (combo > maxCombo) {
         dispatch(changeCombo(combo));
       }
@@ -105,8 +105,10 @@ const Audiochallenge: FC = () => {
     }
     addAnswersToSlice({
       isRight: isRightAnswer,
-      answer,
-      ...currentWord,
+      answer: {
+        answer,
+        ...currentWord,
+      },
     });
     changeAnswerColor(isRightAnswer, answer, currentWord.wordTranslate);
     setIsAnswered(true);
