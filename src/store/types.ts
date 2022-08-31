@@ -36,15 +36,11 @@ export interface ISettingsDataForUpdate extends IUserData {
 
 export type WordsSourceType = 'group' | 'textbook' | undefined;
 export type GameType = 'audiochallenge' | 'sprint' | undefined;
-export type WordToTrain = Pick<IWord, 'id' | 'word' | 'image' | 'audio' | 'wordTranslate'>;
+export type WordToTrain = Pick<IWord, 'id' | 'word' | 'image' | 'audio' | 'wordTranslate'> & (Partial<IUserWord> & Pick<IUserWord, 'difficulty' | 'optional'>);
 
-export type Answer = {
+export interface Answer extends WordToTrain {
   answer: string;
-  word: string;
-  wordTranslate: string;
-  audio: string;
-  id: string;
-};
+}
 
 export type RightAnswer = Pick<Answer, 'word' | 'wordTranslate' | 'audio' | 'id'>;
 

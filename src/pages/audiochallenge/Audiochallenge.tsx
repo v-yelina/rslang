@@ -25,7 +25,7 @@ import AudioBtn from './audioBtn';
 import RightAnswerCard from './rightAnswerCard';
 import './audiochallenge.scss';
 
-type addAnswersToSliceArgs = { isRight: boolean; answer: Answer };
+export type addAnswersToSliceArgs = { isRight: boolean; answer: Answer };
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
