@@ -19,10 +19,13 @@ import {
   addRightAnswer,
   addWrongAnswer,
   changeCombo,
+  Answer,
 } from '../../store/slices/currentGame';
 import AudioBtn from './audioBtn';
-import './audiochallenge.scss';
 import RightAnswerCard from './rightAnswerCard';
+import './audiochallenge.scss';
+
+type addAnswersToSliceArgs = Answer & { isRight: boolean };
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
@@ -62,25 +65,15 @@ const Audiochallenge: FC = () => {
     setIsGameFinished(false);
   };
 
-  const addAnswersToSlice = (
-    isRight: boolean,
-    answer: string,
-    word: string,
-    wordTranslate: string,
-    audio: string,
-    id: string,
-  ) => {
+  const addAnswersToSlice = (answerArr: addAnswersToSliceArgs) => {
+    const { isRight } = answerArr;
     if (isRight) {
       rightAnswerAudio.play();
-      dispatch(addRightAnswer({
-        word, wordTranslate, audio, id,
-      }));
+      dispatch(addRightAnswer(answerArr));
       setCombo(combo + 1);
     } else {
       wrongAnswerAudio.play();
-      dispatch(addWrongAnswer({
-        answer, word, wordTranslate, audio, id,
-      }));
+      dispatch(addWrongAnswer(answerArr));
       if (combo > maxCombo) {
         dispatch(changeCombo(combo));
       }
@@ -110,14 +103,11 @@ const Audiochallenge: FC = () => {
     } else {
       isRightAnswer = checkAnswer(answer, currentWord.wordTranslate);
     }
-    addAnswersToSlice(
-      isRightAnswer,
+    addAnswersToSlice({
+      isRight: isRightAnswer,
       answer,
-      currentWord.word,
-      currentWord.wordTranslate,
-      currentWord.audio,
-      currentWord.id,
-    );
+      ...currentWord,
+    });
     changeAnswerColor(isRightAnswer, answer, currentWord.wordTranslate);
     setIsAnswered(true);
     const nextBtn = document.querySelector('.audiochallenge__btn-next');

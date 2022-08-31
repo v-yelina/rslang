@@ -121,6 +121,8 @@ export const fetchWordsForGame = createAsyncThunk(
             wordTranslate: item.wordTranslate,
             audio: item.audio,
             image: item.image,
+            difficulty: item.userWord?.difficulty,
+            optional: item.userWord?.optional,
           }));
       }
 

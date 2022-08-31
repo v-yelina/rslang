@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ISettings } from '../../../interfaces/ISettings';
 import { IStatistic } from '../../../interfaces/IStatistic';
-import { fetchUserSettings, fetchUserStatistic, updateSettings, updateStatistic } from '../../thunks';
+import {
+  fetchUserSettings, fetchUserStatistic, updateSettings, updateStatistic,
+} from '../../thunks';
 
 type StatisticState = {
   isLoading: boolean;
