@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { Tooltip } from 'antd';
+import { Modal, Tag, Tooltip } from 'antd';
 import {
   StarOutlined,
   StarFilled,
-  FireOutlined,
-  FireFilled,
+  ThunderboltOutlined,
+  ThunderboltFilled,
   BarChartOutlined,
 } from '@ant-design/icons';
 
@@ -17,6 +17,7 @@ import {
   updateLearnedWord,
 } from '../../helpers';
 import { selectUser } from '../../../../store/slices/auth';
+import { selectCurrentWords } from '../../../../store/slices/textbook';
 import { IUserWord } from '../../../../interfaces/IUserWord';
 
 import './user-word-buttons.scss';
@@ -29,6 +30,8 @@ type UserWordButtonsProps = {
 const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
   const { userId, token } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
+
+  const currentWord = useAppSelector(selectCurrentWords).filter((word) => word.id === wordId)[0];
 
   const isLearned = userWord?.optional.isLearned;
   const isDifficult = userWord?.difficulty === 'difficult';
@@ -81,8 +84,35 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
     }
   };
 
-  const handleProgressClick = () => {
-    console.log('progress click');
+  const showModal = () => {
+    Modal.info({
+      title: `Learning progress for ${currentWord.word.toUpperCase()}`,
+      content: (
+        <table className="progress-table">
+          <tr>
+            <th>GAME</th>
+            <th>
+              <Tag color="green">RIGHT</Tag>
+            </th>
+            <th>
+              <Tag color="red">WRONG</Tag>
+            </th>
+          </tr>
+          <tr>
+            <td>SPRINT</td>
+            <td>{!userWord ? '0' : userWord.optional.sprint.rightCounter}</td>
+            <td>{!userWord ? '0' : userWord.optional.sprint.wrongCounter}</td>
+          </tr>
+          <tr>
+            <td>AUDIOCHALLENGE</td>
+            <td>{!userWord ? '0' : userWord.optional.audiochallenge.rightCounter}</td>
+            <td>{!userWord ? '0' : userWord.optional.audiochallenge.wrongCounter}</td>
+          </tr>
+        </table>
+      ),
+      className: 'progress-modal',
+      onOk() {},
+    });
   };
 
   return (
@@ -92,11 +122,13 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
         {!isLearned && <StarOutlined onClick={handleLearnedClick} />}
       </Tooltip>
       <Tooltip placement="right" title={isDifficult ? 'REMOVE FROM DIFFICULT' : 'ADD TO DIFFICULT'}>
-        {isDifficult && <FireFilled style={{ color: '#de423a' }} onClick={handleDifficultClick} />}
-        {!isDifficult && <FireOutlined onClick={handleDifficultClick} />}
+        {isDifficult && (
+          <ThunderboltFilled style={{ color: '#de423a' }} onClick={handleDifficultClick} />
+        )}
+        {!isDifficult && <ThunderboltOutlined onClick={handleDifficultClick} />}
       </Tooltip>
       <Tooltip placement="right" title="SHOW PROGRESS">
-        <BarChartOutlined onClick={handleProgressClick} />
+        <BarChartOutlined onClick={showModal} />
       </Tooltip>
     </div>
   );
