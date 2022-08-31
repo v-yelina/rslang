@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
+
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { clearAuth } from '../../../store/slices/auth';
 import { GameType, WordsSourceType } from '../../../store/types';
@@ -43,7 +44,6 @@ const Header: FC = () => {
           Audiochallenge
         </Link>
         <Link to="/statistics">Statistics</Link>
-        <Link to="/demo">Demo</Link>
         <Link to="/login">Login</Link>
         {isLogged && <Button type="primary" onClick={logout}>Log out</Button>}
       </div>

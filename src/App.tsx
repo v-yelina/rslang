@@ -7,7 +7,6 @@ import Home from './pages/home';
 import Sprint from './pages/sprint';
 import Statistics from './pages/statistics';
 import Textbook from './pages/textbook';
-import Demo from './pages/demo';
 import Login from './pages/login';
 import LevelSelect from './components/level-select';
 import Footer from './components/shared/footer';
@@ -24,7 +23,6 @@ const App: FC = () => (
         <Route path="games/sprint" element={<Sprint />} />
         <Route path="games/audiochallenge" element={<Audiochallenge />} />
         <Route path="statistics" element={<Statistics />} />
-        <Route path="demo" element={<Demo />} />
         <Route path="login" element={<Login />} />
       </Route>
     </Routes>
