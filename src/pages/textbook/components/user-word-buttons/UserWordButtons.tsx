@@ -3,8 +3,8 @@ import { Modal, Tag, Tooltip } from 'antd';
 import {
   StarOutlined,
   StarFilled,
-  FireOutlined,
-  FireFilled,
+  ThunderboltOutlined,
+  ThunderboltFilled,
   BarChartOutlined,
 } from '@ant-design/icons';
 
@@ -45,7 +45,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        })
+        }),
       );
     } else {
       const newUserWord = updateLearnedWord(userWord);
@@ -55,7 +55,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        })
+        }),
       );
     }
   };
@@ -69,7 +69,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        })
+        }),
       );
     } else {
       const newUserWord = updateDifficultWord(userWord);
@@ -79,7 +79,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
           token,
           wordId,
           userWord: newUserWord,
-        })
+        }),
       );
     }
   };
@@ -122,8 +122,10 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
         {!isLearned && <StarOutlined onClick={handleLearnedClick} />}
       </Tooltip>
       <Tooltip placement="right" title={isDifficult ? 'REMOVE FROM DIFFICULT' : 'ADD TO DIFFICULT'}>
-        {isDifficult && <FireFilled style={{ color: '#de423a' }} onClick={handleDifficultClick} />}
-        {!isDifficult && <FireOutlined onClick={handleDifficultClick} />}
+        {isDifficult && (
+          <ThunderboltFilled style={{ color: '#de423a' }} onClick={handleDifficultClick} />
+        )}
+        {!isDifficult && <ThunderboltOutlined onClick={handleDifficultClick} />}
       </Tooltip>
       <Tooltip placement="right" title="SHOW PROGRESS">
         <BarChartOutlined onClick={showModal} />
