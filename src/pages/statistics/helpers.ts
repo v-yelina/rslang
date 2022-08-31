@@ -1,9 +1,14 @@
 import { IUserWord } from "../../interfaces/IUserWord";
 import { gameType } from "../../store/slices/currentGame";
+import { WordToTrain } from "../../store/types";
 import { addAnswersToSliceArgs } from "../audiochallenge/Audiochallenge";
 
 export const checkDate = (statDate:string, today: string) => {
   return statDate === today;
+}
+
+export const countNewWords = (data: WordToTrain[]) => {
+  return data.filter(item => item.optional.isNew !== false).length;
 }
 
 export const updateWord = (data: addAnswersToSliceArgs, game: gameType):IUserWord => {
