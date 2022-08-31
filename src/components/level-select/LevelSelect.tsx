@@ -7,12 +7,7 @@ import { wordsGroups, WORDS_PER_PAGE } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { PageData } from '../../store/types';
 import { fetchRandomWordsForGame, fetchWordsForGame } from '../../store/thunks';
-import {
-  clearCurrentGame,
-  setGameType,
-  setWordsSource,
-  setWordsToTrain,
-} from '../../store/slices/currentGame';
+import { setWordsToTrain } from '../../store/slices/currentGame';
 
 import './level-select.scss';
 
@@ -34,6 +29,7 @@ const LevelSelect: FC = () => {
   const dispatch = useAppDispatch();
   const [isReadyToFetchWords, setIsReadyToFetchWords] = useState(false);
   const [thisPageData, setThisPageData] = useState<PageData>({ group: '', page: '' });
+  const [isSHow, setIsShow] = useState(false);
 
   const getWordsFromMenu = (pageData: PageData) => {
     const { group, page } = pageData;
@@ -60,17 +56,19 @@ const LevelSelect: FC = () => {
   };
 
   useEffect(() => {
-    const localGame = gameType;
-    const localSource = wordsSource;
+    const { group, page } = currentPageData;
 
-    dispatch(clearCurrentGame());
-    dispatch(setGameType(localGame));
-    dispatch(setWordsSource(localSource));
-
-    if (wordsSource === 'textbook') {
-      const { group, page } = currentPageData;
-      setThisPageData({ group, page });
-      dispatch(fetchRandomWordsForGame({ group, page, user: null }));
+    switch (wordsSource) {
+      case 'group':
+        setIsShow(true);
+        break;
+      case 'textbook':
+        setThisPageData({ group, page });
+        dispatch(fetchRandomWordsForGame({ group, page, user: null }));
+        setIsShow(false);
+        break;
+      default:
+        break;
     }
   }, []);
 
@@ -111,7 +109,7 @@ const LevelSelect: FC = () => {
   return (
     <div>
       {
-        (wordsSource === 'group')
+        (isSHow)
         && (
           <div className="level-select">
             <Title level={2}>{gameType?.toUpperCase()}</Title>
