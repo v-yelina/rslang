@@ -10,6 +10,9 @@ export const checkDate = (statDate:string, today: string) => {
 export const countNewWords = (data: WordToTrain[]) => {
   return data.filter(item => item.optional.isNew !== false).length;
 }
+export const countLearnedWords = (data: WordToTrain[]) => {
+  return data.filter(item => item.optional.isLearned).length;
+}
 
 export const updateWord = (data: addAnswersToSliceArgs, game: gameType):IUserWord => {
   const gamesStat = updateGamesStat(game, data);
