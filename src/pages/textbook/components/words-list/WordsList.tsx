@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Spin } from 'antd';
+import { BackTop, Spin } from 'antd';
+import { ArrowUpOutlined } from '@ant-design/icons';
 import { DIFFICULT_GROUP_SLICE_NUM } from '../../../../constants';
 import { useAppSelector } from '../../../../store/hooks';
 import { selectCurrentGroup } from '../../../../store/slices/textbook';
@@ -13,8 +14,24 @@ const WordsList: FC = () => {
   const player = new Audio();
   const group = useAppSelector(selectCurrentGroup);
 
+  const backTopStyle: React.CSSProperties = {
+    height: 40,
+    width: 40,
+    lineHeight: '40px',
+    borderRadius: 4,
+    backgroundColor: '#1088e9',
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 14,
+  };
+
   return (
     <div className="words-list-container">
+      <BackTop>
+        <div style={backTopStyle}>
+          <ArrowUpOutlined />
+        </div>
+      </BackTop>
       {isLoading && <Spin tip="Loading..." size="large" />}
       {!isLoading && !!currentWords.length && (
         <>
