@@ -24,9 +24,10 @@ import {
 import AudioBtn from './audioBtn';
 import RightAnswerCard from './rightAnswerCard';
 import './audiochallenge.scss';
-import { updateWord } from '../statistics/helpers';
+import { countNewWords, updateWord } from '../statistics/helpers';
 import { updateUserWordFromTextbook } from '../../store/thunks';
 import { selectIsLogged, selectUser } from '../../store/slices/auth';
+import { setAudiochallengeResults, setLearnedWords } from '../../store/slices/statistic';
 
 export type addAnswersToSliceArgs = { isRight: boolean; answer: Answer };
 
@@ -71,19 +72,40 @@ const Audiochallenge: FC = () => {
     setIsGameFinished(false);
   };
 
-  const updateAnswersData = (rightAnswers: Answer[], wrongAnswers: Answer[]) => {
-    rightAnswers.forEach(answer => {
+  const updateAnswersData = (right: Answer[], wrong: Answer[]) => {
+    right.forEach((answer) => {
       const updatedData = updateWord({ isRight: true, answer }, 'audiochallenge');
       if (updatedData.newLearned) {
         setLearned(learned + 1);
       }
-      dispatch(updateUserWordFromTextbook({ userId: user.userId, token: user.token, wordId: answer.id, userWord: { ...updatedData.newStatistic } }))
-    })
-    wrongAnswers.forEach(answer => {
+      dispatch(updateUserWordFromTextbook({
+        userId: user.userId,
+        token: user.token,
+        wordId: answer.id,
+        userWord: { ...updatedData.newStatistic },
+      }));
+    });
+    wrong.forEach((answer) => {
       const updatedData = updateWord({ isRight: false, answer }, 'audiochallenge');
-      dispatch(updateUserWordFromTextbook({ userId: user.userId, token: user.token, wordId: answer.id, userWord: { ...updatedData.newStatistic } }))
-    })
-  }
+      dispatch(updateUserWordFromTextbook({
+        userId: user.userId,
+        token: user.token,
+        wordId: answer.id,
+        userWord: { ...updatedData.newStatistic },
+      }));
+    });
+  };
+
+  const getNewStatistic = () => {
+    dispatch(setLearnedWords(learned));
+    dispatch(setAudiochallengeResults({
+      newWords: countNewWords(words),
+      correctAnswers: rightAnswers.length,
+      wrongAnswers: wrongAnswers.length,
+      longestCombo: combo,
+    }));
+    updateAnswersData(rightAnswers, wrongAnswers);
+  };
 
   const addAnswersToSlice = (answerArr: addAnswersToSliceArgs) => {
     const { isRight } = answerArr;
