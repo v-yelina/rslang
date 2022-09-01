@@ -3,6 +3,8 @@ import { gameType } from "../../store/slices/currentGame";
 import { WordToTrain } from "../../store/types";
 import { addAnswersToSliceArgs } from "../audiochallenge/Audiochallenge";
 
+type UpdateWordType = {newLearned: boolean; newStatistic:IUserWord}
+
 export const checkDate = (statDate:string, today: string) => {
   return statDate === today;
 }
@@ -10,15 +12,15 @@ export const checkDate = (statDate:string, today: string) => {
 export const countNewWords = (data: WordToTrain[]) => {
   return data.filter(item => item.optional.isNew !== false).length;
 }
-export const countLearnedWords = (data: WordToTrain[]) => {
-  return data.filter(item => item.optional.isLearned).length;
-}
 
-export const updateWord = (data: addAnswersToSliceArgs, game: gameType):IUserWord => {
+
+export const updateWord = (data: addAnswersToSliceArgs, game: gameType):UpdateWordType => {
+  const wasLearned = data.answer.optional.isLearned;
   const gamesStat = updateGamesStat(game, data);
   const newRightAnswersCounter = data.answer.optional.rightAnswersCounter + 1;
   const isLearned = checkIfLearned(newRightAnswersCounter, data.answer.difficulty === 'difficult');
-  return {difficulty:data.answer.difficulty, optional: {isLearned, isNew: false, rightAnswersCounter:newRightAnswersCounter, ...gamesStat}}
+  const newLearned = isLearned && !wasLearned;
+  return {newLearned, newStatistic: {difficulty:data.answer.difficulty, optional: {isLearned, isNew: false, rightAnswersCounter:newRightAnswersCounter, ...gamesStat}}}
 }
 
 const updateGamesStat = (gameType:gameType, data: addAnswersToSliceArgs) => {
