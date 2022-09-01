@@ -10,6 +10,8 @@ import {
   setRoundIndex,
 } from '../../../store/slices/sprintGame';
 import { checkAnswer } from '../../../utils/helpers/gameHelpers';
+import rightAnswerSound from '../../../assets/sounds/right-answer.mp3';
+import wrongAnswerSound from '../../../assets/sounds/wrong-answer.mp3';
 
 import './sprint-controls.scss';
 
@@ -23,6 +25,8 @@ const SprintControls: FC = () => {
   } = useAppSelector((state) => state.sprintGame);
   const { words } = useAppSelector((state) => state.currentGame);
   const dispatch = useAppDispatch();
+  const rightAnswerAudio = new Audio(rightAnswerSound);
+  const wrongAnswerAudio = new Audio(wrongAnswerSound);
 
   const chooseAnswer = (answer: boolean) => {
     const word = words.find((findWord) => findWord.id === currentWord.id);
@@ -36,6 +40,7 @@ const SprintControls: FC = () => {
           dispatch(setMultiplier(m));
         }
       }
+      rightAnswerAudio.play();
     } else if (wrongAnswers.indexOf(word!) === -1) {
       dispatch(addWrongAnswer(word!));
       dispatch(setMultiplier(0));
@@ -43,6 +48,7 @@ const SprintControls: FC = () => {
       if (rightAnswers.indexOf(word!) !== -1) {
         dispatch(removeRightAnswer(word!));
       }
+      wrongAnswerAudio.play();
     }
 
     if (roundIndex <= words.length - 1) {
