@@ -9,7 +9,9 @@ import './sprint-multiplier.scss';
 
 const SprintMultiplier: FC = () => {
   const dispatch = useAppDispatch();
-  const { score, counter: multiplier, roundIndex } = useAppSelector((state) => state.sprintGame);
+  const {
+    score, counter, multiplier, roundIndex,
+  } = useAppSelector((state) => state.sprintGame);
 
   const [countPerWord, setCountPerWord] = useState(0);
   const [percent, setPercent] = useState(0);
@@ -17,12 +19,12 @@ const SprintMultiplier: FC = () => {
   useEffect(() => {
     const currentCount = multiplier > 0 ? multiplier * 20 : 10;
 
-    if (multiplier === 0) {
+    if (counter === 0) {
       setPercent(0);
     } else {
-      const progressPercent = multiplier % NUMBER_OF_ANSWERS_TO_INCREASE === 0
+      const progressPercent = counter % NUMBER_OF_ANSWERS_TO_INCREASE === 0
         ? 100
-        : (multiplier / NUMBER_OF_ANSWERS_TO_INCREASE) % 1;
+        : (counter / NUMBER_OF_ANSWERS_TO_INCREASE) % 1;
       setPercent(progressPercent * 100);
     }
 

@@ -9,6 +9,7 @@ type SprintGameState = {
   currentWord: RoundWord;
   score: number;
   counter: number;
+  multiplier: number;
   roundIndex: number;
 }
 
@@ -22,6 +23,7 @@ const initialState: SprintGameState = {
   },
   score: -10,
   counter: 0,
+  multiplier: 0,
   roundIndex: 0,
 };
 
@@ -47,6 +49,9 @@ export const sprintGameSlice = createSlice({
     setCounter: (state, action: PayloadAction<number>) => {
       state.counter = action.payload;
     },
+    setMultiplier: (state, action: PayloadAction<number>) => {
+      state.multiplier = action.payload;
+    },
     setRoundIndex: (state, action: PayloadAction<number>) => {
       state.roundIndex = action.payload;
     },
@@ -62,6 +67,7 @@ export const {
   setCurrentWord,
   setGameScore,
   setCounter,
+  setMultiplier,
   setRoundIndex,
   clearSprintState,
 } = sprintGameSlice.actions;

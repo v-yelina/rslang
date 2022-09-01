@@ -7,6 +7,7 @@ import {
   addWrongAnswer,
   removeRightAnswer,
   setCounter,
+  setMultiplier,
   setRoundIndex,
 } from '../../../store/slices/sprintGame';
 import { checkAnswer } from '../../../utils/helpers/gameHelpers';
@@ -22,6 +23,7 @@ const SprintControls: FC = () => {
     rightAnswers,
     wrongAnswers,
     counter,
+    multiplier,
   } = useAppSelector((state) => state.sprintGame);
   const { words } = useAppSelector((state) => state.currentGame);
   const dispatch = useAppDispatch();
@@ -39,15 +41,18 @@ const SprintControls: FC = () => {
         if (counter < 4) {
           setCurrentCount(currentCount + 1);
           dispatch(setCounter(currentCount));
-        } else {
+        } else if (multiplier < 4) {
           setCurrentCount(1);
           dispatch(setCounter(0));
+          dispatch(setMultiplier(multiplier + 1));
         }
       }
       rightAnswerAudio.play();
     } else if (wrongAnswers.indexOf(word!) === -1) {
       dispatch(addWrongAnswer(word!));
       dispatch(setCounter(0));
+      dispatch(setMultiplier(0));
+      setCurrentCount(1);
 
       if (rightAnswers.indexOf(word!) !== -1) {
         dispatch(removeRightAnswer(word!));
