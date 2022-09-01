@@ -23,7 +23,7 @@ const SprintMultiplier: FC = () => {
       setPercent(0);
     } else {
       const progressPercent = counter % NUMBER_OF_ANSWERS_TO_INCREASE === 0
-        ? 100
+        ? 1
         : (counter / NUMBER_OF_ANSWERS_TO_INCREASE) % 1;
       setPercent(progressPercent * 100);
     }
