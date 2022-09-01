@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { BackTop, Spin } from 'antd';
+import { BackTop, Empty, Spin } from 'antd';
 import { ArrowUpOutlined } from '@ant-design/icons';
 import { DIFFICULT_GROUP_SLICE_NUM } from '../../../../constants';
 import { useAppSelector } from '../../../../store/hooks';
@@ -42,6 +42,9 @@ const WordsList: FC = () => {
           </div>
           {group !== DIFFICULT_GROUP_SLICE_NUM && <PaginationBlock />}
         </>
+      )}
+      {!isLoading && !currentWords.length && (
+        <Empty description={<span>No words found. Please try again.</span>} />
       )}
     </div>
   );
