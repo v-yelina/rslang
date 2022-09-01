@@ -101,3 +101,38 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .word-card {
+    width: 360px;
+    min-width: 360px;
+    gap: 20px;
+    justify-content: space-around;
+    min-height: 580px;
+
+    &--img-container {
+      flex: 0 0 20%;
+      max-height: 30%;
+      & img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &--text-container {
+      flex-direction: column;
+      margin-bottom: 10px;
+      align-items: flex-start;
+      & .word-card--text {
+        width: 100%;
+      }
+    }
+
+    &--content-block {
+      &__pronunciation {
+        gap: 40px;
+      }
+    }
+  }
+}

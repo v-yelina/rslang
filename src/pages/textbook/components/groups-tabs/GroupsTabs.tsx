@@ -28,12 +28,14 @@ const GroupsTabs: FC = () => {
   };
 
   return (
-    <Tabs defaultActiveKey={formatPageDataForUI(group)} onChange={onGroupChange}>
-      {[...wordsGroups].map((groupIndex) => (
-        <TabPane key={groupIndex} tab={`Group ${groupIndex}`} />
-      ))}
-      {isLogged && <TabPane key={7} tab="Difficult Words" />}
-    </Tabs>
+    <div className="group-tabs-container">
+      <Tabs defaultActiveKey={formatPageDataForUI(group)} onChange={onGroupChange}>
+        {[...wordsGroups].map((groupIndex) => (
+          <TabPane key={groupIndex} tab={`Group ${groupIndex}`} />
+        ))}
+        {isLogged && <TabPane key={7} tab="Difficult Words" />}
+      </Tabs>
+    </div>
   );
 };
 
