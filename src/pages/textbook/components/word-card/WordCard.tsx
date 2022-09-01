@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { Row, Col } from 'antd';
 import { AggregatedWord } from '../../../../interfaces/IWord';
 import UserWordButtons from '../user-word-buttons';
 import AudioButton from '../audio-button';
@@ -46,39 +45,34 @@ const WordCard: FC<WordCardProps> = (props) => {
       className={`word-card ${userWord && userWord.optional.isLearned ? 'word-card--learned' : ''}`}
     >
       {userWord && userWord.optional.isLearned && <div className="learned-badge">LEARNED</div>}
-      <Row gutter={16}>
-        <Col span={8}>
-          <div className="word-card--img-container">
-            <img alt={word} src={`${ENV.BASE_URL}${image}`} />
-          </div>
-        </Col>
-        <Col span={16}>
-          <div className="word-card--text-container">
-            <div className="word-card--text">
-              <div className="word-card--content-block__pronunciation">
-                <p>
-                  <span className="word-title">{title.toUpperCase()}</span>
-                  <span>{transcription}</span>
-                </p>
-                <AudioButton player={player} audioLinks={audioLinks} />
-              </div>
 
-              <div className="word-card--content-block">
-                <p>{wordTranslate}</p>
-              </div>
-              <div className="word-card--content-block">
-                <p dangerouslySetInnerHTML={{ __html: textMeaning }} />
-                <p>{textMeaningTranslate}</p>
-              </div>
-              <div className="word-card--content-block">
-                <p dangerouslySetInnerHTML={{ __html: textExample }} />
-                <p>{textExampleTranslate}</p>
-              </div>
-            </div>
-            {isLogged && <UserWordButtons userWord={userWord} wordId={id} />}
+      <div className="word-card--img-container">
+        <img alt={word} src={`${ENV.BASE_URL}${image}`} />
+      </div>
+      <div className="word-card--text-container">
+        <div className="word-card--text">
+          <div className="word-card--content-block__pronunciation">
+            <p>
+              <span className="word-title">{title.toUpperCase()}</span>
+              <span>{transcription}</span>
+            </p>
+            <AudioButton player={player} audioLinks={audioLinks} />
           </div>
-        </Col>
-      </Row>
+
+          <div className="word-card--content-block">
+            <p>{wordTranslate}</p>
+          </div>
+          <div className="word-card--content-block">
+            <p dangerouslySetInnerHTML={{ __html: textMeaning }} />
+            <p>{textMeaningTranslate}</p>
+          </div>
+          <div className="word-card--content-block">
+            <p dangerouslySetInnerHTML={{ __html: textExample }} />
+            <p>{textExampleTranslate}</p>
+          </div>
+        </div>
+        {isLogged && <UserWordButtons userWord={userWord} wordId={id} />}
+      </div>
     </div>
   );
 };
