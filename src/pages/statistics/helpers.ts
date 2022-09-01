@@ -13,7 +13,6 @@ export const countNewWords = (data: WordToTrain[]) => {
   return data.filter(item => item.optional.isNew !== false).length;
 }
 
-
 export const updateWord = (data: addAnswersToSliceArgs, game: gameType):UpdateWordType => {
   const wasLearned = data.answer.optional.isLearned;
   const gamesStat = updateGamesStat(game, data);

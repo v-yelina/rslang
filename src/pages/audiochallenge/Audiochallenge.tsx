@@ -24,21 +24,27 @@ import {
 import AudioBtn from './audioBtn';
 import RightAnswerCard from './rightAnswerCard';
 import './audiochallenge.scss';
+import { updateWord } from '../statistics/helpers';
+import { updateUserWordFromTextbook } from '../../store/thunks';
+import { selectIsLogged, selectUser } from '../../store/slices/auth';
 
 export type addAnswersToSliceArgs = { isRight: boolean; answer: Answer };
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
+  const isLogged = useAppSelector(selectIsLogged);
+  const user = useAppSelector(selectUser);
   const {
     words, randomWords, rightAnswers, wrongAnswers, maxCombo,
   } = useAppSelector((state) => state.currentGame);
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
   const [answerOptions, setAnswerOptions] = useState([...getAnswerOptions(currentWord, randomWords), "Don't know"]);
+  const [isAnswered, setIsAnswered] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
   const [combo, setCombo] = useState(0);
-  const [isAnswered, setIsAnswered] = useState(false);
+  const [learned, setLearned] = useState(0);
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
   const rightAnswerAudio = new Audio(rightAnswerSound);
   const wrongAnswerAudio = new Audio(wrongAnswerSound);
@@ -64,6 +70,20 @@ const Audiochallenge: FC = () => {
     setWordIndex(0);
     setIsGameFinished(false);
   };
+
+  const updateAnswersData = (rightAnswers: Answer[], wrongAnswers: Answer[]) => {
+    rightAnswers.forEach(answer => {
+      const updatedData = updateWord({ isRight: true, answer }, 'audiochallenge');
+      if (updatedData.newLearned) {
+        setLearned(learned + 1);
+      }
+      dispatch(updateUserWordFromTextbook({ userId: user.userId, token: user.token, wordId: answer.id, userWord: { ...updatedData.newStatistic } }))
+    })
+    wrongAnswers.forEach(answer => {
+      const updatedData = updateWord({ isRight: false, answer }, 'audiochallenge');
+      dispatch(updateUserWordFromTextbook({ userId: user.userId, token: user.token, wordId: answer.id, userWord: { ...updatedData.newStatistic } }))
+    })
+  }
 
   const addAnswersToSlice = (answerArr: addAnswersToSliceArgs) => {
     const { isRight } = answerArr;
