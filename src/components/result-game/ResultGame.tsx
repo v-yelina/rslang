@@ -1,32 +1,47 @@
-import React, { FC, MouseEventHandler } from 'react';
+import React, { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Typography, List, Button } from 'antd';
 
 import WordItem from '../shared/word-item';
 import { RightAnswer, Answer } from '../../store/types';
 import ENV from '../../config/config';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import ResultStatistic from './result-statistic';
+import { clearCurrentGame, setGameType, setWordsSource } from '../../store/slices/currentGame';
+import { clearSprintState } from '../../store/slices/sprintGame';
 
 import './result-game.scss';
 
 type ResultProps = {
   rightWords: RightAnswer[];
   wrongWords: Answer[];
-  clickHandler: MouseEventHandler;
 }
 
 const { Title, Text } = Typography;
 
 const ResultGame: FC<ResultProps> = (props) => {
-  const { rightWords, wrongWords, clickHandler } = props;
-  const { gameType } = useAppSelector((state) => state.currentGame);
+  const { rightWords, wrongWords } = props;
+  const { gameType, wordsSource } = useAppSelector((state) => state.currentGame);
   const { score } = useAppSelector((state) => state.sprintGame);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const clickHandler = () => {
+    const localGame = gameType;
+    const localSource = wordsSource;
+
+    dispatch(clearSprintState());
+    dispatch(clearCurrentGame());
+    dispatch(setGameType(localGame));
+    dispatch(setWordsSource(localSource));
+    navigate('/games');
+  };
 
   return (
     <div className="result">
       <div className="result__header">
         <Title level={3}>Результаты игры</Title>
-        <Button type="primary" onClick={clickHandler}>Играть снова</Button>
+        <Button type="primary" onClick={clickHandler}>Play again</Button>
       </div>
       {
         (gameType === 'sprint')

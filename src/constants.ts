@@ -16,3 +16,4 @@ export const WORDS_PER_GROUP = 600;
 export const WORDS_FOR_GAME_SPRINT = 20;
 
 export const DURATION_GAME_SPRINT = 60;
+export const NUMBER_OF_ANSWERS_TO_INCREASE = 4;

@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import { Layout, Col, Row } from 'antd';
-import {
-  GithubOutlined,
-} from '@ant-design/icons';
+import { GithubOutlined } from '@ant-design/icons';
 
 const { Footer } = Layout;
 
@@ -34,19 +32,12 @@ const FooterComp: FC = () => (
           </Col>
         </Row>
       </Col>
-      <Col span={4}>
+      <Col span={8}>
         <Row justify="space-around" align="middle">
           <Col span={4}>2022</Col>
           <Col span={4}>
-            <a
-              className="school-link"
-              href="https://rs.school/js/"
-            >
-              <img
-                src="https://rs.school/images/rs_school_js.svg"
-                alt="Course logo"
-                width="100"
-              />
+            <a className="school-link" href="https://rs.school/js/">
+              <img src="https://rs.school/images/rs_school_js.svg" alt="Course logo" width="100" />
             </a>
           </Col>
         </Row>

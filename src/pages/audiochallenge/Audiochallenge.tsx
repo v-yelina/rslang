@@ -15,7 +15,6 @@ import LeaveGameButton from '../../components/shared/button/leave-game-button';
 import rightAnswerSound from '../../assets/sounds/right-answer.mp3';
 import wrongAnswerSound from '../../assets/sounds/wrong-answer.mp3';
 import {
-  clearCurrentGame,
   addRightAnswer,
   addWrongAnswer,
   changeCombo,
@@ -233,7 +232,6 @@ const Audiochallenge: FC = () => {
         <ResultGame
           rightWords={rightAnswers}
           wrongWords={wrongAnswers}
-          clickHandler={restartGame}
         />
       )}
       <div className="leave-btn">

@@ -6,9 +6,11 @@ import ResultGame from '../../components/result-game';
 import SprintGameContainer from './sprint-game-container';
 import { DURATION_GAME_SPRINT } from '../../constants';
 import { Answer } from '../../store/types';
+import { getRandomTranslate } from './sprintGame';
+import LeaveGameButton from '../../components/shared/button/leave-game-button';
+import ConfirmModal from '../../components/shared/modal/confirm-modal';
 
 import './sprint.scss';
-import { getRandomTranslate } from './sprintGame';
 
 const Sprint: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,17 +26,7 @@ const Sprint: FC = () => {
 
   const [isGameFinished, setGameFinished] = useState(false);
   const [gameTime, setGameTime] = useState(DURATION_GAME_SPRINT);
-
-  const initGame = () => {
-    setGameFinished(false);
-    setGameTime(DURATION_GAME_SPRINT);
-    dispatch(setCurrentWord(words[roundIndex]));
-  };
-
-  const restartGame = () => {
-    dispatch(clearSprintState());
-    initGame();
-  };
+  const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
 
   useEffect(() => {
     if (gameTime <= 0 || roundIndex >= words.length) {
@@ -61,10 +53,21 @@ const Sprint: FC = () => {
             <ResultGame
               rightWords={rightAnswers}
               wrongWords={wrongAnswers as unknown as Answer[]}
-              clickHandler={restartGame}
             />
           )
       }
+      <div className="sprint__leave">
+        <LeaveGameButton setVisible={setVisibleLeaveModal} />
+        {
+          isVisibleLeaveModal
+          && (
+          <ConfirmModal
+            isVisible={isVisibleLeaveModal}
+            setVisible={setVisibleLeaveModal}
+          />
+          )
+        }
+      </div>
     </section>
   );
 };

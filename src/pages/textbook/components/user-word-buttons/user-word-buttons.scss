@@ -4,8 +4,33 @@
   gap: 10px;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 1.5rem;
 
   & span {
     font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .word-card--user-btns {
+    flex-direction: row;
+    gap: 40px;
+    align-items: baseline;
+    align-self: center;
+  }
+}
+
+.progress-modal {
+  min-width: 50vw;
+  & .progress-table {
+    border-collapse: collapse;
+    font-size: 1rem;
+    margin: 0 auto;
+    margin-top: 15px;
+    & th,
+    & td {
+      padding: 15px;
+      text-align: center;
+    }
   }
 }

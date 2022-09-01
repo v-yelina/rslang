@@ -16,6 +16,8 @@ import {
   DIFFICULT_GROUP_SLICE_NUM,
   DIFFICULT_GROUP_UI_NUM,
 } from '../../constants';
+import { clearCurrentGame } from '../../store/slices/currentGame';
+import { clearSprintState } from '../../store/slices/sprintGame';
 
 import GroupsTabs from './components/groups-tabs';
 import WordsList from './components/words-list';
@@ -55,6 +57,8 @@ const Textbook: FC = () => {
   };
 
   useEffect(() => {
+    dispatch(clearCurrentGame());
+    dispatch(clearSprintState());
     dispatch(setCurrentPageData({ group: '', page: '' }));
     setPageDataFromParams();
     setIsReadyToFetchWords(true);

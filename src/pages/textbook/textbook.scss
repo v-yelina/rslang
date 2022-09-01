@@ -1,6 +1,9 @@
 .textbook-container {
+  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #eeedecd3;
+  padding: 2rem;
 }
