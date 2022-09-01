@@ -10,7 +10,7 @@ import './sprint-multiplier.scss';
 const SprintMultiplier: FC = () => {
   const dispatch = useAppDispatch();
   const {
-    score, counter, multiplier, roundIndex,
+    score, counter, multiplier, roundIndex, isRightAnswer,
   } = useAppSelector((state) => state.sprintGame);
 
   const [countPerWord, setCountPerWord] = useState(0);
@@ -30,8 +30,10 @@ const SprintMultiplier: FC = () => {
 
     setCountPerWord(currentCount);
 
-    const newGameScore = score + currentCount;
-    dispatch(setGameScore(newGameScore));
+    if (isRightAnswer) {
+      const newGameScore = score + currentCount;
+      dispatch(setGameScore(newGameScore));
+    }
   }, [roundIndex]);
 
   return (

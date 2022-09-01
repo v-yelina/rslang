@@ -11,6 +11,7 @@ type SprintGameState = {
   counter: number;
   multiplier: number;
   roundIndex: number;
+  isRightAnswer: boolean;
 }
 
 const initialState: SprintGameState = {
@@ -21,10 +22,11 @@ const initialState: SprintGameState = {
     wordTranslate: '',
     id: '',
   },
-  score: -10,
+  score: 0,
   counter: 0,
   multiplier: 0,
   roundIndex: 0,
+  isRightAnswer: false,
 };
 
 export const sprintGameSlice = createSlice({
@@ -55,6 +57,9 @@ export const sprintGameSlice = createSlice({
     setRoundIndex: (state, action: PayloadAction<number>) => {
       state.roundIndex = action.payload;
     },
+    setIsRightAnswer: (state, action: PayloadAction<boolean>) => {
+      state.isRightAnswer = action.payload;
+    },
     clearSprintState: () => initialState,
   },
   extraReducers: {},
@@ -69,6 +74,7 @@ export const {
   setCounter,
   setMultiplier,
   setRoundIndex,
+  setIsRightAnswer,
   clearSprintState,
 } = sprintGameSlice.actions;
 
