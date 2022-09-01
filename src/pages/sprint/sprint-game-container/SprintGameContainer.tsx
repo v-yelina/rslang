@@ -1,9 +1,5 @@
-import React, {
-  Dispatch, FC, SetStateAction, useState,
-} from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 
-import LeaveGameButton from '../../../components/shared/button/leave-game-button';
-import ConfirmModal from '../../../components/shared/modal/confirm-modal';
 import Timer from '../../../components/timer';
 import Counter from '../counter';
 import SprintField from '../sprint-field';
@@ -14,7 +10,6 @@ type GameContainerProps = {
 }
 
 const SprintGameContainer: FC<GameContainerProps> = (props) => {
-  const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
   const { time, setTime } = props;
 
   return (
@@ -24,19 +19,9 @@ const SprintGameContainer: FC<GameContainerProps> = (props) => {
           time={time}
           setTime={setTime}
         />
-        <LeaveGameButton setVisible={setVisibleLeaveModal} />
       </div>
       <Counter />
       <SprintField />
-      {
-        isVisibleLeaveModal
-        && (
-        <ConfirmModal
-          isVisible={isVisibleLeaveModal}
-          setVisible={setVisibleLeaveModal}
-        />
-        )
-      }
     </>
   );
 };

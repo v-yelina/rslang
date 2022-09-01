@@ -7,6 +7,8 @@ import SprintGameContainer from './sprint-game-container';
 import { DURATION_GAME_SPRINT } from '../../constants';
 import { Answer } from '../../store/types';
 import { getRandomTranslate } from './sprintGame';
+import LeaveGameButton from '../../components/shared/button/leave-game-button';
+import ConfirmModal from '../../components/shared/modal/confirm-modal';
 
 import './sprint.scss';
 
@@ -24,6 +26,7 @@ const Sprint: FC = () => {
 
   const [isGameFinished, setGameFinished] = useState(false);
   const [gameTime, setGameTime] = useState(DURATION_GAME_SPRINT);
+  const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
 
   useEffect(() => {
     if (gameTime <= 0 || roundIndex >= words.length) {
@@ -53,6 +56,18 @@ const Sprint: FC = () => {
             />
           )
       }
+      <div className="sprint__leave">
+        <LeaveGameButton setVisible={setVisibleLeaveModal} />
+        {
+          isVisibleLeaveModal
+          && (
+          <ConfirmModal
+            isVisible={isVisibleLeaveModal}
+            setVisible={setVisibleLeaveModal}
+          />
+          )
+        }
+      </div>
     </section>
   );
 };
