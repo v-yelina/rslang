@@ -57,35 +57,37 @@ export const statisticSlice = createSlice({
     setLearnedWords: (state, action: PayloadAction<number>) => {
       state.statistic.learnedWords += action.payload;
     },
-    setAudiochallengeResults: (state, action: PayloadAction<Omit<IMiniGameStat, 'gamesPlayed'>>) => {
-      state.statistic.optional.audiochallenge = {
-        newWords:
-        state.statistic.optional.audiochallenge.newWords + action.payload.newWords,
-        correctAnswers:
-        state.statistic.optional.audiochallenge.correctAnswers + action.payload.correctAnswers,
-        wrongAnswers:
-        state.statistic.optional.audiochallenge.wrongAnswers + action.payload.wrongAnswers,
-        longestCombo:
-        state.statistic.optional.audiochallenge.longestCombo > action.payload.longestCombo
-          ? state.statistic.optional.audiochallenge.longestCombo : action.payload.longestCombo,
-        gamesPlayed:
-        state.statistic.optional.audiochallenge.gamesPlayed += 1,
-      };
-    },
-    setSprintResults: (state, action: PayloadAction<Omit<IMiniGameStat, 'gamesPlayed'>>) => {
-      state.statistic.optional.sprint = {
-        newWords:
-        state.statistic.optional.sprint.newWords + action.payload.newWords,
-        correctAnswers:
-        state.statistic.optional.sprint.correctAnswers + action.payload.correctAnswers,
-        wrongAnswers:
-        state.statistic.optional.sprint.wrongAnswers + action.payload.wrongAnswers,
-        longestCombo:
-        state.statistic.optional.sprint.longestCombo > action.payload.longestCombo
-          ? state.statistic.optional.sprint.longestCombo : action.payload.longestCombo,
-        gamesPlayed: state.statistic.optional.sprint.gamesPlayed += 1,
-      };
-    },
+    // setAudiochallengeResults: (state, action: PayloadAction<Omit<IMiniGameStat, 'gamesPlayed'>>) => {
+    //   const newStat = {
+    //     newWords:
+    //     state.statistic.optional.audiochallenge.newWords + action.payload.newWords,
+    //     correctAnswers:
+    //     state.statistic.optional.audiochallenge.correctAnswers + action.payload.correctAnswers,
+    //     wrongAnswers:
+    //     state.statistic.optional.audiochallenge.wrongAnswers + action.payload.wrongAnswers,
+    //     longestCombo:
+    //     state.statistic.optional.audiochallenge.longestCombo > action.payload.longestCombo
+    //       ? state.statistic.optional.audiochallenge.longestCombo : action.payload.longestCombo,
+    //     gamesPlayed:
+    //     state.statistic.optional.audiochallenge.gamesPlayed += 1,
+    //   };
+    //   state.statistic.optional.audiochallenge = newStat;
+    //   console.log(state.statistic.optional.audiochallenge);
+    // },
+    // setSprintResults: (state, action: PayloadAction<Omit<IMiniGameStat, 'gamesPlayed'>>) => {
+    //   state.statistic.optional.sprint = {
+    //     newWords:
+    //     state.statistic.optional.sprint.newWords + action.payload.newWords,
+    //     correctAnswers:
+    //     state.statistic.optional.sprint.correctAnswers + action.payload.correctAnswers,
+    //     wrongAnswers:
+    //     state.statistic.optional.sprint.wrongAnswers + action.payload.wrongAnswers,
+    //     longestCombo:
+    //     state.statistic.optional.sprint.longestCombo > action.payload.longestCombo
+    //       ? state.statistic.optional.sprint.longestCombo : action.payload.longestCombo,
+    //     gamesPlayed: state.statistic.optional.sprint.gamesPlayed += 1,
+    //   };
+    // },
     clearstatistic: () => initialState,
   },
   extraReducers: {
@@ -133,8 +135,8 @@ export const statisticSlice = createSlice({
 export const {
   setDate,
   setLearnedWords,
-  setAudiochallengeResults,
-  setSprintResults,
+  // setAudiochallengeResults,
+  // setSprintResults,
   clearstatistic,
 } = statisticSlice.actions;
 

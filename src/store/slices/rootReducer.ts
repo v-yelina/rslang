@@ -10,5 +10,5 @@ export default combineReducers({
   currentGame: currentGameSlice,
   sprintGame: sprintGameSlice,
   textbook: textbookSlice,
-  statistic: statisticSlice
+  statistic: statisticSlice,
 });
