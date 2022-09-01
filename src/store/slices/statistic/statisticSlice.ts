@@ -53,6 +53,9 @@ export const statisticSlice = createSlice({
     setDate: (state, action: PayloadAction<string>) => {
       state.statistic.optional.statisticDay = action.payload;
     },
+    setLEarnedWords: (state, action: PayloadAction<number>) => {
+      state.statistic.learnedWords += action.payload;
+    },
     setAudiochallengeResults:(state, action: PayloadAction<Omit<IMiniGameStat, 'gamesPlayed'>>) => {
       state.statistic.optional.audiochallenge = {...action.payload,gamesPlayed: state.statistic.optional.audiochallenge.gamesPlayed += 1}
     },
