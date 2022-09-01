@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Button } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
@@ -6,6 +6,8 @@ import {
   addRightAnswer,
   addWrongAnswer,
   removeRightAnswer,
+  setCounter,
+  setIsRightAnswer,
   setMultiplier,
   setRoundIndex,
 } from '../../../store/slices/sprintGame';
@@ -21,10 +23,12 @@ const SprintControls: FC = () => {
     roundIndex,
     rightAnswers,
     wrongAnswers,
+    counter,
     multiplier,
   } = useAppSelector((state) => state.sprintGame);
   const { words } = useAppSelector((state) => state.currentGame);
   const dispatch = useAppDispatch();
+  const [currentCount, setCurrentCount] = useState(1);
   const rightAnswerAudio = new Audio(rightAnswerSound);
   const wrongAnswerAudio = new Audio(wrongAnswerSound);
 
@@ -35,15 +39,23 @@ const SprintControls: FC = () => {
     if (answer === correctAnswer) {
       if (wrongAnswers.indexOf(word!) === -1 && rightAnswers.indexOf(word!) === -1) {
         dispatch(addRightAnswer(word!));
-        if (multiplier < 4) {
-          const m = multiplier + 1;
-          dispatch(setMultiplier(m));
+        if (counter < 4) {
+          setCurrentCount(currentCount + 1);
+          dispatch(setCounter(currentCount));
+        } else if (multiplier < 4) {
+          setCurrentCount(1);
+          dispatch(setCounter(0));
+          dispatch(setMultiplier(multiplier + 1));
         }
       }
       rightAnswerAudio.play();
+      dispatch(setIsRightAnswer(true));
     } else if (wrongAnswers.indexOf(word!) === -1) {
       dispatch(addWrongAnswer(word!));
+      dispatch(setCounter(0));
       dispatch(setMultiplier(0));
+      dispatch(setIsRightAnswer(false));
+      setCurrentCount(1);
 
       if (rightAnswers.indexOf(word!) !== -1) {
         dispatch(removeRightAnswer(word!));
