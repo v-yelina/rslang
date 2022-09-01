@@ -27,7 +27,7 @@ const WordsList: FC = () => {
 
   return (
     <div className="words-list-container">
-      <BackTop>
+      <BackTop className="btn--top">
         <div style={backTopStyle}>
           <ArrowUpOutlined />
         </div>

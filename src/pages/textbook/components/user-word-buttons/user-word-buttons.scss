@@ -13,8 +13,9 @@
 @media screen and (max-width: 1024px) {
   .word-card--user-btns {
     flex-direction: row;
-    gap: 10px;
+    gap: 40px;
     align-items: baseline;
+    align-self: center;
   }
 }
 
