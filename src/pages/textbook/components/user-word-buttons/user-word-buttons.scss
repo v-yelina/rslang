@@ -10,6 +10,14 @@
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .word-card--user-btns {
+    flex-direction: row;
+    gap: 10px;
+    align-items: baseline;
+  }
+}
+
 .progress-modal {
   min-width: 50vw;
   & .progress-table {
