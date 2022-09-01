@@ -23,11 +23,11 @@ import {
 } from '../../store/slices/currentGame';
 import AudioBtn from './audioBtn';
 import RightAnswerCard from './rightAnswerCard';
-import './audiochallenge.scss';
 import { countNewWords, updateWord } from '../statistics/helpers';
-import { updateUserWordFromTextbook } from '../../store/thunks';
+import { updateStatistic, updateUserWordFromTextbook } from '../../store/thunks';
 import { selectIsLogged, selectUser } from '../../store/slices/auth';
 import { setAudiochallengeResults, setLearnedWords } from '../../store/slices/statistic';
+import './audiochallenge.scss';
 
 export type addAnswersToSliceArgs = { isRight: boolean; answer: Answer };
 
@@ -38,6 +38,7 @@ const Audiochallenge: FC = () => {
   const {
     words, randomWords, rightAnswers, wrongAnswers, maxCombo,
   } = useAppSelector((state) => state.currentGame);
+  const statistic = useAppSelector(state => state.statistic.statistic)
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
   const [answerOptions, setAnswerOptions] = useState([...getAnswerOptions(currentWord, randomWords), "Don't know"]);
@@ -105,6 +106,7 @@ const Audiochallenge: FC = () => {
       longestCombo: combo,
     }));
     updateAnswersData(rightAnswers, wrongAnswers);
+    dispatch(updateStatistic({ userId: user.userId, token: user.token, statistic }))
   };
 
   const addAnswersToSlice = (answerArr: addAnswersToSliceArgs) => {
@@ -128,6 +130,9 @@ const Audiochallenge: FC = () => {
       setWordIndex(wordIndex + 1);
     } else {
       setIsGameFinished(true);
+      if (isLogged) {
+        getNewStatistic();
+      }
     }
     const nextBtn = document.querySelector('.audiochallenge__btn-next');
     if (nextBtn) {
