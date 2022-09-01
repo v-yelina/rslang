@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Spin } from 'antd';
 import { DIFFICULT_GROUP_SLICE_NUM } from '../../../../constants';
 import { useAppSelector } from '../../../../store/hooks';
 import { selectCurrentGroup } from '../../../../store/slices/textbook';
@@ -14,7 +15,7 @@ const WordsList: FC = () => {
 
   return (
     <div className="words-list-container">
-      {isLoading && <h3>Loading words...</h3>}
+      {isLoading && <Spin tip="Loading..." size="large" />}
       {!isLoading && !!currentWords.length && (
         <>
           <div className="words-list">
