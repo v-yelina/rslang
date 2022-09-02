@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { FolderFilled } from '@ant-design/icons';
 import { AggregatedWord } from '../../../../interfaces/IWord';
 import UserWordButtons from '../user-word-buttons';
 import AudioButton from '../audio-button';
@@ -6,8 +7,10 @@ import ENV from '../../../../config/config';
 
 import { useAppSelector } from '../../../../store/hooks';
 import { selectIsLogged } from '../../../../store/slices/auth';
+import { GROUP_COLORS } from '../../../../constants';
 
 import './word-card.scss';
+import { selectCurrentGroup } from '../../../../store/slices/textbook';
 
 type WordCardProps = {
   wordData: AggregatedWord;
@@ -33,6 +36,8 @@ const WordCard: FC<WordCardProps> = (props) => {
   } = wordData;
   const title = word;
   const isLogged = useAppSelector(selectIsLogged);
+  const currentGroup = Number(useAppSelector(selectCurrentGroup)) + 1;
+  const groupColorIx = `GROUP_${currentGroup}`;
 
   const audioLinks = [
     `${ENV.BASE_URL}${audio}`,
@@ -53,10 +58,17 @@ const WordCard: FC<WordCardProps> = (props) => {
         <div className="word-card--text">
           <div className="word-card--content-block__pronunciation">
             <p>
+              <FolderFilled
+                style={{ color: GROUP_COLORS[groupColorIx as keyof typeof GROUP_COLORS] }}
+              />
               <span className="word-title">{title.toUpperCase()}</span>
               <span>{transcription}</span>
             </p>
-            <AudioButton player={player} audioLinks={audioLinks} />
+            <AudioButton
+              player={player}
+              audioLinks={audioLinks}
+              color={GROUP_COLORS[groupColorIx as keyof typeof GROUP_COLORS]}
+            />
           </div>
 
           <div className="word-card--content-block">

@@ -4,9 +4,10 @@ import { PlayCircleOutlined } from '@ant-design/icons';
 type AudioButtonProps = {
   player: HTMLAudioElement;
   audioLinks: string[];
+  color: string;
 };
 
-const AudioButton: FC<AudioButtonProps> = ({ player, audioLinks }) => {
+const AudioButton: FC<AudioButtonProps> = ({ player, audioLinks, color }) => {
   const wordsPlayer = player;
 
   useEffect(() => () => wordsPlayer.pause(), []);
@@ -26,7 +27,12 @@ const AudioButton: FC<AudioButtonProps> = ({ player, audioLinks }) => {
       }
     };
   };
-  return <PlayCircleOutlined style={{ fontSize: '30px', cursor: 'pointer' }} onClick={playAudio} />;
+  return (
+    <PlayCircleOutlined
+      style={{ fontSize: '30px', cursor: 'pointer', color }}
+      onClick={playAudio}
+    />
+  );
 };
 
 export default AudioButton;
