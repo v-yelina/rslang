@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, Button } from 'antd';
 
 import { getRandomIndex } from '../../utils/helpers/gameHelpers';
-import { wordsGroups, WORDS_PER_PAGE } from '../../constants';
+import { WORDS_GROUPS, WORDS_PER_PAGE } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { PageData } from '../../store/types';
 import { fetchRandomWordsForGame, fetchWordsForGame } from '../../store/thunks';
@@ -16,13 +16,9 @@ const NUMBER_WORD_GENERATION_STEPS = 3;
 const LAST_PAGE = 29;
 
 const LevelSelect: FC = () => {
-  const {
-    gameType,
-    wordsSource,
-    words,
-    fulfilledCount,
-    pendingCount,
-  } = useAppSelector((state) => state.currentGame);
+  const { gameType, wordsSource, words, fulfilledCount, pendingCount } = useAppSelector(
+    (state) => state.currentGame
+  );
   const { currentPageData } = useAppSelector((state) => state.textbook);
   const { isLogged, user } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -108,31 +104,26 @@ const LevelSelect: FC = () => {
 
   return (
     <div>
-      {
-        (isSHow)
-        && (
-          <div className="level-select">
-            <Title level={2}>{gameType?.toUpperCase()}</Title>
-            <Text>Select the Level</Text>
-            <div className="level-select__list">
-              {
-                wordsGroups.map((numberGroup) => (
-                  <Button
-                    id={`level-${numberGroup}`}
-                    type="primary"
-                    onClick={() => clickHandler(numberGroup)}
-                    shape="circle"
-                    size="large"
-                    key={numberGroup.toString()}
-                  >
-                    {numberGroup}
-                  </Button>
-                ))
-              }
-            </div>
+      {isSHow && (
+        <div className="level-select">
+          <Title level={2}>{gameType?.toUpperCase()}</Title>
+          <Text>Select the Level</Text>
+          <div className="level-select__list">
+            {WORDS_GROUPS.map((numberGroup) => (
+              <Button
+                id={`level-${numberGroup}`}
+                type="primary"
+                onClick={() => clickHandler(numberGroup)}
+                shape="circle"
+                size="large"
+                key={numberGroup.toString()}
+              >
+                {numberGroup}
+              </Button>
+            ))}
           </div>
-        )
-      }
+        </div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-export const wordsGroups = [1, 2, 3, 4, 5, 6];
+export const WORDS_GROUPS = [1, 2, 3, 4, 5, 6];
 
 export const TEXTBOOK_PARAMS = {
   GROUP: 'group',
@@ -17,3 +17,13 @@ export const WORDS_FOR_GAME_SPRINT = 20;
 
 export const DURATION_GAME_SPRINT = 60;
 export const NUMBER_OF_ANSWERS_TO_INCREASE = 4;
+
+export const GROUP_COLORS = {
+  1: '#f35076',
+  2: '#ecec73',
+  3: '#73ccec',
+  4: '#73ec87',
+  5: '#ecca73',
+  6: '#e430d2',
+  7: '#7193e1',
+};

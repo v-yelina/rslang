@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Tabs } from 'antd';
+import { ReadFilled } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { SEARCH_INITIAL_PAGE, wordsGroups } from '../../../../constants';
+import { SEARCH_INITIAL_PAGE, WORDS_GROUPS } from '../../../../constants';
 import { setCurrentPageData, selectCurrentGroup } from '../../../../store/slices/textbook';
 import { selectIsLogged } from '../../../../store/slices/auth';
 import { formatPageDataForSlice, formatPageDataForUI } from '../../helpers';
@@ -30,8 +31,18 @@ const GroupsTabs: FC = () => {
   return (
     <div className="group-tabs-container">
       <Tabs defaultActiveKey={formatPageDataForUI(group)} onChange={onGroupChange}>
-        {[...wordsGroups].map((groupIndex) => (
-          <TabPane key={groupIndex} tab={`Group ${groupIndex}`} />
+        {[...WORDS_GROUPS].map((groupIndex) => (
+          <TabPane
+            key={groupIndex}
+            tab={
+              <span>
+                <ReadFilled />
+                Group
+                {` ${groupIndex}`}
+              </span>
+            }
+            className="group-tab"
+          />
         ))}
         {isLogged && <TabPane key={7} tab="Difficult Words" />}
       </Tabs>
