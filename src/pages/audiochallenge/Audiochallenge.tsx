@@ -6,8 +6,8 @@ import OptionsContainer from './optionsContainer';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   changeAnswerColor,
-  checkAnswer, getAnswerOptions, getAnswerText,
-} from './audioChallengeGame';
+  checkAnswer, clearOptionsId, getAnswerOptions, getAnswerText,
+} from './helpers';
 import ENV from '../../config/config';
 import ResultGame from '../../components/result-game';
 import ConfirmModal from '../../components/shared/modal/confirm-modal';
@@ -67,13 +67,6 @@ const Audiochallenge: FC = () => {
       dispatch(fetchUserStatistic(user));
     }
   }, []);
-
-  const clearOptionsId = () => {
-    const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
-    optionButtons.forEach((option) => {
-      option.removeAttribute('id');
-    });
-  };
 
   useEffect(() => {
     setCurrentWord(words[wordIndex]);
