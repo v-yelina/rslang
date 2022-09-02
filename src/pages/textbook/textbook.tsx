@@ -86,7 +86,6 @@ const Textbook: FC = () => {
 
   return (
     <main className="textbook-container">
-      <h2>Textbook Page</h2>
       {isReadyToFetchWords && <GameButtonsBlock />}
       {isReadyToFetchWords && <GroupsTabs />}
       {isReadyToFetchWords && <WordsList />}

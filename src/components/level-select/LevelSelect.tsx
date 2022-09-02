@@ -16,8 +16,10 @@ const NUMBER_WORD_GENERATION_STEPS = 3;
 const LAST_PAGE = 29;
 
 const LevelSelect: FC = () => {
-  const { gameType, wordsSource, words, fulfilledCount, pendingCount } = useAppSelector(
-    (state) => state.currentGame
+  const {
+    gameType, wordsSource, words, fulfilledCount, pendingCount,
+  } = useAppSelector(
+    (state) => state.currentGame,
   );
   const { currentPageData } = useAppSelector((state) => state.textbook);
   const { isLogged, user } = useAppSelector((state) => state.auth);
