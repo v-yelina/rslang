@@ -89,25 +89,29 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
       title: `Learning progress for ${currentWord.word.toUpperCase()}`,
       content: (
         <table className="progress-table">
-          <tr>
-            <th>GAME</th>
-            <th>
-              <Tag color="green">RIGHT</Tag>
-            </th>
-            <th>
-              <Tag color="red">WRONG</Tag>
-            </th>
-          </tr>
-          <tr>
-            <td>SPRINT</td>
-            <td>{!userWord ? '0' : userWord.optional.sprint.rightCounter}</td>
-            <td>{!userWord ? '0' : userWord.optional.sprint.wrongCounter}</td>
-          </tr>
-          <tr>
-            <td>AUDIOCHALLENGE</td>
-            <td>{!userWord ? '0' : userWord.optional.audiochallenge.rightCounter}</td>
-            <td>{!userWord ? '0' : userWord.optional.audiochallenge.wrongCounter}</td>
-          </tr>
+          <thead>
+            <tr>
+              <th>GAME</th>
+              <th>
+                <Tag color="green">RIGHT</Tag>
+              </th>
+              <th>
+                <Tag color="red">WRONG</Tag>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SPRINT</td>
+              <td>{!userWord ? '0' : userWord.optional.sprint.rightCounter}</td>
+              <td>{!userWord ? '0' : userWord.optional.sprint.wrongCounter}</td>
+            </tr>
+            <tr>
+              <td>AUDIOCHALLENGE</td>
+              <td>{!userWord ? '0' : userWord.optional.audiochallenge.rightCounter}</td>
+              <td>{!userWord ? '0' : userWord.optional.audiochallenge.wrongCounter}</td>
+            </tr>
+          </tbody>
         </table>
       ),
       className: 'progress-modal',
