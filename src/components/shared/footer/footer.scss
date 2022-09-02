@@ -1,0 +1,39 @@
+@import '../../../styles/colors';
+
+.footer {
+  background: $primary-color;
+
+  &__links {
+    @media screen and (max-width: 768px) {
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  &__link {
+    color: $light-color;
+  }
+
+  &__logo {
+    filter: invert(90);
+  }
+
+  &__year {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 20px;
+    color: $light-color;
+  }
+}
+
+#footer {
+  .footer__wrapper {
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+}
