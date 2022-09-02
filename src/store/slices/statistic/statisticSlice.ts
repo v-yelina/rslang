@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ISettings } from '../../../interfaces/ISettings';
-import { IMiniGameStat, IStatistic } from '../../../interfaces/IStatistic';
-import { getToday } from '../../../pages/statistics/helpers';
+import { IStatistic } from '../../../interfaces/IStatistic';
 import {
   fetchUserSettings, fetchUserStatistic, updateSettings, updateStatistic,
 } from '../../thunks';
@@ -19,7 +18,7 @@ const initialState: StatisticState = {
   statistic: {
     learnedWords: 0,
     optional: {
-      statisticDay: getToday(),
+      statisticDay: '',
       audiochallenge: {
         newWords: 0,
         correctAnswers: 0,
@@ -37,12 +36,8 @@ const initialState: StatisticState = {
     },
   },
   settings: {
-    wordsPerDay: 0,
-    optional: {
-      day: '',
-      newWordsCount: 0,
-      gamesCount: 0,
-    },
+    wordsPerDay: 1,
+    optional: { },
   },
 
 };
@@ -57,38 +52,7 @@ export const statisticSlice = createSlice({
     setLearnedWords: (state, action: PayloadAction<number>) => {
       state.statistic.learnedWords += action.payload;
     },
-    // setAudiochallengeResults: (state, action: PayloadAction<Omit<IMiniGameStat, 'gamesPlayed'>>) => {
-    //   const newStat = {
-    //     newWords:
-    //     state.statistic.optional.audiochallenge.newWords + action.payload.newWords,
-    //     correctAnswers:
-    //     state.statistic.optional.audiochallenge.correctAnswers + action.payload.correctAnswers,
-    //     wrongAnswers:
-    //     state.statistic.optional.audiochallenge.wrongAnswers + action.payload.wrongAnswers,
-    //     longestCombo:
-    //     state.statistic.optional.audiochallenge.longestCombo > action.payload.longestCombo
-    //       ? state.statistic.optional.audiochallenge.longestCombo : action.payload.longestCombo,
-    //     gamesPlayed:
-    //     state.statistic.optional.audiochallenge.gamesPlayed += 1,
-    //   };
-    //   state.statistic.optional.audiochallenge = newStat;
-    //   console.log(state.statistic.optional.audiochallenge);
-    // },
-    // setSprintResults: (state, action: PayloadAction<Omit<IMiniGameStat, 'gamesPlayed'>>) => {
-    //   state.statistic.optional.sprint = {
-    //     newWords:
-    //     state.statistic.optional.sprint.newWords + action.payload.newWords,
-    //     correctAnswers:
-    //     state.statistic.optional.sprint.correctAnswers + action.payload.correctAnswers,
-    //     wrongAnswers:
-    //     state.statistic.optional.sprint.wrongAnswers + action.payload.wrongAnswers,
-    //     longestCombo:
-    //     state.statistic.optional.sprint.longestCombo > action.payload.longestCombo
-    //       ? state.statistic.optional.sprint.longestCombo : action.payload.longestCombo,
-    //     gamesPlayed: state.statistic.optional.sprint.gamesPlayed += 1,
-    //   };
-    // },
-    clearstatistic: () => initialState,
+    clearStatistic: () => initialState,
   },
   extraReducers: {
     [fetchUserStatistic.pending.type]: (state) => {
@@ -106,22 +70,26 @@ export const statisticSlice = createSlice({
     },
     [updateStatistic.fulfilled.type]: (state, action: PayloadAction<IStatistic>) => {
       state.isLoading = false;
-      state.statistic = {
-        ...action.payload,
-      };
+      if (action.payload.optional) {
+        state.statistic = {
+          ...action.payload,
+        };
+      }
     },
     [fetchUserSettings.pending.type]: (state) => {
       state.isLoading = true;
     },
     [fetchUserSettings.fulfilled.type]: (state, action: PayloadAction<ISettings>) => {
       state.isLoading = false;
-      state.settings = {
-        ...action.payload,
-      };
+      if (action.payload.optional) {
+        state.settings = {
+          ...action.payload,
+        };
+      }
     },
     [fetchUserSettings.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.settings = initialState.settings;
     },
     [updateSettings.fulfilled.type]: (state, action: PayloadAction<ISettings>) => {
       state.isLoading = false;
@@ -135,9 +103,7 @@ export const statisticSlice = createSlice({
 export const {
   setDate,
   setLearnedWords,
-  // setAudiochallengeResults,
-  // setSprintResults,
-  clearstatistic,
+  clearStatistic,
 } = statisticSlice.actions;
 
 export default statisticSlice.reducer;

@@ -256,8 +256,9 @@ export const updateStatistic = createAsyncThunk(
 );
 
 export const fetchUserSettings = createAsyncThunk(
-  'statistic/updateUserSettings',
+  'statistic/fetchUserSettings',
   async (user: IUserData, { rejectWithValue }) => {
+
     try {
       const { userId, token } = user;
       const response = await fetch(`${ENV.USERS_URL}/${userId}/settings`, {
@@ -285,6 +286,7 @@ export const updateSettings = createAsyncThunk(
   'statistic/updateUserSettings',
   async (settingsData: ISettingsDataForUpdate, { rejectWithValue }) => {
     const { userId, token, settings } = settingsData;
+
     try {
       const response = await fetch(`${ENV.USERS_URL}/${userId}/settings`, {
         method: 'PUT',
