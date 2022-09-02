@@ -15,16 +15,15 @@ import './App.css';
 
 const App: FC = () => (
   <>
+    <Header />
     <Routes>
-      <Route path="/" element={<Header />}>
-        <Route index element={<Home />} />
-        <Route path="textbook" element={<Textbook />} />
-        <Route path="games" element={<LevelSelect />} />
-        <Route path="games/sprint" element={<Sprint />} />
-        <Route path="games/audiochallenge" element={<Audiochallenge />} />
-        <Route path="statistics" element={<Statistics />} />
-        <Route path="login" element={<Login />} />
-      </Route>
+      <Route index element={<Home />} />
+      <Route path="textbook" element={<Textbook />} />
+      <Route path="games" element={<LevelSelect />} />
+      <Route path="games/sprint" element={<Sprint />} />
+      <Route path="games/audiochallenge" element={<Audiochallenge />} />
+      <Route path="statistics" element={<Statistics />} />
+      <Route path="login" element={<Login />} />
     </Routes>
     <Footer />
   </>
