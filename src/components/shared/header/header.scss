@@ -1,0 +1,172 @@
+@import '../../../styles/colors';
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $primary-color;
+  box-shadow: 0px 5px 5px #00000033;
+
+  &__wrapper {
+    margin: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1280px;
+  }
+
+  .ant-typography {
+    margin: 0;
+    padding: 0;
+    font-weight: 900;
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: $font-color-light;
+  }
+
+  &__animation {
+    display: flex;
+    align-items: center;
+    width: 70%;
+
+    @media screen and (max-width: 1020px) {
+      width: 85%;
+    }
+
+    @media screen and (max-width: 767px) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      justify-content: flex-end;
+      background-color: #00000080;
+      z-index: 9;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    &--mobile {
+      padding-left: 20px;
+      height: 100vh;
+      width: 320px;
+      flex-direction: column;
+      align-items: flex-start;
+      background-color: $primary-color;
+      box-shadow: -5px 0px 5px #00000033;
+      z-index: 10;
+
+      & > #header-menu {
+        margin-top: 60px;
+        margin-bottom: 30px;
+
+        .header__link {
+          padding: 0 15px;
+
+          a:active {
+            color: $primary-color;
+          }
+        }
+
+        .ant-menu-item-selected {
+          background-color: $primary-color;
+
+          &::after {
+            right: auto;
+            left: 0;
+            border-left: 3px solid $light-color;
+            transform: scaleY(1);
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  &__authorization {
+    background-color: $primary-color;
+
+    .btn {
+      padding: 5px 30px;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 20px;
+      color: $primary-color;
+      background-color: $light-color;
+      border-color: transparent;
+
+      &:hover {
+        color: $light-color;
+        background-color: $primary-hover-color;
+        border-color: transparent;
+      }
+
+      &:active {
+        color: $light-color;
+        background-color: $primary-active-color;
+        border-color: transparent;
+      }
+    }
+  }
+}
+
+#header-menu {
+  background-color: $primary-color;
+  border-bottom: none;
+  width: 100%;
+
+  @media screen and (max-width: 860px) {
+    margin-left: 20px;
+  }
+
+  @media screen and (max-width: 767px) {
+    margin-left: 0;
+    border-right: none;
+  }
+
+  .header__link {
+    padding: 0 20px;
+
+    @media screen and (max-width: 860px) {
+      padding: 0 10px;
+    }
+  }
+
+  .header__link a {
+    font-size: 18px;
+    color: $font-color-light;
+
+    @media screen and (max-width: 860px) {
+      font-size: 16px;
+    }
+  }
+
+  .ant-menu-item-selected:after {
+    border: 3px solid $light-color;
+  }
+
+  .ant-menu-item:hover::after {
+    border-color: $light-color;
+  }
+
+  & > #header-authorization::after {
+    border: none;
+  }
+}
+
+#burger-menu {
+  margin: 0;
+  margin-left: auto;
+  padding: 0;
+  color: $light-color;
+  z-index: 11;
+  
+  & > span {
+    font-size: 24px;
+  }
+}
