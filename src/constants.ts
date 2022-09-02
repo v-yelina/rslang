@@ -19,11 +19,11 @@ export const DURATION_GAME_SPRINT = 60;
 export const NUMBER_OF_ANSWERS_TO_INCREASE = 4;
 
 export const GROUP_COLORS = {
-  1: '#f35076',
-  2: '#ecec73',
-  3: '#73ccec',
-  4: '#73ec87',
-  5: '#ecca73',
-  6: '#e430d2',
-  7: '#7193e1',
+  GROUP_1: '#f47593',
+  GROUP_2: '#7193e1',
+  GROUP_3: '#ecca73',
+  GROUP_4: '#73ec87',
+  GROUP_5: '#73ccec',
+  GROUP_6: '#e430d2',
+  GROUP_7: '#f5222d',
 };
