@@ -9,7 +9,6 @@
   box-shadow: 0px 5px 5px #00000033;
 
   &__wrapper {
-    margin: 15px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -115,16 +114,29 @@
   }
 }
 
+#header {
+  height: 65px;
+  background: $primary-color;
+
+  @media screen and (max-width: 850px) {
+    padding: 0 30px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0 60px;
+  }
+}
+
 #header-menu {
   background-color: $primary-color;
   border-bottom: none;
   width: 100%;
 
-  @media screen and (max-width: 860px) {
+  @media screen and (max-width: 990px) {
     margin-left: 20px;
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 768px) {
     margin-left: 0;
     border-right: none;
   }
@@ -132,7 +144,7 @@
   .header__link {
     padding: 0 20px;
 
-    @media screen and (max-width: 860px) {
+    @media screen and (max-width: 990px) {
       padding: 0 10px;
     }
   }
@@ -141,7 +153,7 @@
     font-size: 18px;
     color: $font-color-light;
 
-    @media screen and (max-width: 860px) {
+    @media screen and (max-width: 990px) {
       font-size: 16px;
     }
   }
