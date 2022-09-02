@@ -1,3 +1,4 @@
+import { IStatistic } from '../../interfaces/IStatistic';
 import { IUserWord } from '../../interfaces/IUserWord';
 import { gameType } from '../../store/slices/currentGame';
 import { WordToTrain } from '../../store/types';
@@ -10,6 +11,15 @@ export const getToday = () => new Date().toJSON().slice(0, 10);
 export const checkDate = (statDate:string, today: string) => statDate === today;
 
 export const countNewWords = (data: WordToTrain[]) => data.filter((item) => !item.optional).length;
+
+export const getNewDayStat = (dayStat: IStatistic) => {
+  const day = dayStat.optional.statisticDay;
+  const newWordsCount = dayStat.optional.audiochallenge.newWords
+  + dayStat.optional.sprint.newWords;
+  const gamesCount = dayStat.optional.audiochallenge.gamesPlayed
+  + dayStat.optional.sprint.gamesPlayed;
+  return { day, newWordsCount, gamesCount };
+};
 
 const updateGamesStat = (
   game:gameType,
