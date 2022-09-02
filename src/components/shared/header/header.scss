@@ -67,6 +67,10 @@
 
         .header__link {
           padding: 0 15px;
+
+          a:active {
+            color: $primary-color;
+          }
         }
 
         .ant-menu-item-selected {
