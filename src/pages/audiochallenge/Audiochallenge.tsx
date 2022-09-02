@@ -19,16 +19,25 @@ import {
   addWrongAnswer,
   changeCombo,
   Answer,
-  // clearCurrentGame,
 } from '../../store/slices/currentGame';
 import AudioBtn from './audioBtn';
 import RightAnswerCard from './rightAnswerCard';
-import { countNewWords, getToday, updateWord } from '../statistics/helpers';
-import { createUserWordFromTextbook, updateStatistic, updateUserWordFromTextbook } from '../../store/thunks';
+import {
+  checkDate, countNewWords, getNewDayStat, getToday, updateWord,
+} from '../statistics/helpers';
+import {
+  createUserWordFromTextbook,
+  fetchUserSettings,
+  fetchUserStatistic,
+  updateSettings,
+  updateStatistic,
+  updateUserWordFromTextbook,
+} from '../../store/thunks';
 import { selectIsLogged, selectUser } from '../../store/slices/auth';
-// import { setAudiochallengeResults, setLearnedWords } from '../../store/slices/statistic';
 import './audiochallenge.scss';
 import { IStatistic } from '../../interfaces/IStatistic';
+import { IDayStat } from '../../interfaces/ISettings';
+import { clearStatistic, setDate } from '../../store/slices/statistic';
 
 export type addAnswersToSliceArgs = { isRight: boolean; answer: Answer };
 
@@ -39,7 +48,7 @@ const Audiochallenge: FC = () => {
   const {
     words, randomWords, rightAnswers, wrongAnswers, maxCombo,
   } = useAppSelector((state) => state.currentGame);
-  const statistic = useAppSelector((state) => state.statistic.statistic);
+  const { statistic, settings } = useAppSelector((state) => state.statistic);
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
   const [answerOptions, setAnswerOptions] = useState([...getAnswerOptions(currentWord, randomWords), "Don't know"]);
@@ -51,6 +60,13 @@ const Audiochallenge: FC = () => {
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
   const rightAnswerAudio = new Audio(rightAnswerSound);
   const wrongAnswerAudio = new Audio(wrongAnswerSound);
+
+  useEffect(() => {
+    if (isLogged) {
+      dispatch(fetchUserSettings(user));
+      dispatch(fetchUserStatistic(user));
+    }
+  }, []);
 
   const clearOptionsId = () => {
     const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
@@ -68,11 +84,27 @@ const Audiochallenge: FC = () => {
     clearOptionsId();
   }, [currentWord]);
 
-  // const restartGame = () => {
-  //   dispatch(clearCurrentGame());
-  //   setWordIndex(0);
-  //   setIsGameFinished(false);
-  // };
+  const sendDayStatistic = (newDayStat: IDayStat) => {
+    const newDate = statistic.optional.statisticDay;
+    const newStat = {
+      newWordsCount: newDayStat.newWordsCount,
+      gamesCount: newDayStat.gamesCount,
+    };
+    const newOptional = {};
+    Object.defineProperty(newOptional, newDate, {
+      value: { ...newStat },
+      writable: true,
+      enumerable: true,
+    });
+    Object.assign(newOptional, settings.optional);
+    const newSettings = { wordsPerDay: settings.wordsPerDay, optional: newOptional };
+
+    dispatch(updateSettings({
+      userId: user.userId,
+      token: user.token,
+      settings: newSettings,
+    }));
+  };
 
   const updateAnswersData = (right: Answer[], wrong: Answer[]) => {
     right.forEach((answer) => {
@@ -119,6 +151,12 @@ const Audiochallenge: FC = () => {
   };
 
   const getNewStatistic = () => {
+    if (!checkDate(statistic.optional.statisticDay, getToday())) {
+      const dayStat = getNewDayStat(statistic);
+      sendDayStatistic(dayStat);
+      dispatch(clearStatistic());
+      dispatch(setDate(getToday()));
+    }
     const audiochallengeState = statistic.optional.audiochallenge;
     const newStat: IStatistic = {
       learnedWords: learned,
@@ -126,10 +164,12 @@ const Audiochallenge: FC = () => {
         audiochallenge: {
           newWords: countNewWords([...rightAnswers, ...wrongAnswers])
             + audiochallengeState.newWords,
-          correctAnswers: rightAnswers.length + audiochallengeState.correctAnswers,
+          correctAnswers: rightAnswers.length
+            + audiochallengeState.correctAnswers,
           wrongAnswers: wrongAnswers.length
             + audiochallengeState.wrongAnswers,
-          longestCombo: audiochallengeState.longestCombo > maxCombo ? audiochallengeState.longestCombo : maxCombo,
+          longestCombo: audiochallengeState.longestCombo > maxCombo
+            ? audiochallengeState.longestCombo : maxCombo,
           gamesPlayed: audiochallengeState.gamesPlayed + 1,
         },
         sprint: {
