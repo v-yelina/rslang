@@ -35,16 +35,16 @@ const RegistrationForm: FC = () => {
     <Form
       form={form}
       name="basic"
-      labelCol={{ span: 5 }}
-      wrapperCol={{ span: 10 }}
+      labelCol={{ span: 7 }}
+      wrapperCol={{ offset: 2, span: 16 }}
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
+      size='large'
     >
       {isRegistred && <Alert message="Your registration is successfully completed" type="success" />}
       {error && <Alert message={error} type="error" />}
-      <h3>Registration</h3>
       <Form.Item
         label="Username"
         name="name"
@@ -72,10 +72,10 @@ const RegistrationForm: FC = () => {
         <Input.Password />
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" style={{ height: 'max-content' }}>
           Submit
         </Button>
-        <Button htmlType="button" onClick={onReset}>
+        <Button htmlType="button" onClick={onReset} style={{ height: 'max-content' }}>
           Reset
         </Button>
       </Form.Item>
