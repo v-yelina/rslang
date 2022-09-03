@@ -225,7 +225,7 @@ export const updateUserWordFromTextbook = createAsyncThunk(
 );
 
 export const fetchUserStatistic = createAsyncThunk(
-  'statistic/updateUserStatistic',
+  'statistic/fetchUserStatistic',
   async (user: IUserData, { rejectWithValue }) => {
     try {
       const { userId, token } = user;
