@@ -29,7 +29,7 @@ const LoginForm: FC = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
-      size='large'
+      size="large"
     >
       {error && <Alert message={error} type="error" />}
       <Form.Item

@@ -5,14 +5,12 @@ import { IUser } from '../interfaces/IUser';
 import { IUserWord } from '../interfaces/IUserWord';
 import { AggregatedWord, IWord } from '../interfaces/IWord';
 import {
-  createUser,
   createUserWord,
   fetchUserWords,
   fetchWordById,
   fetchWordsByGroupAndPage,
   getUserSettings,
   getUserStatistic,
-  loginUser,
   updateUserSettings,
   updateUserStatistic,
   updateUserWord,

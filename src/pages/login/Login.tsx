@@ -1,4 +1,6 @@
-import React, { FC, MouseEventHandler, useEffect, useState } from 'react';
+import React, {
+  FC, useEffect, useState,
+} from 'react';
 import { Alert, Button, Layout } from 'antd';
 import LoginForm from './loginForm';
 import RegistrationForm from './registrationForm';
@@ -20,31 +22,29 @@ const Login: FC = () => {
 
   const toggleActive = () => {
     const buttons = document.querySelectorAll('.login-tab-btn');
-    buttons.forEach(button => {
+    buttons.forEach((button) => {
       if (button.classList.contains('active')) {
         button.classList.remove('active');
       } else {
         button.classList.add('active');
       }
-    })
-
-  }
+    });
+  };
 
   return (
-    <Content id='login-page'>
+    <Content id="login-page">
       {isLogged ? <Alert message="You are successfully logged in" type="success" /> : (
         <div className="login-forms__container" style={{ backgroundImage: `url(${imageUrl})` }}>
-          <div className='login-forms'>
+          <div className="login-forms">
             <div className="login-signin-buttons">
-              <Button type="dashed" onClick={() => { setLoginTab(true); toggleActive() }} style={{ height: 'max-content' }} className='active login-tab-btn'>Login</Button>
-              <Button type="dashed" onClick={() => { setLoginTab(false); toggleActive() }} style={{ height: 'max-content' }} className='login-tab-btn'>Registration</Button>
+              <Button type="dashed" onClick={() => { setLoginTab(true); toggleActive(); }} style={{ height: 'max-content' }} className="active login-tab-btn">Login</Button>
+              <Button type="dashed" onClick={() => { setLoginTab(false); toggleActive(); }} style={{ height: 'max-content' }} className="login-tab-btn">Registration</Button>
             </div>
             {loginTab ? <LoginForm /> : <RegistrationForm />}
           </div>
         </div>
-      )
-      }
-    </Content >
+      )}
+    </Content>
   );
 };
 

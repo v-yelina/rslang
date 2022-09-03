@@ -41,7 +41,7 @@ const RegistrationForm: FC = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
-      size='large'
+      size="large"
     >
       {isRegistred && <Alert message="Your registration is successfully completed" type="success" />}
       {error && <Alert message={error} type="error" />}
