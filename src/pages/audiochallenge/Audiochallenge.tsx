@@ -43,6 +43,7 @@ const Audiochallenge: FC = () => {
     const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
     optionButtons.forEach((option) => {
       option.removeAttribute('id');
+      option.removeAttribute('disabled');
     });
   };
 
