@@ -57,6 +57,7 @@ export const changeAnswerColor = (isRightAnswer: boolean, answer: string, word: 
     } else {
       option.removeAttribute('id');
     }
+    option.setAttribute('disabled', 'true');
   });
 };
 
@@ -64,5 +65,6 @@ export const clearOptionsId = () => {
     const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
     optionButtons.forEach((option) => {
       option.removeAttribute('id');
+      option.removeAttribute('disabled');
     });
   };

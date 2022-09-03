@@ -23,15 +23,15 @@ const LoginForm: FC = () => {
   return (
     <Form
       name="basic"
-      labelCol={{ span: 5 }}
-      wrapperCol={{ span: 10 }}
+      labelCol={{ span: 7 }}
+      wrapperCol={{ offset: 2, span: 16 }}
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
+      size="large"
     >
       {error && <Alert message={error} type="error" />}
-      <h3>Log In</h3>
       <Form.Item
         label="Email"
         name="email"
@@ -49,7 +49,7 @@ const LoginForm: FC = () => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" style={{ height: 'max-content' }}>
           Submit
         </Button>
       </Form.Item>
