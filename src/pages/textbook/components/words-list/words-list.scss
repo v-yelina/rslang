@@ -5,6 +5,14 @@
   align-items: center;
   min-height: 65vh;
   width: 100%;
+  align-self: center;
+
+  & .words-spin-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   & .words-list {
     display: grid;

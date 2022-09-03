@@ -6,4 +6,21 @@
   align-items: center;
   padding: 2rem;
   gap: 1.5rem;
+
+  .groups-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .textbook-container {
+    .groups-wrapper {
+      grid-template-columns: 70px auto;
+      grid-gap: 2rem;
+      align-self: flex-start;
+      width: 100%;
+    }
+  }
 }

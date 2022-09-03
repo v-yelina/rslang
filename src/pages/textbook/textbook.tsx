@@ -37,9 +37,8 @@ const Textbook: FC = () => {
   let paramsPage = params.get(TEXTBOOK_PARAMS.PAGE);
 
   const setPageDataFromParams = () => {
-    const isSearchParamsCorrect =
-      checkSearchParamsCorrect(paramsGroup, paramsPage) ||
-      (isLogged && paramsGroup === DIFFICULT_GROUP_UI_NUM);
+    const isSearchParamsCorrect = checkSearchParamsCorrect(paramsGroup, paramsPage)
+      || (isLogged && paramsGroup === DIFFICULT_GROUP_UI_NUM);
 
     if (paramsGroup === DIFFICULT_GROUP_UI_NUM) {
       setParams({ group: paramsGroup, page: SEARCH_INITIAL_PAGE });
@@ -79,7 +78,7 @@ const Textbook: FC = () => {
             group,
             page,
             user: isLogged ? { userId: user.userId, token: user.token } : null,
-          })
+          }),
         );
       }
     }
@@ -88,8 +87,12 @@ const Textbook: FC = () => {
   return (
     <main className="textbook-container">
       {isReadyToFetchWords && <GameButtonsBlock />}
-      {isReadyToFetchWords && <GroupsTabs />}
-      {isReadyToFetchWords && <WordsList />}
+      {isReadyToFetchWords && (
+        <div className="groups-wrapper">
+          <GroupsTabs />
+          <WordsList />
+        </div>
+      )}
     </main>
   );
 };

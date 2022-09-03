@@ -32,7 +32,11 @@ const WordsList: FC = () => {
           <ArrowUpOutlined />
         </div>
       </BackTop>
-      {isLoading && <Spin tip="Loading..." size="large" />}
+      {isLoading && (
+        <div className="words-spin-wrapper">
+          <Spin tip="Loading..." size="large" />
+        </div>
+      )}
       {!isLoading && !!currentWords.length && (
         <>
           <div className="words-list">

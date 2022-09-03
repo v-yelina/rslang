@@ -181,7 +181,7 @@
           color: $color-group-1;
         }
 
-        &-checked.tab-group-2 > .group-label--mobile {
+        &-checked.tab-group-2 .group-label--mobile {
           color: $color-group-2;
         }
 
@@ -211,9 +211,12 @@
 
 @media screen and (max-width: 768px) {
   .group-tabs-container {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     & .ant-radio-group {
-      grid-template-columns: repeat(4, 1fr);
-      max-width: 400px;
+      grid-template-columns: 1fr;
+      max-width: 70px;
     }
   }
 }
