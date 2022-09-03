@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ISettings } from '../../../interfaces/ISettings';
 import { IStatistic } from '../../../interfaces/IStatistic';
+import { getToday } from '../../../pages/statistics/helpers';
 import {
   fetchUserSettings, fetchUserStatistic, updateSettings, updateStatistic,
 } from '../../thunks';
@@ -12,13 +13,13 @@ type StatisticState = {
   error: string | null,
 }
 
-const initialState: StatisticState = {
+export const initialState: StatisticState = {
   isLoading: false,
   error: null,
   statistic: {
     learnedWords: 0,
     optional: {
-      statisticDay: '',
+      statisticDay: getToday(),
       audiochallenge: {
         newWords: 0,
         correctAnswers: 0,
@@ -87,7 +88,7 @@ export const statisticSlice = createSlice({
         };
       }
     },
-    [fetchUserSettings.rejected.type]: (state, action: PayloadAction<string>) => {
+    [fetchUserSettings.rejected.type]: (state) => {
       state.isLoading = false;
       state.settings = initialState.settings;
     },

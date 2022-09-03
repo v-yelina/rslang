@@ -1,5 +1,5 @@
 import React, {
-  FC, MouseEventHandler, useEffect, useState,
+  FC, MouseEventHandler, useEffect, useRef, useState,
 } from 'react';
 import { Button } from 'antd';
 import OptionsContainer from './optionsContainer';
@@ -37,7 +37,7 @@ import { selectIsLogged, selectUser } from '../../store/slices/auth';
 import './audiochallenge.scss';
 import { IStatistic } from '../../interfaces/IStatistic';
 import { IDayStat } from '../../interfaces/ISettings';
-import { clearStatistic, setDate } from '../../store/slices/statistic';
+import { initialState } from '../../store/slices/statistic';
 
 export type addAnswersToSliceArgs = { isRight: boolean; answer: Answer };
 
@@ -56,7 +56,7 @@ const Audiochallenge: FC = () => {
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
   const [combo, setCombo] = useState(0);
-  const [learned, setLearned] = useState(0);
+  const learned = useRef(0);
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
   const rightAnswerAudio = new Audio(rightAnswerSound);
   const wrongAnswerAudio = new Audio(wrongAnswerSound);
@@ -104,7 +104,10 @@ const Audiochallenge: FC = () => {
       const isNew = !answer.optional;
       const updatedData = updateWord({ isRight: true, answer }, 'audiochallenge');
       if (updatedData.newLearned) {
-        setLearned(learned + 1);
+        if (updatedData.newLearned) {
+          const prevLearned = learned.current;
+          learned.current = prevLearned + 1;
+        }
       }
       if (!isNew) {
         dispatch(updateUserWordFromTextbook({
@@ -147,12 +150,17 @@ const Audiochallenge: FC = () => {
     if (!checkDate(statistic.optional.statisticDay, getToday())) {
       const dayStat = getNewDayStat(statistic);
       sendDayStatistic(dayStat);
-      dispatch(clearStatistic());
-      dispatch(setDate(getToday()));
+      dispatch(updateStatistic({
+        userId: user.userId,
+        token: user.token,
+        statistic: initialState.statistic,
+      }));
     }
+    updateAnswersData(rightAnswers, wrongAnswers);
     const audiochallengeState = statistic.optional.audiochallenge;
+
     const newStat: IStatistic = {
-      learnedWords: learned,
+      learnedWords: statistic.learnedWords + learned.current,
       optional: {
         audiochallenge: {
           newWords: countNewWords([...rightAnswers, ...wrongAnswers])
@@ -176,7 +184,6 @@ const Audiochallenge: FC = () => {
       token: user.token,
       statistic: newStat,
     }));
-    updateAnswersData(rightAnswers, wrongAnswers);
   };
 
   const addAnswersToSlice = (answerArr: addAnswersToSliceArgs) => {

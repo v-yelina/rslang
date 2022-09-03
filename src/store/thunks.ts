@@ -11,7 +11,6 @@ import {
   fetchUserWords,
   fetchWordById,
   fetchWordsByGroupAndPage,
-  loginUser,
   updateUserWord,
 } from '../utils/api';
 import {
@@ -281,7 +280,6 @@ export const updateStatistic = createAsyncThunk(
 export const fetchUserSettings = createAsyncThunk(
   'statistic/fetchUserSettings',
   async (user: IUserData, { rejectWithValue }) => {
-
     try {
       const { userId, token } = user;
       const response = await fetch(`${ENV.USERS_URL}/${userId}/settings`, {
