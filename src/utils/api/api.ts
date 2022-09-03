@@ -161,7 +161,7 @@ export const loginUser = async (loginData: ILogin) => {
     body: JSON.stringify(loginData),
   });
 
-  if (!response.ok) {
+  if (!response.ok || response.status !== 200) {
     throw new Error('Login failed, please try again');
   }
   const authInfo: IAuth = await response.json();
