@@ -7,13 +7,12 @@
   width: 100%;
 
   & .words-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-gap: 2rem;
     width: 100%;
-    max-width: 1024px;
-    margin-bottom: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   & .btn--top {
@@ -23,13 +22,13 @@
 
 @media screen and (max-width: 1024px) {
   .words-list-container {
-    .words-list {
-      flex-direction: row;
-      flex-flow: row wrap;
-      align-items: stretch;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
+    // .words-list {
+    //   flex-direction: row;
+    //   flex-flow: row wrap;
+    //   align-items: stretch;
+    //   padding-left: 1rem;
+    //   padding-right: 1rem;
+    // }
 
     & .btn--top {
       right: 16px;

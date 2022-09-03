@@ -7,10 +7,10 @@ import ENV from '../../../../config/config';
 
 import { useAppSelector } from '../../../../store/hooks';
 import { selectIsLogged } from '../../../../store/slices/auth';
+import { selectCurrentGroup } from '../../../../store/slices/textbook';
 import { GROUP_COLORS } from '../../../../constants';
 
 import './word-card.scss';
-import { selectCurrentGroup } from '../../../../store/slices/textbook';
 
 type WordCardProps = {
   wordData: AggregatedWord;

@@ -1,22 +1,14 @@
 .word-card--user-btns {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  gap: 40px;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: baseline;
+  align-self: center;
   margin-bottom: 1.5rem;
 
   & span {
     font-size: 30px;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .word-card--user-btns {
-    flex-direction: row;
-    gap: 40px;
-    align-items: baseline;
-    align-self: center;
   }
 }
 

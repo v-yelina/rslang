@@ -1,3 +1,219 @@
+@import '../../../../styles/colors';
+
 .group-tabs-container {
   font-size: 18px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  & .ant-radio-group {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 0.3rem;
+    width: 100%;
+    max-width: 968px;
+
+    & .ant-radio-button-wrapper .group-label--mobile {
+      display: none;
+    }
+  }
+
+  &.ant-radio-button-wrapper:before {
+    background-color: transparent;
+  }
+
+  & .ant-radio-button-wrapper > span:nth-child(2) {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  & .ant-radio-button-wrapper.tab-group-1 {
+    & .tab-icon {
+      color: $color-group-1;
+    }
+  }
+
+  & .ant-radio-button-wrapper.tab-group-2 {
+    & .tab-icon {
+      color: $color-group-2;
+    }
+  }
+
+  & .ant-radio-button-wrapper.tab-group-3 {
+    & .tab-icon {
+      color: $color-group-3;
+    }
+  }
+
+  & .ant-radio-button-wrapper.tab-group-4 {
+    & .tab-icon {
+      color: $color-group-4;
+    }
+  }
+
+  & .ant-radio-button-wrapper.tab-group-5 {
+    & .tab-icon {
+      color: $color-group-5;
+    }
+  }
+
+  & .ant-radio-button-wrapper.tab-group-6 {
+    & .tab-icon {
+      color: $color-group-6;
+    }
+  }
+
+  & .tab-group-7 {
+    & .tab-icon {
+      color: $color-group-7;
+    }
+  }
+
+  & .ant-radio-button-wrapper {
+    min-width: 132px;
+    & .tab-icon {
+      font-size: 1.5rem;
+    }
+  }
+
+  & .ant-radio-button-wrapper-checked:before {
+    background-color: transparent !important;
+  }
+
+  & .ant-radio-button-wrapper.ant-radio-button-wrapper-checked {
+    color: $light-color;
+    outline: none;
+    border: none;
+
+    & .tab-icon {
+      color: $light-color;
+    }
+  }
+
+  & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+    color: $light-color;
+    border: none;
+  }
+
+  .ant-radio-button-wrapper:focus-within {
+    box-shadow: 0 0 0 3px #c8cccf5a;
+  }
+
+  & .ant-radio-button-wrapper-checked.tab-group-1 > span.ant-radio-button-checked {
+    background-color: $color-group-1;
+  }
+
+  & .ant-radio-button-wrapper-checked.tab-group-2 > span.ant-radio-button-checked {
+    background-color: $color-group-2;
+  }
+
+  & .ant-radio-button-wrapper-checked.tab-group-3 > span.ant-radio-button-checked {
+    background-color: $color-group-3;
+  }
+
+  & .ant-radio-button-wrapper-checked.tab-group-4 > span.ant-radio-button-checked {
+    background-color: $color-group-4;
+  }
+
+  & .ant-radio-button-wrapper-checked.tab-group-5 > span.ant-radio-button-checked {
+    background-color: $color-group-5;
+  }
+
+  & .ant-radio-button-wrapper-checked.tab-group-6 > span.ant-radio-button-checked {
+    background-color: $color-group-6;
+  }
+
+  & .ant-radio-button-wrapper-checked.tab-group-7 > span.ant-radio-button-checked {
+    background-color: $color-group-7;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .group-tabs-container {
+    min-height: 64px;
+    & .ant-radio-group {
+      grid-template-columns: repeat(7, 1fr);
+      width: 100%;
+      max-width: 748px;
+      min-height: 64px;
+      grid-gap: 24px;
+
+      & .ant-radio-button-wrapper {
+        height: 100%;
+        width: 64px;
+        min-width: 64px;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-radius: 50%;
+        overflow: hidden;
+
+        & > span:nth-child(2) {
+          justify-content: center;
+        }
+        & .tab-icon {
+          font-size: 2.5rem;
+        }
+
+        & .group-label {
+          display: none;
+        }
+
+        & .group-label--mobile {
+          display: block;
+          color: $light-color;
+          font-weight: bold;
+          position: absolute;
+        }
+
+        &:hover {
+          background-color: #f2f2eff5 !important;
+        }
+
+        &-checked.tab-group-1 .group-label--mobile {
+          color: $color-group-1;
+        }
+
+        &-checked.tab-group-2 > .group-label--mobile {
+          color: $color-group-2;
+        }
+
+        &-checked.tab-group-3 .group-label--mobile {
+          color: $color-group-3;
+        }
+
+        &-checked.tab-group-4 .group-label--mobile {
+          color: $color-group-4;
+        }
+
+        &-checked.tab-group-5 .group-label--mobile {
+          color: $color-group-5;
+        }
+
+        &-checked.tab-group-6 .group-label--mobile {
+          color: $color-group-6;
+        }
+
+        &-checked.tab-group-7 .group-label--mobile {
+          color: $color-group-7;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .group-tabs-container {
+    & .ant-radio-group {
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 400px;
+    }
+  }
 }
