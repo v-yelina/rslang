@@ -34,8 +34,8 @@ const FooterComp: FC = () => (
           </Col>
         </Row>
       </Col>
-      <Col span={8}>
-        <Row justify="space-around" align="middle" className="footer__school">
+      <Col span={8} className="footer__school">
+        <Row justify="space-around" align="middle">
           <Col span={4} className="footer__year">2022</Col>
           <Col span={4}>
             <a className="footer__logo" href="https://rs.school/js/">
