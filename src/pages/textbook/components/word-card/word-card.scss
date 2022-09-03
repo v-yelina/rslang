@@ -1,5 +1,5 @@
 .word-card {
-  padding: 20px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -29,6 +29,7 @@
   &--img-container {
     flex: 0 0 30%;
     & img {
+      object-fit: cover;
       width: 100%;
       height: auto;
     }
@@ -37,10 +38,15 @@
   &--text-container {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     justify-content: space-between;
     align-items: center;
-    align-self: flex-start;
+    width: 100%;
     gap: 1rem;
+  }
+
+  &--text {
+    width: 100%;
   }
 
   &--content-block {
@@ -80,9 +86,7 @@
 
     &--img-container {
       flex: 0 0 20%;
-      max-height: 30%;
       & img {
-        object-fit: cover;
         width: 100%;
         height: 100%;
       }
@@ -133,5 +137,11 @@
         gap: 40px;
       }
     }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .word-card {
+    padding: 10px;
   }
 }
