@@ -1,7 +1,7 @@
 import React, {
   FC, MouseEventHandler, useEffect, useRef, useState,
 } from 'react';
-import { Button } from 'antd';
+import { Button, Layout } from 'antd';
 import OptionsContainer from './optionsContainer';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
@@ -60,6 +60,8 @@ const Audiochallenge: FC = () => {
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
   const rightAnswerAudio = new Audio(rightAnswerSound);
   const wrongAnswerAudio = new Audio(wrongAnswerSound);
+  const { Content } = Layout;
+  const imageUrl = 'https://img.freepik.com/free-vector/happy-girl-wearing-headphones-enjoying-playlist-listening-music-mobile-phone-singing-songs_74855-14053.jpg?w=1060&t=st=1662281402~exp=1662282002~hmac=fd920d75d54bb7d72a915d2c423d807706d0cd72f5d898d7d4c773d632060dd0';
 
   useEffect(() => {
     if (isLogged) {
@@ -303,23 +305,26 @@ const Audiochallenge: FC = () => {
   }, [handleKeyPress]);
 
   return (
-    <>
-      {!isGameFinished ? (
-        <section className="game game--audiochallenge">
-          <h2>Audiochallenge Page</h2>
-          <div className="audio">
-            <AudioBtn src={wordAudio} />
-          </div>
-          {isAnswered && <RightAnswerCard word={currentWord} />}
-          <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
-          <Button type="primary" disabled className="audiochallenge__btn-next">Next word</Button>
-        </section>
-      ) : (
-        <ResultGame
-          rightWords={rightAnswers}
-          wrongWords={wrongAnswers}
-        />
-      )}
+    <Content id="audiochallenge-page" style={{ backgroundImage: `url(${imageUrl})` }}>
+      {
+        !isGameFinished ? (
+          <section className="game game--audiochallenge">
+            <div className="audio-right-answer__container">
+              <div className="audio">
+                <AudioBtn src={wordAudio} />
+              </div>
+              {isAnswered && <RightAnswerCard word={currentWord} />}
+            </div>
+            <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
+            <Button type="primary" disabled className="audiochallenge__btn-next">Next word</Button>
+          </section>
+        ) : (
+          <ResultGame
+            rightWords={rightAnswers}
+            wrongWords={wrongAnswers}
+          />
+        )
+      }
       <div className="leave-btn">
         <LeaveGameButton setVisible={setVisibleLeaveModal} />
         {
@@ -332,8 +337,7 @@ const Audiochallenge: FC = () => {
           )
         }
       </div>
-
-    </>
+    </Content>
   );
 };
 
