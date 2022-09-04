@@ -18,7 +18,7 @@ const WordsList: FC = () => {
     height: 40,
     width: 40,
     lineHeight: '40px',
-    borderRadius: 4,
+    borderRadius: '50%',
     backgroundColor: '#1088e9',
     color: '#fff',
     textAlign: 'center',
@@ -32,7 +32,11 @@ const WordsList: FC = () => {
           <ArrowUpOutlined />
         </div>
       </BackTop>
-      {isLoading && <Spin tip="Loading..." size="large" />}
+      {isLoading && (
+        <div className="words-spin-wrapper">
+          <Spin tip="Loading..." size="large" />
+        </div>
+      )}
       {!isLoading && !!currentWords.length && (
         <>
           <div className="words-list">

@@ -121,17 +121,20 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
 
   return (
     <div className="word-card--user-btns">
-      <Tooltip placement="right" title={isLearned ? 'REMOVE FROM LEARNED' : 'ADD TO LEARNED'}>
+      <Tooltip placement="bottom" title={isLearned ? 'REMOVE FROM LEARNED' : 'ADD TO LEARNED'}>
         {isLearned && <StarFilled style={{ color: '#52c41a' }} onClick={handleLearnedClick} />}
         {!isLearned && <StarOutlined onClick={handleLearnedClick} />}
       </Tooltip>
-      <Tooltip placement="right" title={isDifficult ? 'REMOVE FROM DIFFICULT' : 'ADD TO DIFFICULT'}>
+      <Tooltip
+        placement="bottom"
+        title={isDifficult ? 'REMOVE FROM DIFFICULT' : 'ADD TO DIFFICULT'}
+      >
         {isDifficult && (
           <ThunderboltFilled style={{ color: '#f5222d' }} onClick={handleDifficultClick} />
         )}
         {!isDifficult && <ThunderboltOutlined onClick={handleDifficultClick} />}
       </Tooltip>
-      <Tooltip placement="right" title="SHOW PROGRESS">
+      <Tooltip placement="bottom" title="SHOW PROGRESS">
         <BarChartOutlined onClick={showModal} />
       </Tooltip>
     </div>
