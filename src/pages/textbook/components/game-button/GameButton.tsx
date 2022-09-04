@@ -18,7 +18,7 @@ const GameButton: FC<GameButtonProps> = ({ game }) => {
   const currentWords = useAppSelector(selectCurrentWords);
 
   const isPageLearned = currentWords.every(
-    (word) => word.userWord && word.userWord.optional.isLearned
+    (word) => word.userWord && word.userWord.optional.isLearned,
   );
 
   const handleGameClick = () => {
