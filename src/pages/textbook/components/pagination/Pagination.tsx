@@ -1,12 +1,14 @@
 import React, { FC, useState } from 'react';
 import { Button, Input } from 'antd';
 import ButtonGroup from 'antd/lib/button/button-group';
+import { TrophyFilled } from '@ant-design/icons';
 import { useSearchParams } from 'react-router-dom';
 import { WORDS_PER_GROUP, WORDS_PER_PAGE } from '../../../../constants';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import {
   selectCurrentGroup,
   selectCurrentPage,
+  selectIsPageLearned,
   setCurrentPageData,
 } from '../../../../store/slices/textbook';
 import { formatPageDataForSlice, formatPageDataForUI } from '../../helpers';
@@ -24,6 +26,7 @@ const PaginationBlock: FC = () => {
   const currentPage = useAppSelector(selectCurrentPage);
   const pageNumUI = Number(currentPage) + 1;
   const lastPage = WORDS_PER_GROUP / WORDS_PER_PAGE;
+  const isPageLearned = useAppSelector(selectIsPageLearned);
 
   const [pageSearchValue, setPageSearchValue] = useState('');
 
@@ -82,7 +85,10 @@ const PaginationBlock: FC = () => {
         <Button disabled={pageNumUI === 1} onClick={() => handlePageClick('prev')}>
           {'<'}
         </Button>
-        <Button onClick={() => handlePageClick('current')}>{pageNumUI}</Button>
+        <Button onClick={() => handlePageClick('current')}>
+          {isPageLearned && <TrophyFilled style={{ fontSize: '16px', color: '#ffbf00' }} />}
+          <span>{`PAGE ${pageNumUI}`}</span>
+        </Button>
         <Button disabled={pageNumUI === lastPage} onClick={() => handlePageClick('next')}>
           {'>'}
         </Button>
@@ -91,7 +97,7 @@ const PaginationBlock: FC = () => {
         </Button>
       </ButtonGroup>
       <div className="pagination-jump">
-        <span>GO TO PAGE: </span>
+        <span>GO TO: </span>
         <Input
           defaultValue=""
           value={pageSearchValue}

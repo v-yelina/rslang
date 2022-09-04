@@ -22,3 +22,8 @@ export const selectCurrentWords = createSelector(
   [selectTextbookReducer],
   (textbookSlice) => textbookSlice.currentWords,
 );
+
+// eslint-disable-next-line
+export const selectIsPageLearned = createSelector([selectCurrentWords], (currentWords) => currentWords.every(
+  (word) => word.userWord && word.userWord.optional && word.userWord.optional.isLearned,
+));
