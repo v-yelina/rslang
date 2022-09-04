@@ -16,7 +16,7 @@
 
   & .words-list {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, 365px);
     grid-gap: 1rem;
     width: 100%;
     margin-bottom: 2rem;
@@ -30,7 +30,7 @@
 @media screen and (max-width: 1200px) {
   .words-list-container {
     .words-list {
-      grid-template-columns: repeat(2, auto);
+      grid-template-columns: repeat(2, 370px);
       grid-gap: 1.5rem;
       max-width: 768px;
     }
