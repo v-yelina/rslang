@@ -23,6 +23,10 @@
     button {
         font-size: 1.3rem;
         height: fit-content;
+
+        &:disabled {
+            color: black;
+        }
     }
 }
 
@@ -47,11 +51,11 @@
 }
 
 #right-answer {
-    background-color: rgba(127, 255, 212, 0.482);
+    background-color: #A8D2A0;
 }
 
 #wrong-answer {
-    background-color: rgba(233, 65, 98, 0.729);
+    background-color: rgba(211, 31, 67, 0.789);
 }
 
 @media screen and (max-width: 1053px) {
