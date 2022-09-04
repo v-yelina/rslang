@@ -26,6 +26,7 @@ const Header: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { isLogged } = useAppSelector((state) => state.auth);
+  const { gameType } = useAppSelector((state) => state.currentGame);
   const [isShow, setIsShow] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
   const [selected, setSelected] = useState('');
@@ -73,6 +74,9 @@ const Header: FC = () => {
         break;
       case 'statistics':
         setSelected('statistics');
+        break;
+      case 'games':
+        setSelected(gameType!.toString());
         break;
       default:
         setSelected('');
