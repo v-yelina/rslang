@@ -9,11 +9,11 @@ export type GameWinPercentProps = {
 
 const GameWinPercent: FC<GameWinPercentProps> = (props) => {
   const { rightWords, wrongWords } = props;
-  const percent = getPercent(rightWords, wrongWords);
+  const percent = getPercent(rightWords, wrongWords) / 100;
 
   return (
     <Gauge
-      percent={percent / 100}
+      percent={percent}
       type="meter"
       innerRadius={0.75}
       range={{
