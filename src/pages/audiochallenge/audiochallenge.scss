@@ -5,15 +5,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center bottom;
 }
 
 .game--audiochallenge {
     width: 80%;
     margin: 0 auto;
+    padding: 60px;
     display: flex;
     flex-direction: column;
     gap: 40px;
     align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
 
     button {
         font-size: 1.3rem;
