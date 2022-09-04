@@ -106,10 +106,8 @@ const Audiochallenge: FC = () => {
       const isNew = !answer.optional;
       const updatedData = updateWord({ isRight: true, answer }, 'audiochallenge');
       if (updatedData.newLearned) {
-        if (updatedData.newLearned) {
-          const prevLearned = learned.current;
-          learned.current = prevLearned + 1;
-        }
+        const prevLearned = learned.current;
+        learned.current = prevLearned + 1;
       }
       if (!isNew) {
         dispatch(updateUserWordFromTextbook({

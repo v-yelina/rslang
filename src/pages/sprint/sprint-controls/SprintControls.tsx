@@ -16,6 +16,7 @@ import rightAnswerSound from '../../../assets/sounds/right-answer.mp3';
 import wrongAnswerSound from '../../../assets/sounds/wrong-answer.mp3';
 
 import './sprint-controls.scss';
+import { changeCombo } from '../../../store/slices/currentGame';
 
 const SprintControls: FC = () => {
   const {
@@ -26,9 +27,10 @@ const SprintControls: FC = () => {
     counter,
     multiplier,
   } = useAppSelector((state) => state.sprintGame);
-  const { words } = useAppSelector((state) => state.currentGame);
+  const { words, maxCombo } = useAppSelector((state) => state.currentGame);
   const dispatch = useAppDispatch();
   const [currentCount, setCurrentCount] = useState(1);
+  const [combo, setCombo] = useState(0);
   const rightAnswerAudio = new Audio(rightAnswerSound);
   const wrongAnswerAudio = new Audio(wrongAnswerSound);
 
@@ -48,6 +50,7 @@ const SprintControls: FC = () => {
           dispatch(setMultiplier(multiplier + 1));
         }
       }
+      setCombo(combo + 1);
       rightAnswerAudio.play();
       dispatch(setIsRightAnswer(true));
     } else if (wrongAnswers.indexOf(word!) === -1) {
@@ -56,6 +59,11 @@ const SprintControls: FC = () => {
       dispatch(setMultiplier(0));
       dispatch(setIsRightAnswer(false));
       setCurrentCount(1);
+
+      if (combo > maxCombo) {
+        dispatch(changeCombo(combo));
+      }
+      setCombo(0);
 
       if (rightAnswers.indexOf(word!) !== -1) {
         dispatch(removeRightAnswer(word!));
