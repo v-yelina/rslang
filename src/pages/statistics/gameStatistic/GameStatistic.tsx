@@ -28,21 +28,21 @@ const GameStatistics: FC<GameStatisticsProps> = (props) => {
     <Space style={contentStyle}>
       <Divider>{gameName}</Divider>
       <Item>
-        <Text strong>Played games: </Text>
+        <Text strong>Played games:&nbsp;</Text>
         <Text>
           {' '}
           {statistic.gamesPlayed}
         </Text>
       </Item>
       <Item>
-        <Text strong>New words: </Text>
+        <Text strong>New words:&nbsp;</Text>
         <Text>
           {' '}
           {statistic.newWords}
         </Text>
       </Item>
       <Item>
-        <Text strong>Longest combo: </Text>
+        <Text strong>Longest combo:&nbsp;</Text>
         <Text>
           {' '}
           {statistic.longestCombo}

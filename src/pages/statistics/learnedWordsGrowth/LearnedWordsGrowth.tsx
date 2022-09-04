@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import { TinyArea } from '@ant-design/plots';
 
-const LearnedWordsGrowth: FC = () => {
-  const data = [
-    192, 264, 340, 438, 546, 887, 983,
-  ];
+type LearnedWordsGrowthType = {
+  data: number[];
+}
+
+const LearnedWordsGrowth: FC<LearnedWordsGrowthType> = (props) => {
+  const { data } = props;
 
   return (
     <TinyArea

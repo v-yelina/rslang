@@ -1,41 +1,15 @@
 import React, { FC } from 'react';
 import { Column } from '@ant-design/plots';
 
-const WordsPerDay: FC = () => {
-  const data = [
-    {
-      date: '01.02',
-      words: 38,
-    },
-    {
-      date: '02.02',
-      words: 52,
-    },
-    {
-      date: '03.02',
-      words: 61,
-    },
-    {
-      date: '04.02',
-      words: 145,
-    },
-    {
-      date: '05.02',
-      words: 48,
-    },
-    {
-      date: '06.02',
-      words: 38,
-    },
-    {
-      date: '07.02',
-      words: 38,
-    },
-    {
-      date: '08.02',
-      words: 38,
-    },
-  ];
+export type WordsPerDayProps = {
+  data: {
+    date: string;
+    words: number;
+  }[]
+}
+
+const WordsPerDay: FC<WordsPerDayProps> = (props) => {
+  const { data } = props;
 
   return (
     <Column

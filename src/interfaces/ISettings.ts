@@ -6,6 +6,6 @@ export interface IDayStat {
 export interface ISettings {
     wordsPerDay: number;
     optional: {
-        [key: string]: IDayStat[]
+        [key: string]: IDayStat;
     };
 }

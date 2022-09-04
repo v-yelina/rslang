@@ -25,25 +25,25 @@ const WordsStatistics: FC = () => {
       <Divider>Today learned:</Divider>
       <List>
         <Item>
-          <Text strong>New words: </Text>
+          <Text strong>New words:&nbsp;</Text>
           <Text>
             {
-            statistic.optional.audiochallenge.newWords
-            + statistic.optional.sprint.newWords
-          }
+              statistic.optional.audiochallenge.newWords
+              + statistic.optional.sprint.newWords
+            }
           </Text>
         </Item>
         <Item>
-          <Text strong>Learned words: </Text>
+          <Text strong>Learned words:&nbsp;</Text>
           <Text>{statistic.learnedWords}</Text>
         </Item>
         <Item>
-          <Text strong>Played games: </Text>
+          <Text strong>Played games:&nbsp;</Text>
           <Text>
             {
-            statistic.optional.audiochallenge.gamesPlayed
-            + statistic.optional.sprint.gamesPlayed
-          }
+              statistic.optional.audiochallenge.gamesPlayed
+              + statistic.optional.sprint.gamesPlayed
+            }
           </Text>
         </Item>
       </List>
