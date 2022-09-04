@@ -21,3 +21,10 @@ export const getRandomIndex = (arraySize: number): number => Math.floor(Math.ran
 export const getTranslations = <T extends WordTranslateProp>(words: T[]) => (
   words.reduce((prev: string[], word) => [...prev, word.wordTranslate], [])
 );
+
+export const getPercent = (rightWords: number, wrongWords:number): number => {
+    const full: number = rightWords + wrongWords;
+    const result: number = (rightWords / full) * 100;
+
+    return Math.floor(result);
+  };

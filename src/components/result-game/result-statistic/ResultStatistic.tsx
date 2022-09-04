@@ -4,23 +4,17 @@ import { Progress } from 'antd';
 import { Answer, RightAnswer } from '../../../store/types';
 
 import './result-statistic.scss';
+import { getPercent } from '../../../utils/helpers/gameHelpers';
 
-type ResultProps = {
+export type ResultProps = {
   rightWords: RightAnswer[];
   wrongWords: Answer[];
 }
 
-const ResultStatistic:FC<ResultProps> = (props) => {
+const ResultStatistic: FC<ResultProps> = (props) => {
   const { rightWords, wrongWords } = props;
 
-  const getPercent = (): number => {
-    const full: number = rightWords.length + wrongWords.length;
-    const result: number = (rightWords.length / full) * 100;
-
-    return Math.floor(result);
-  };
-
-  const percent = getPercent();
+  const percent = getPercent(rightWords.length, wrongWords.length);
 
   return (
     <div className="statistic">
