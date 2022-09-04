@@ -23,7 +23,7 @@ const Header: FC = () => {
   const { isLogged } = useAppSelector((state) => state.auth);
   const [isShow, setIsShow] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
-  const [selected, setSelected] = useState(`${sessionStorage.getItem('link') || ''}`);
+  const [selected, setSelected] = useState(`${sessionStorage.getItem('link') || 'home'}`);
 
   const updateDimensions = () => {
     const width = window.innerWidth;
@@ -139,6 +139,7 @@ const Header: FC = () => {
                 <Menu
                   mode={(windowWidth <= 768) ? 'vertical' : 'horizontal'}
                   id="header-menu"
+                  defaultSelectedKeys={['home']}
                   selectedKeys={[selected]}
                   items={menuItems}
                 />
