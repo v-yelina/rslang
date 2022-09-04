@@ -1,6 +1,6 @@
 #audiochallenge-page {
     position: relative;
-    height: 75vh;
+    min-height: 75vh;
     margin: 2%;
     display: flex;
     justify-content: center;
@@ -31,7 +31,7 @@
     gap: 30px;
     align-items: center;
     justify-content: center;
-    height: 238px;
+    min-height: 238px;
 }
 
 .options-container {
@@ -58,5 +58,26 @@
     .options-container {
         flex-wrap: wrap;
         justify-content: center;
+    }
+}
+
+@media screen and (max-width: 565px) {
+    .audio-right-answer__container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .game--audiochallenge {
+        padding: 20px;
+    }
+
+    .options-container {
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    .leave-btn {
+        right: 10px;
+        top: 10px;
     }
 }
