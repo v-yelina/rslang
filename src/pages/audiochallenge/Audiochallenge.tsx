@@ -160,7 +160,7 @@ const Audiochallenge: FC = () => {
           break;
       }
     }
-    if (!isGameFinished) {
+    if (isAnswered && !isGameFinished) {
       switch (e.code) {
         case 'Enter':
         case 'NumpadEnter':
