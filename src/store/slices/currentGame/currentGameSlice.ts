@@ -1,27 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchRandomWordsForGame, fetchWordsForGame } from '../../thunks';
+import { IUserWord } from '../../../interfaces/IUserWord';
 import { IWord } from '../../../interfaces/IWord';
 
 type wordsSourceType = 'group' | 'textbook' | undefined;
 
 export type gameType = 'audiochallenge' | 'sprint' | undefined;
 
-export type WordToTrain = Pick<IWord, 'id' | 'word' | 'image' | 'audio' | 'wordTranslate'>;
-export type Answer = {
+export type WordToTrain = Pick<IWord, 'id' | 'word' | 'image' | 'audio' | 'wordTranslate'> & (Partial<IUserWord> & Pick<IUserWord, 'difficulty' | 'optional'>);
+
+export interface Answer extends WordToTrain {
   answer: string;
-  word: string;
-  wordTranslate: string;
-  audio: string;
-  id: string;
-};
-export type RightAnswer = Pick<Answer, 'word' | 'wordTranslate' | 'audio' | 'id'>;
+}
 
 type CurrentGameState = {
   wordsSource: wordsSourceType;
   gameType: gameType;
   words: WordToTrain[];
   randomWords: WordToTrain[];
-  rightAnswers: RightAnswer[];
+  rightAnswers: Answer[];
   wrongAnswers: Answer[];
   maxCombo: number;
   isLoading: boolean;
@@ -61,7 +58,7 @@ export const currentGameSlice = createSlice({
         ...action.payload,
       ];
     },
-    addRightAnswer: (state, action: PayloadAction<RightAnswer>) => {
+    addRightAnswer: (state, action: PayloadAction<Answer>) => {
       state.rightAnswers.push(action.payload);
     },
     addWrongAnswer: (state, action: PayloadAction<Answer>) => {

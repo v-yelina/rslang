@@ -9,7 +9,7 @@ export interface IMiniGameStat {
 export interface IStatistic {
     learnedWords: number;
     optional: {
-        statisticDay: Date;
+        statisticDay: string;
         audiochallenge: IMiniGameStat;
         sprint: IMiniGameStat;
     };

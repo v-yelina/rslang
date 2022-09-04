@@ -1,13 +1,13 @@
 import React, {
-  FC, MouseEventHandler, useEffect, useState,
+  FC, MouseEventHandler, useEffect, useRef, useState,
 } from 'react';
 import { Button } from 'antd';
 import OptionsContainer from './optionsContainer';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   changeAnswerColor,
-  checkAnswer, getAnswerOptions, getAnswerText,
-} from './audioChallengeGame';
+  checkAnswer, clearOptionsId, getAnswerOptions, getAnswerText,
+} from './helpers';
 import ENV from '../../config/config';
 import ResultGame from '../../components/result-game';
 import ConfirmModal from '../../components/shared/modal/confirm-modal';
@@ -18,34 +18,55 @@ import {
   addRightAnswer,
   addWrongAnswer,
   changeCombo,
+  Answer,
 } from '../../store/slices/currentGame';
 import AudioBtn from './audioBtn';
 import RightAnswerCard from './rightAnswerCard';
+import {
+  checkDate, countNewWords, getNewDayStat, getToday, updateWord,
+} from '../statistics/helpers';
+import {
+  createUserWordFromTextbook,
+  fetchUserSettings,
+  fetchUserStatistic,
+  updateSettings,
+  updateStatistic,
+  updateUserWordFromTextbook,
+} from '../../store/thunks';
+import { selectIsLogged, selectUser } from '../../store/slices/auth';
 import './audiochallenge.scss';
+import { IStatistic } from '../../interfaces/IStatistic';
+import { IDayStat } from '../../interfaces/ISettings';
+import { initialState } from '../../store/slices/statistic';
+
+export type addAnswersToSliceArgs = { isRight: boolean; answer: Answer };
 
 const Audiochallenge: FC = () => {
   const dispatch = useAppDispatch();
+  const isLogged = useAppSelector(selectIsLogged);
+  const user = useAppSelector(selectUser);
   const {
     words, randomWords, rightAnswers, wrongAnswers, maxCombo,
   } = useAppSelector((state) => state.currentGame);
+  const { statistic, settings } = useAppSelector((state) => state.statistic);
   const [wordIndex, setWordIndex] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[wordIndex]);
   const [answerOptions, setAnswerOptions] = useState([...getAnswerOptions(currentWord, randomWords), "Don't know"]);
+  const [isAnswered, setIsAnswered] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
   const [combo, setCombo] = useState(0);
-  const [isAnswered, setIsAnswered] = useState(false);
+  const learned = useRef(0);
   const wordAudio = `${ENV.BASE_URL}${currentWord.audio}`;
   const rightAnswerAudio = new Audio(rightAnswerSound);
   const wrongAnswerAudio = new Audio(wrongAnswerSound);
 
-  const clearOptionsId = () => {
-    const optionButtons = Array.from(document.querySelectorAll('.option-btn')) as HTMLElement[];
-    optionButtons.forEach((option) => {
-      option.removeAttribute('id');
-      option.removeAttribute('disabled');
-    });
-  };
+  useEffect(() => {
+    if (isLogged) {
+      dispatch(fetchUserSettings(user));
+      dispatch(fetchUserStatistic(user));
+    }
+  }, []);
 
   useEffect(() => {
     setCurrentWord(words[wordIndex]);
@@ -56,25 +77,124 @@ const Audiochallenge: FC = () => {
     clearOptionsId();
   }, [currentWord]);
 
-  const addAnswersToSlice = (
-    isRight: boolean,
-    answer: string,
-    word: string,
-    wordTranslate: string,
-    audio: string,
-    id: string,
-  ) => {
+  const sendDayStatistic = (newDayStat: IDayStat) => {
+    const newDate = statistic.optional.statisticDay;
+    const newStat = {
+      newWordsCount: newDayStat.newWordsCount,
+      gamesCount: newDayStat.gamesCount,
+    };
+    const newOptional = {};
+    Object.defineProperty(newOptional, newDate, {
+      value: { ...newStat },
+      writable: true,
+      enumerable: true,
+    });
+    Object.assign(newOptional, settings.optional);
+    const newSettings = { wordsPerDay: settings.wordsPerDay, optional: newOptional };
+
+    dispatch(updateSettings({
+      userId: user.userId,
+      token: user.token,
+      settings: newSettings,
+    }));
+  };
+
+  const updateAnswersData = (right: Answer[], wrong: Answer[]) => {
+    right.forEach((answer) => {
+      const isNew = !answer.optional;
+      const updatedData = updateWord({ isRight: true, answer }, 'audiochallenge');
+      if (updatedData.newLearned) {
+        if (updatedData.newLearned) {
+          const prevLearned = learned.current;
+          learned.current = prevLearned + 1;
+        }
+      }
+      if (!isNew) {
+        dispatch(updateUserWordFromTextbook({
+          userId: user.userId,
+          token: user.token,
+          wordId: answer.id,
+          userWord: { ...updatedData.newStatistic },
+        }));
+      } else {
+        dispatch(createUserWordFromTextbook({
+          userId: user.userId,
+          token: user.token,
+          wordId: answer.id,
+          userWord: { ...updatedData.newStatistic },
+        }));
+      }
+    });
+    wrong.forEach((answer) => {
+      const isNew = !answer.optional;
+      const updatedData = updateWord({ isRight: false, answer }, 'audiochallenge');
+      if (!isNew) {
+        dispatch(updateUserWordFromTextbook({
+          userId: user.userId,
+          token: user.token,
+          wordId: answer.id,
+          userWord: { ...updatedData.newStatistic },
+        }));
+      } else {
+        dispatch(createUserWordFromTextbook({
+          userId: user.userId,
+          token: user.token,
+          wordId: answer.id,
+          userWord: { ...updatedData.newStatistic },
+        }));
+      }
+    });
+  };
+
+  const getNewStatistic = () => {
+    if (!checkDate(statistic.optional.statisticDay, getToday())) {
+      const dayStat = getNewDayStat(statistic);
+      sendDayStatistic(dayStat);
+      dispatch(updateStatistic({
+        userId: user.userId,
+        token: user.token,
+        statistic: initialState.statistic,
+      }));
+    }
+    updateAnswersData(rightAnswers, wrongAnswers);
+    const audiochallengeState = statistic.optional.audiochallenge;
+
+    const newStat: IStatistic = {
+      learnedWords: statistic.learnedWords + learned.current,
+      optional: {
+        audiochallenge: {
+          newWords: countNewWords([...rightAnswers, ...wrongAnswers])
+            + audiochallengeState.newWords,
+          correctAnswers: rightAnswers.length
+            + audiochallengeState.correctAnswers,
+          wrongAnswers: wrongAnswers.length
+            + audiochallengeState.wrongAnswers,
+          longestCombo: audiochallengeState.longestCombo > maxCombo
+            ? audiochallengeState.longestCombo : maxCombo,
+          gamesPlayed: audiochallengeState.gamesPlayed + 1,
+        },
+        sprint: {
+          ...statistic.optional.sprint,
+        },
+        statisticDay: getToday(),
+      },
+    };
+    dispatch(updateStatistic({
+      userId: user.userId,
+      token: user.token,
+      statistic: newStat,
+    }));
+  };
+
+  const addAnswersToSlice = (answerArr: addAnswersToSliceArgs) => {
+    const { isRight } = answerArr;
     if (isRight) {
       rightAnswerAudio.play();
-      dispatch(addRightAnswer({
-        word, wordTranslate, audio, id,
-      }));
+      dispatch(addRightAnswer(answerArr.answer));
       setCombo(combo + 1);
     } else {
       wrongAnswerAudio.play();
-      dispatch(addWrongAnswer({
-        answer, word, wordTranslate, audio, id,
-      }));
+      dispatch(addWrongAnswer(answerArr.answer));
       if (combo > maxCombo) {
         dispatch(changeCombo(combo));
       }
@@ -83,9 +203,12 @@ const Audiochallenge: FC = () => {
   };
 
   const nextWord = () => {
-    if (wordIndex < words.length - 1 && wordIndex < 20) {
+    if (wordIndex < words.length - 1 && wordIndex < 19) {
       setWordIndex(wordIndex + 1);
     } else {
+      if (isLogged) {
+        getNewStatistic();
+      }
       setIsGameFinished(true);
     }
     const nextBtn = document.querySelector('.audiochallenge__btn-next');
@@ -104,14 +227,13 @@ const Audiochallenge: FC = () => {
     } else {
       isRightAnswer = checkAnswer(answer, currentWord.wordTranslate);
     }
-    addAnswersToSlice(
-      isRightAnswer,
-      answer,
-      currentWord.word,
-      currentWord.wordTranslate,
-      currentWord.audio,
-      currentWord.id,
-    );
+    addAnswersToSlice({
+      isRight: isRightAnswer,
+      answer: {
+        answer,
+        ...currentWord,
+      },
+    });
     changeAnswerColor(isRightAnswer, answer, currentWord.wordTranslate);
     setIsAnswered(true);
     const nextBtn = document.querySelector('.audiochallenge__btn-next');
