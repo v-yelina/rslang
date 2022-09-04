@@ -186,7 +186,6 @@ const Audiochallenge: FC = () => {
       {
         !isGameFinished ? (
           <section className="game game--audiochallenge">
-            <h2>Audiochallenge Page</h2>
             <div className="audio">
               <AudioBtn src={wordAudio} />
             </div>
