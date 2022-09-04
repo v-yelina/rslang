@@ -17,7 +17,7 @@ import './App.css';
 const { Content } = Layout;
 
 const App: FC = () => (
-  <Layout>
+  <Layout style={{ minHeight: '100vh', backgroundColor: '#fff' }}>
     <Header />
     <Content>
       <Routes>
