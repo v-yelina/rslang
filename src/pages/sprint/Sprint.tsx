@@ -57,6 +57,7 @@ const Sprint: FC = () => {
   const sendDayStatistic = (newDayStat: IDayStat) => {
     const newDate: string = statistic.optional.statisticDay;
     const newStat: IDayStat = {
+      learnedWords: newDayStat.learnedWords,
       newWordsCount: newDayStat.newWordsCount,
       gamesCount: newDayStat.gamesCount,
     };
@@ -203,10 +204,10 @@ const Sprint: FC = () => {
         {
           isVisibleLeaveModal
           && (
-          <ConfirmModal
-            isVisible={isVisibleLeaveModal}
-            setVisible={setVisibleLeaveModal}
-          />
+            <ConfirmModal
+              isVisible={isVisibleLeaveModal}
+              setVisible={setVisibleLeaveModal}
+            />
           )
         }
       </div>

@@ -1,4 +1,5 @@
 export interface IDayStat {
+    learnedWords: number;
     newWordsCount: number;
     gamesCount: number;
 }
