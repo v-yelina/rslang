@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import {
-  Button, Typography, Menu,
+  Button, Typography, Menu, Layout,
 } from 'antd';
 import { CloseOutlined, MenuOutlined } from '@ant-design/icons';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
@@ -120,7 +120,7 @@ const Header: FC = () => {
   ];
 
   return (
-    <header className="header">
+    <Layout.Header className="header" id="header">
       <div className="header__wrapper">
         <Title level={1}>RSLang</Title>
         {(windowWidth <= 768)
@@ -135,9 +135,9 @@ const Header: FC = () => {
         <QueueAnim className="header__animation">
           {
             isShow && (
-              <div className={(windowWidth < 768) ? 'header__menu header__menu--mobile' : 'header__menu'}>
+              <div className={(windowWidth <= 768) ? 'header__menu header__menu--mobile' : 'header__menu'}>
                 <Menu
-                  mode={(windowWidth < 768) ? 'vertical' : 'horizontal'}
+                  mode={(windowWidth <= 768) ? 'vertical' : 'horizontal'}
                   id="header-menu"
                   selectedKeys={[selected]}
                   items={menuItems}
@@ -157,7 +157,7 @@ const Header: FC = () => {
         </QueueAnim>
         <Outlet />
       </div>
-    </header>
+    </Layout.Header>
   );
 };
 
