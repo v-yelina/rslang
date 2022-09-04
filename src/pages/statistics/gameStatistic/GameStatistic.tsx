@@ -13,7 +13,7 @@ const GameStatistics: FC<GameStatisticsProps> = (props) => {
   const { Text } = Typography;
   const { Item } = List;
   const { gameName } = props;
-  const { statistic } = useAppSelector((state) => state.statistic);
+  const statistic = useAppSelector((state) => (gameName === 'Audiochallenge' ? state.statistic.statistic.optional.audiochallenge : state.statistic.statistic.optional.sprint));
 
   const contentStyle: React.CSSProperties = {
     display: 'flex',
@@ -31,25 +31,25 @@ const GameStatistics: FC<GameStatisticsProps> = (props) => {
         <Text strong>Played games: </Text>
         <Text>
           {' '}
-          {gameName === 'Audiochallenge' ? statistic.optional.audiochallenge.gamesPlayed : statistic.optional.sprint.gamesPlayed}
+          {statistic.gamesPlayed}
         </Text>
       </Item>
       <Item>
         <Text strong>New words: </Text>
         <Text>
           {' '}
-          {gameName === 'Audiochallenge' ? statistic.optional.audiochallenge.newWords : statistic.optional.sprint.newWords}
+          {statistic.newWords}
         </Text>
       </Item>
       <Item>
         <Text strong>Longest combo: </Text>
         <Text>
           {' '}
-          {gameName === 'Audiochallenge' ? statistic.optional.audiochallenge.longestCombo : statistic.optional.sprint.longestCombo}
+          {statistic.longestCombo}
         </Text>
       </Item>
       <Item>
-        <GameWinPercent />
+        <GameWinPercent rightWords={statistic.correctAnswers} wrongWords={statistic.wrongAnswers} />
       </Item>
     </Space>
   );
