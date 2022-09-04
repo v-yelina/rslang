@@ -14,7 +14,7 @@ const RightAnswerCard: FC<RightAnswerCardProps> = (props) => {
   const { Meta } = Card;
   return (
     <Card
-      style={{ width: 240 }}
+      style={{ width: 240, fontSize: '1.5rem' }}
       cover={<img alt="Right answer" src={`${ENV.BASE_URL}${word.image}`} />}
     >
       <Meta title={word.word} description={word.wordTranslate} />

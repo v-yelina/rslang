@@ -28,7 +28,7 @@ const AudioBtn: FC<PlayAudioProps> = ({ src }) => {
     track.play();
   }, [src]);
 
-  return <PlayCircleOutlined style={{ fontSize: '3rem' }} onClick={() => track.play()} />;
+  return <PlayCircleOutlined style={{ fontSize: '5rem' }} onClick={() => track.play()} />;
 };
 
 export default AudioBtn;
