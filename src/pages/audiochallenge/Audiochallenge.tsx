@@ -186,8 +186,8 @@ const Audiochallenge: FC = () => {
     <Content id="audiochallenge-page" style={{ backgroundImage: `url(${imageUrl})` }}>
       {
         !isGameFinished ? (
-          <section className="game game--audiochallenge" >
-            <div className='audio-right-answer__container'>
+          <section className="game game--audiochallenge">
+            <div className="audio-right-answer__container">
               <div className="audio">
                 <AudioBtn src={wordAudio} />
               </div>
@@ -203,7 +203,7 @@ const Audiochallenge: FC = () => {
           />
         )
       }
-      <div className="leave-btn" >
+      <div className="leave-btn">
         <LeaveGameButton setVisible={setVisibleLeaveModal} />
         {
           isVisibleLeaveModal
@@ -214,7 +214,7 @@ const Audiochallenge: FC = () => {
             />
           )
         }
-      </div >
+      </div>
     </Content>
   );
 };
