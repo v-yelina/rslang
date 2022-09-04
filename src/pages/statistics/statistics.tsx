@@ -17,7 +17,6 @@ const Statistics: FC = () => {
     dispatch(fetchUserStatistic(user));
   }, []);
 
-
   return (
     <>
       <h2>Statistics</h2>
