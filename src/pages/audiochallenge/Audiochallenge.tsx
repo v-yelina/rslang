@@ -186,10 +186,12 @@ const Audiochallenge: FC = () => {
       {
         !isGameFinished ? (
           <section className="game game--audiochallenge">
-            <div className="audio">
-              <AudioBtn src={wordAudio} />
+            <div className='audio-right-answer__container'>
+              <div className="audio">
+                <AudioBtn src={wordAudio} />
+              </div>
+              {isAnswered && <RightAnswerCard word={currentWord} />}
             </div>
-            {isAnswered && <RightAnswerCard word={currentWord} />}
             <OptionsContainer options={answerOptions} clickHandler={(e) => handleClick(e)} />
             <Button type="primary" disabled className="audiochallenge__btn-next">Next word</Button>
           </section>

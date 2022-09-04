@@ -21,9 +21,18 @@
     }
 }
 
+.audio-right-answer__container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    height: 238px;
+}
+
 .options-container {
     display: flex;
     gap: 30px;
+    margin-top: 50px;
 }
 
 .leave-btn {
