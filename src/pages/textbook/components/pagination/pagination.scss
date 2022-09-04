@@ -1,0 +1,18 @@
+.textbook-pagination-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+
+  .pagination-jump {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+    span {
+      display: block;
+      min-width: 35px;
+      align-self: center;
+    }
+  }
+}
