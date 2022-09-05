@@ -8,6 +8,7 @@
 
 #one-day-stat-tab {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   background-repeat: no-repeat;
@@ -62,7 +63,7 @@
   }
 }
 
-#one-day-stat-tab {
+#all-time-tab {
   display: flex;
   flex-direction: column;
   align-items: center;

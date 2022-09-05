@@ -23,7 +23,7 @@ const AllTimeStat: FC = () => {
   });
 
   return (
-    <Content id="one-day-stat-tab">
+    <Content id="all-time-tab">
       <Divider className="chart-name">New words per day:</Divider>
       <Item>
         <WordsPerDay data={wordsPerDayData} />
