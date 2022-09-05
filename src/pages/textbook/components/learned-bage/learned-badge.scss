@@ -28,6 +28,13 @@
   }
 }
 
+@media screen and (max-width: 600px) {
+  .learned-page-badge {
+    width: 90px;
+    height: 90px;
+  }
+}
+
 @keyframes jiggle {
   0% {
     transform: rotateZ(0);

@@ -49,3 +49,14 @@
 .textbook-challenge-btn:disabled {
   opacity: 0.55;
 }
+
+@media screen and (max-width: 600px) {
+  .textbook-btn {
+    width: 90px;
+    height: 90px;
+
+    & span {
+      display: none;
+    }
+  }
+}

@@ -4,3 +4,9 @@
   justify-content: center;
   align-items: center;
 }
+
+@media screen and (max-width: 420px) {
+  .game-buttons-wrapper {
+    gap: 20px;
+  }
+}
