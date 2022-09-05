@@ -10,11 +10,12 @@ const LearnedWordsGrowth: FC<LearnedWordsGrowthType> = (props) => {
 
   return (
     <TinyArea
-      height={60}
-      autoFit={false}
+      height={100}
+      autoFit={true}
       data={data}
       smooth
       color="#a9def9"
+      className='chart-item'
     />
   );
 };
