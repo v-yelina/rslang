@@ -1,15 +1,17 @@
 import React, { FC, useEffect } from 'react';
 import {
+  Alert,
   Tabs,
 } from 'antd';
 import OneDayStat from './oneDayStat';
 import AllTimeStat from './allTimeStat';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { fetchUserSettings, fetchUserStatistic } from '../../store/thunks';
-import { selectUser } from '../../store/slices/auth';
+import { selectIsLogged, selectUser } from '../../store/slices/auth';
 
 const Statistics: FC = () => {
   const dispatch = useAppDispatch();
+  const isLogged = useAppSelector(selectIsLogged);
   const user = useAppSelector(selectUser);
   const { TabPane } = Tabs;
   useEffect(() => {
@@ -18,17 +20,18 @@ const Statistics: FC = () => {
   }, []);
 
   return (
-    <>
-      <h2>Statistics</h2>
-      <Tabs defaultActiveKey="1" centered>
-        <TabPane tab="Today" key="1">
-          <OneDayStat />
-        </TabPane>
-        <TabPane tab="All time" key="2">
-          <AllTimeStat />
-        </TabPane>
-      </Tabs>
-    </>
+    isLogged
+      ? (
+        <Tabs defaultActiveKey="1" centered>
+          <TabPane tab="Today" key="1">
+            <OneDayStat />
+          </TabPane>
+          <TabPane tab="All time" key="2">
+            <AllTimeStat />
+          </TabPane>
+        </Tabs>
+      )
+      : <Alert message="Please, sign up or log in to see this page" type="error" />
   );
 };
 
