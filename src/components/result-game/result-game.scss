@@ -48,17 +48,6 @@
 #result-wrong-answer,
 #result-right-answer {
   margin: 20px 0;
-
-  .ant-list-items {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .ant-list-item {
-    width: 45%;
-  }
-
-
 }
 
 @media screen and (max-width: 440px) {
@@ -75,16 +64,6 @@
     &__header {
       flex-direction: column;
       justify-content: flex-start;
-    }
-  }
-}
-
-@media screen and (max-width: 1100px) {
-
-  #result-wrong-answer,
-  #result-right-answer {
-    .ant-list-item {
-      width: 90%;
     }
   }
 }
