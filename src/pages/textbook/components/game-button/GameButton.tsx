@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { setGameType, setWordsSource } from '../../../../store/slices/currentGame';
 import { GameType } from '../../../../store/types';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { selectCurrentWords } from '../../../../store/slices/textbook';
+import { selectCurrentGroup, selectCurrentWords } from '../../../../store/slices/textbook';
 
 import './game-button.scss';
 
@@ -17,10 +17,13 @@ const GameButton: FC<GameButtonProps> = ({ game }) => {
 
   const currentWords = useAppSelector(selectCurrentWords);
   const { isLoading } = useAppSelector((state) => state.textbook);
+  const currentGroup = useAppSelector(selectCurrentGroup);
 
   const isPageLearned = currentWords.every(
     (word) => word.userWord && word.userWord.optional.isLearned,
   );
+
+  const isDisabled = isLoading || isPageLearned || currentGroup === '6';
 
   const handleGameClick = () => {
     dispatch(setGameType(game));
@@ -35,7 +38,7 @@ const GameButton: FC<GameButtonProps> = ({ game }) => {
       }`}
       type="button"
       onClick={handleGameClick}
-      disabled={isLoading || isPageLearned}
+      disabled={isDisabled}
     >
       <span>{game!.toUpperCase()}</span>
     </button>
