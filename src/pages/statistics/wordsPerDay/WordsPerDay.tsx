@@ -14,11 +14,11 @@ const WordsPerDay: FC<WordsPerDayProps> = (props) => {
   return (
     <Column
       height={200}
-      autoFit={true}
+      autoFit
       data={data}
       yField="words"
       xField="date"
-      className='chart-item'
+      className="chart-item"
     />
   );
 };

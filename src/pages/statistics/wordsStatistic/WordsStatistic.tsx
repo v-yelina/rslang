@@ -22,8 +22,8 @@ const WordsStatistics: FC = () => {
   };
 
   return (
-    <Space style={contentStyle} className='words-statistic'>
-      <Divider className='tab-title'>Today learned:</Divider>
+    <Space style={contentStyle} className="words-statistic">
+      <Divider className="tab-title">Today learned:</Divider>
       <List>
         <Item>
           <Text strong>New words:&nbsp;</Text>

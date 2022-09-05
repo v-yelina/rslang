@@ -24,8 +24,8 @@ const GameStatistics: FC<GameStatisticsProps> = (props) => {
   };
 
   return (
-    <Space style={contentStyle} className='game-tab'>
-      <Divider className='game-name'>{gameName}</Divider>
+    <Space style={contentStyle} className="game-tab">
+      <Divider className="game-name">{gameName}</Divider>
       <List>
         <Item>
           <Text strong>Played games:&nbsp;</Text>
@@ -47,7 +47,10 @@ const GameStatistics: FC<GameStatisticsProps> = (props) => {
         </Item>
         <Item>
           <Text strong>Correct answers:&nbsp;</Text>
-          <GameWinPercent rightWords={statistic.correctAnswers} wrongWords={statistic.wrongAnswers} />
+          <GameWinPercent
+            rightWords={statistic.correctAnswers}
+            wrongWords={statistic.wrongAnswers}
+          />
         </Item>
       </List>
     </Space>
