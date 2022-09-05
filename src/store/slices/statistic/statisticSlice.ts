@@ -71,11 +71,9 @@ export const statisticSlice = createSlice({
     },
     [updateStatistic.fulfilled.type]: (state, action: PayloadAction<IStatistic>) => {
       state.isLoading = false;
-      if (action.payload.optional) {
-        state.statistic = {
-          ...action.payload,
-        };
-      }
+      state.statistic = {
+        ...action.payload,
+      };
     },
     [fetchUserSettings.pending.type]: (state) => {
       state.isLoading = true;
