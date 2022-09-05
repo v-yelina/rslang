@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import learning from '../../../../assets/image/learning-process.webp';
 
 import './features-section.scss';
 
@@ -6,10 +7,7 @@ const FeaturesSection: FC = () => (
   <>
     <div className="features">
       <div className="features__pic">
-        <img
-          src="https://img.freepik.com/free-vector/student-with-laptop-sitting-huge-books-library-male-character-studying-computer-flat-vector-illustration-online-education-knowledge-concept-banner-website-design-landing-web-page_74855-22550.jpg"
-          alt="Learning words"
-        />
+        <img src={learning} alt="Learning words" />
       </div>
       <div className="features__text">
         <p>
