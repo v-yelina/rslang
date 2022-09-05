@@ -64,13 +64,6 @@ const Audiochallenge: FC = () => {
   const imageUrl = 'https://img.freepik.com/free-vector/happy-girl-wearing-headphones-enjoying-playlist-listening-music-mobile-phone-singing-songs_74855-14053.jpg?w=1060&t=st=1662281402~exp=1662282002~hmac=fd920d75d54bb7d72a915d2c423d807706d0cd72f5d898d7d4c773d632060dd0';
 
   useEffect(() => {
-    if (isLogged) {
-      dispatch(fetchUserSettings(user));
-      dispatch(fetchUserStatistic(user));
-    }
-  }, []);
-
-  useEffect(() => {
     setCurrentWord(words[wordIndex]);
   }, [wordIndex]);
 
@@ -94,13 +87,30 @@ const Audiochallenge: FC = () => {
     });
     Object.assign(newOptional, settings.optional);
     const newSettings = { wordsPerDay: settings.wordsPerDay, optional: newOptional };
-
+    console.log('new day stat:');
+    console.log(newSettings);
     dispatch(updateSettings({
       userId: user.userId,
       token: user.token,
       settings: newSettings,
     }));
   };
+
+  useEffect(() => {
+    if (isLogged) {
+      dispatch(fetchUserSettings(user));
+      dispatch(fetchUserStatistic(user));
+      if (!checkDate(statistic.optional.statisticDay, getToday())) {
+        const dayStat = getNewDayStat(statistic);
+        sendDayStatistic(dayStat);
+        dispatch(updateStatistic({
+          userId: user.userId,
+          token: user.token,
+          statistic: { ...initialState.statistic },
+        }));
+      }
+    }
+  }, []);
 
   const updateAnswersData = (right: Answer[], wrong: Answer[]) => {
     right.forEach((answer) => {
@@ -148,15 +158,6 @@ const Audiochallenge: FC = () => {
   };
 
   const getNewStatistic = () => {
-    if (!checkDate(statistic.optional.statisticDay, getToday())) {
-      const dayStat = getNewDayStat(statistic);
-      sendDayStatistic(dayStat);
-      dispatch(updateStatistic({
-        userId: user.userId,
-        token: user.token,
-        statistic: initialState.statistic,
-      }));
-    }
     updateAnswersData(rightAnswers, wrongAnswers);
     const audiochallengeState = statistic.optional.audiochallenge;
 

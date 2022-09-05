@@ -26,6 +26,7 @@ const AllTimeStat: FC = () => {
     <Content id="all-time-tab">
       <Divider className="chart-name">New words per day:</Divider>
       <Item>
+        {wordsPerDayData.length ? <LearnedWordsGrowth data={learnedWordsGrowthData} /> : <Alert message="We need more data to show this content, please play games 2 days or more" type="error" />}
         <WordsPerDay data={wordsPerDayData} />
       </Item>
       <Divider className="chart-name">Learned words growth:</Divider>

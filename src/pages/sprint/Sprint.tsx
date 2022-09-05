@@ -128,15 +128,6 @@ const Sprint: FC = () => {
   };
 
   const getNewStatistic = () => {
-    if (!checkDate(statistic.optional.statisticDay, getToday())) {
-      const dayStat = getNewDayStat(statistic);
-      sendDayStatistic(dayStat);
-      dispatch(updateStatistic({
-        userId: user.userId,
-        token: user.token,
-        statistic: initialState.statistic,
-      }));
-    }
     updateAnswersData(rightAnswers as Answer[], wrongAnswers as Answer[]);
     const sprintState = statistic.optional.sprint;
 
@@ -184,6 +175,15 @@ const Sprint: FC = () => {
     if (isLogged) {
       dispatch(fetchUserSettings(user));
       dispatch(fetchUserStatistic(user));
+      if (!checkDate(statistic.optional.statisticDay, getToday())) {
+        const dayStat = getNewDayStat(statistic);
+        sendDayStatistic(dayStat);
+        dispatch(updateStatistic({
+          userId: user.userId,
+          token: user.token,
+          statistic: { ...initialState.statistic },
+        }));
+      }
     }
 
     if (sessionStorage.getItem('reloaded') !== null) {
