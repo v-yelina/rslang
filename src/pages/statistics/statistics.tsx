@@ -24,18 +24,18 @@ const Statistics: FC = () => {
 
   return (
     <Content id='statistics-page'>
-      isLogged
-      ? (
-      <Tabs defaultActiveKey="1" centered>
-        <TabPane tab="Today" key="1">
-          <OneDayStat />
-        </TabPane>
-        <TabPane tab="All time" key="2">
-          <AllTimeStat />
-        </TabPane>
-      </Tabs>
-      )
-      : <Alert message="Please, sign up or log in to see this page" type="error" />
+      {isLogged
+        ? (
+          <Tabs defaultActiveKey="1" centered>
+            <TabPane tab="Today" key="1">
+              <OneDayStat />
+            </TabPane>
+            <TabPane tab="All time" key="2">
+              <AllTimeStat />
+            </TabPane>
+          </Tabs>
+        )
+        : <Alert message="Please, sign up or log in to see this page" type="error" />}
     </Content>
   );
 };

@@ -10,13 +10,14 @@ const WinPercent: FC<GameWinPercentProps> = (props) => {
     <Liquid
       percent={percent}
       outline={{
-        border: 4,
-        distance: 8,
+        border: 2,
+        distance: 4,
       }}
       wave={{
         length: 128,
       }}
       width={200}
+      height={200}
     />
   );
 };
