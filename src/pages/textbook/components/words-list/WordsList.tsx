@@ -1,10 +1,7 @@
 import React, { FC } from 'react';
 import { BackTop, Empty, Spin } from 'antd';
 import { ArrowUpOutlined } from '@ant-design/icons';
-import { DIFFICULT_GROUP_SLICE_NUM } from '../../../../constants';
 import { useAppSelector } from '../../../../store/hooks';
-import { selectCurrentGroup } from '../../../../store/slices/textbook';
-import PaginationBlock from '../pagination';
 import WordCard from '../word-card';
 
 import './words-list.scss';
@@ -12,7 +9,6 @@ import './words-list.scss';
 const WordsList: FC = () => {
   const { isLoading, currentWords } = useAppSelector((state) => state.textbook);
   const player = new Audio();
-  const group = useAppSelector(selectCurrentGroup);
 
   const backTopStyle: React.CSSProperties = {
     height: 40,
@@ -44,7 +40,7 @@ const WordsList: FC = () => {
               <WordCard key={word.id} wordData={word} player={player} />
             ))}
           </div>
-          {group !== DIFFICULT_GROUP_SLICE_NUM && <PaginationBlock />}
+          {/* {group !== DIFFICULT_GROUP_SLICE_NUM && <PaginationBlock />} */}
         </>
       )}
       {!isLoading && !currentWords.length && (

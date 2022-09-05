@@ -1,0 +1,18 @@
+@import '../../../../styles/colors';
+
+.features {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  & .features__title {
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    & span {
+      color: $primary-color;
+    }
+  }
+}

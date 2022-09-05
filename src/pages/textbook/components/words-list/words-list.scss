@@ -33,6 +33,18 @@
       grid-gap: 1.5rem;
       max-width: 768px;
     }
+
+    .btn--top {
+      right: 50px;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .words-list-container {
+    .btn--top {
+      right: 20px;
+    }
   }
 }
 
@@ -41,6 +53,14 @@
     .words-list {
       grid-template-columns: 1fr;
       max-width: 420px;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .words-list-container {
+    .btn--top {
+      right: 10px;
     }
   }
 }
