@@ -47,11 +47,11 @@ const WordsStatistics: FC = () => {
             }
           </Text>
         </Item>
+        <Item>
+          <Text strong>Correct answers:&nbsp;</Text>
+          <WinPercent rightWords={rightWordsCount} wrongWords={wrongWordsCount} />
+        </Item>
       </List>
-      <Item>
-        <Text strong>Correct answers:&nbsp;</Text>
-        <WinPercent rightWords={rightWordsCount} wrongWords={wrongWordsCount} />
-      </Item>
     </Space>
   );
 };

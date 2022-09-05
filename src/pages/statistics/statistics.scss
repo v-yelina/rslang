@@ -30,4 +30,28 @@
   .game-name {
     font-size: 2rem;
   }
+
+  .ant-carousel .slick-dots {
+    right: 120px;
+    left: 220px;
+  }
+
+  .slick-dots li button {
+    width: 20px;
+    height: 10px;
+    border-radius: 20%;
+    margin-right: 15px;
+    background: #359d31;
+  }
+
+  .slick-dots li.slick-active button {
+    width: 25px;
+    height: 15px;
+    border-radius: 20%;
+    margin-right: 15px;
+    background: #315D9D;
+  }
+
 }
+
+// color: #315D9D !important;

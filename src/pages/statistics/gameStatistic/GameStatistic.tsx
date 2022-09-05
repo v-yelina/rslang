@@ -27,28 +27,30 @@ const GameStatistics: FC<GameStatisticsProps> = (props) => {
   return (
     <Space style={contentStyle} >
       <Divider className='game-name'>{gameName}</Divider>
-      <Item>
-        <Text strong>Played games:&nbsp;</Text>
-        <Text>
-          {statistic.gamesPlayed}
-        </Text>
-      </Item>
-      <Item>
-        <Text strong>New words:&nbsp;</Text>
-        <Text>
-          {statistic.newWords}
-        </Text>
-      </Item>
-      <Item>
-        <Text strong>Longest combo:&nbsp;</Text>
-        <Text>
-          {statistic.longestCombo}
-        </Text>
-      </Item>
-      <Item>
-        <Text strong>Correct answers:&nbsp;</Text>
-        <GameWinPercent rightWords={statistic.correctAnswers} wrongWords={statistic.wrongAnswers} />
-      </Item>
+      <List>
+        <Item>
+          <Text strong>Played games:&nbsp;</Text>
+          <Text>
+            {statistic.gamesPlayed}
+          </Text>
+        </Item>
+        <Item>
+          <Text strong>New words:&nbsp;</Text>
+          <Text>
+            {statistic.newWords}
+          </Text>
+        </Item>
+        <Item>
+          <Text strong>Longest combo:&nbsp;</Text>
+          <Text>
+            {statistic.longestCombo}
+          </Text>
+        </Item>
+        <Item>
+          <Text strong>Correct answers:&nbsp;</Text>
+          <GameWinPercent rightWords={statistic.correctAnswers} wrongWords={statistic.wrongAnswers} />
+        </Item>
+      </List>
     </Space>
   );
 };
