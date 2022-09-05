@@ -15,12 +15,19 @@ import './result-game.scss';
 type ResultProps = {
   rightWords: RightAnswer[];
   wrongWords: Answer[];
+  maxCombo: number;
+  amountNewWords: number | null;
 }
 
 const { Title, Text } = Typography;
 
 const ResultGame: FC<ResultProps> = (props) => {
-  const { rightWords, wrongWords } = props;
+  const {
+    rightWords,
+    wrongWords,
+    maxCombo,
+    amountNewWords,
+  } = props;
   const { gameType, wordsSource } = useAppSelector((state) => state.currentGame);
   const { score } = useAppSelector((state) => state.sprintGame);
   const navigate = useNavigate();
@@ -40,16 +47,18 @@ const ResultGame: FC<ResultProps> = (props) => {
   return (
     <div className="result">
       <div className="result__header">
-        <Title level={3}>Результаты игры</Title>
+        <Title level={3}>Results</Title>
         <Button type="primary" onClick={clickHandler}>Play again</Button>
       </div>
       {
         (gameType === 'sprint')
-        && <Text id="result-score">{`Очков за раунд: ${score}`}</Text>
+        && <Text id="result-score">{`Score: ${score}`}</Text>
       }
       <ResultStatistic
         rightWords={rightWords}
         wrongWords={wrongWords}
+        maxCombo={maxCombo}
+        amountNewWords={amountNewWords}
       />
       {
         (wrongWords.length > 0)
@@ -59,7 +68,7 @@ const ResultGame: FC<ResultProps> = (props) => {
             header={(
               <div>
                 <h3 className="result__subtitle">
-                  Ошибок
+                  Mistakes
                   <span className="result__count result__count--wrong">
                     {wrongWords.length}
                   </span>
@@ -86,7 +95,7 @@ const ResultGame: FC<ResultProps> = (props) => {
             header={(
               <div>
                 <h3 className="result__subtitle">
-                  Знаю
+                  Right
                   <span className="result__count result__count--success">
                     {rightWords.length}
                   </span>

@@ -206,7 +206,9 @@ const Sprint: FC = () => {
           : (
             <ResultGame
               rightWords={rightAnswers}
-              wrongWords={wrongAnswers as unknown as Answer[]}
+              wrongWords={wrongAnswers as Answer[]}
+              maxCombo={maxCombo}
+              amountNewWords={isLogged ? countNewWords([...rightAnswers, ...wrongAnswers]) : null}
             />
           )
       }
