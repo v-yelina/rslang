@@ -22,4 +22,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  li {
+    font-size: 1.3rem;
+  }
+
+  .game-name {
+    font-size: 2rem;
+  }
 }
