@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Typography, Button } from 'antd';
+import { Typography, Button, Spin } from 'antd';
 
 import { getRandomIndex } from '../../utils/helpers/gameHelpers';
 import { WORDS_GROUPS, WORDS_PER_PAGE } from '../../constants';
@@ -106,7 +106,7 @@ const LevelSelect: FC = () => {
   }, [fulfilledCount]);
 
   return (
-    <div>
+    <div className="level">
       {isSHow && (
         <div className="level-select">
           <Title level={2}>{gameType?.toUpperCase()}</Title>
@@ -127,6 +127,14 @@ const LevelSelect: FC = () => {
           </div>
         </div>
       )}
+      {
+        (pendingCount > fulfilledCount) && (
+          <Spin
+            size="large"
+            tip="Loading..."
+          />
+        )
+      }
     </div>
   );
 };
