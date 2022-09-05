@@ -32,7 +32,7 @@ export const updateLearnedWord = (userWord: IUserWord): IUserWord => {
     isLearned: newLearnedValue,
     rightAnswersCounter: newRightAnswersCounter,
   };
-  return { difficulty: userWord.difficulty, optional: newOptional };
+  return { difficulty: newLearnedValue ? 'easy' : userWord.difficulty, optional: newOptional };
 };
 
 export const prepareNewDifficultWord = (): IUserWord => ({
