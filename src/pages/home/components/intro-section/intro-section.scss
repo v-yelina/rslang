@@ -3,9 +3,10 @@
 .intro {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-end;
   gap: 3rem;
+  width: 100%;
 
   .intro__text,
   .code-block__wrapper {
@@ -22,7 +23,6 @@
   }
 
   .intro__code-block {
-    padding: 1rem;
     min-width: 400px;
     min-height: 200px;
 
@@ -32,13 +32,16 @@
       height: 25px;
       background-color: #bbb;
       margin: 0 auto;
-      border-top-right-radius: 5px;
-      border-top-left-radius: 5px;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
     }
 
     .code-block__btn {
-      height: 10px;
-      width: 10px;
+      height: 12px;
+      width: 12px;
       border-radius: 50%;
       border: 1px solid #000;
       position: relative;
@@ -79,6 +82,34 @@
       .intro__code-block--changing {
         color: #00d742;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .intro {
+    flex-direction: column;
+    align-items: center;
+
+    & .intro__text {
+      max-width: 500px;
+      & p {
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .intro {
+    .intro__text,
+    .code-block__wrapper {
+      max-width: 300px;
+    }
+
+    .intro__code-block {
+      min-width: 300px;
+      min-height: 200px;
     }
   }
 }

@@ -2,26 +2,28 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IAuth } from '../../../interfaces/IAuth';
 import { login, registration } from '../../thunks';
 
-type AuthUser = Pick<IAuth, 'userId' | 'name' | 'refreshToken' | 'token'>
+type AuthUser = Pick<IAuth, 'userId' | 'name' | 'refreshToken' | 'token'>;
 
 export type authState = {
-  isLoading: boolean,
+  isLoading: boolean;
   user: AuthUser;
   error: string | null;
   isRegistred: boolean;
   isLogged: boolean;
-}
+};
 
 const user = localStorage.getItem('user');
 
 const initialState: authState = {
   isLoading: false,
-  user: user ? JSON.parse(user) : {
-    userId: '',
-    name: '',
-    refreshToken: '',
-    token: '',
-  },
+  user: user
+    ? JSON.parse(user)
+    : {
+      userId: '',
+      name: '',
+      refreshToken: '',
+      token: '',
+    },
   error: null,
   isRegistred: false,
   isLogged: !!user,
@@ -37,7 +39,7 @@ export const authSlice = createSlice({
     setUser: (state, action: PayloadAction<AuthUser>) => {
       state.user = action.payload;
     },
-    setError: (state, action: PayloadAction<string |null>) => {
+    setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
     clearIsRegistred: (state) => {
@@ -46,7 +48,9 @@ export const authSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
-    clearAuth: () => initialState,
+    clearAuth: (state) => {
+      Object.assign(state, initialState);
+    },
   },
   extraReducers: {
     [registration.pending.type]: (state) => {
@@ -81,12 +85,7 @@ export const authSlice = createSlice({
 });
 
 export const {
-  setIsLoading,
-  setUser,
-  setError,
-  clearAuth,
-  clearIsRegistred,
-  clearError,
+  setIsLoading, setUser, setError, clearAuth, clearIsRegistred, clearError,
 } = authSlice.actions;
 
 export default authSlice.reducer;

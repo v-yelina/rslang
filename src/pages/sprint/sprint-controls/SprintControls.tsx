@@ -71,11 +71,19 @@ const SprintControls: FC = () => {
       wrongAnswerAudio.play();
     }
 
-    if (roundIndex <= words.length - 1) {
+    if (roundIndex < words.length) {
       const index = roundIndex + 1;
       dispatch(setRoundIndex(index));
     }
   };
+
+  useEffect(() => {
+    if (roundIndex >= words.length) {
+      if (combo > maxCombo) {
+        dispatch(changeCombo(combo));
+      }
+    }
+  }, [roundIndex]);
 
   const handleKeyPress = (e: KeyboardEvent) => {
     if (e.code === 'ArrowLeft') {
@@ -99,13 +107,13 @@ const SprintControls: FC = () => {
         type="primary"
         onClick={() => chooseAnswer(false)}
       >
-        Неверно
+        Wrong
       </Button>
       <Button
         type="primary"
         onClick={() => chooseAnswer(true)}
       >
-        Верно
+        Right
       </Button>
     </div>
   );

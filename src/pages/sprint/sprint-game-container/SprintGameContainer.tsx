@@ -13,7 +13,7 @@ const SprintGameContainer: FC<GameContainerProps> = (props) => {
   const { time, setTime } = props;
 
   return (
-    <>
+    <div className="sprint__body">
       <div className="sprint__header">
         <Timer
           time={time}
@@ -22,7 +22,7 @@ const SprintGameContainer: FC<GameContainerProps> = (props) => {
       </div>
       <Counter />
       <SprintField />
-    </>
+    </div>
   );
 };
 

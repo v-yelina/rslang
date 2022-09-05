@@ -1,3 +1,5 @@
+@import '../../../styles/colors';
+
 .controls {
   display: flex;
   align-items: center;
@@ -19,8 +21,8 @@
     }
     
     &:first-child {
-      background-color: #DF6565;
-      border-color: #DF6565;
+      background-color: $color-wrong-answer;
+      border-color: $color-wrong-answer;
 
       &::before {
         left: 30px;
@@ -29,8 +31,8 @@
     }
 
     &:last-child {
-      background-color: #2C9C4B;
-      border-color: #2C9C4B;
+      background-color: $color-right-answer;
+      border-color: $color-right-answer;
 
       &::before {
         left: 50px;
