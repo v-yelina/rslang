@@ -62,7 +62,6 @@ const WordCard: FC<WordCardProps> = (props) => {
                 style={{ color: GROUP_COLORS[groupColorIx as keyof typeof GROUP_COLORS] }}
               />
               <span className="word-title">{title.toUpperCase()}</span>
-              <span>{transcription}</span>
             </p>
             <AudioButton
               player={player}
@@ -72,7 +71,9 @@ const WordCard: FC<WordCardProps> = (props) => {
           </div>
 
           <div className="word-card--content-block">
-            <p>{wordTranslate}</p>
+            <span>{`${transcription} `}</span>
+            -
+            <span>{` ${wordTranslate}`}</span>
           </div>
           <div className="word-card--content-block">
             <p dangerouslySetInnerHTML={{ __html: textMeaning }} />
