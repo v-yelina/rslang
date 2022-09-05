@@ -16,6 +16,7 @@ const WinPercent: FC<GameWinPercentProps> = (props) => {
       wave={{
         length: 128,
       }}
+      width={200}
     />
   );
 };

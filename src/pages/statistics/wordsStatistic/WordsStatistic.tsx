@@ -16,13 +16,14 @@ const WordsStatistics: FC = () => {
 
   const contentStyle: React.CSSProperties = {
     display: 'flex',
-    width: '60%',
-    margin: '0 auto',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '45%',
   };
 
   return (
-    <Space style={contentStyle}>
-      <Divider>Today learned:</Divider>
+    <Space style={contentStyle} className='words-statistic'>
+      <Divider className='tab-title'>Today learned:</Divider>
       <List>
         <Item>
           <Text strong>New words:&nbsp;</Text>
@@ -48,6 +49,7 @@ const WordsStatistics: FC = () => {
         </Item>
       </List>
       <Item>
+        <Text strong>Correct answers:&nbsp;</Text>
         <WinPercent rightWords={rightWordsCount} wrongWords={wrongWordsCount} />
       </Item>
     </Space>

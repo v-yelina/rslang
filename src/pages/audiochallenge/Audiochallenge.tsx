@@ -34,10 +34,10 @@ import {
   updateUserWordFromTextbook,
 } from '../../store/thunks';
 import { selectIsLogged, selectUser } from '../../store/slices/auth';
-import './audiochallenge.scss';
 import { IStatistic } from '../../interfaces/IStatistic';
 import { IDayStat } from '../../interfaces/ISettings';
 import { initialState } from '../../store/slices/statistic';
+import './audiochallenge.scss';
 
 export type addAnswersToSliceArgs = { isRight: boolean; answer: Answer };
 
