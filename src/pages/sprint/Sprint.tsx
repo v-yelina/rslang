@@ -1,6 +1,7 @@
 import React, {
   FC, useEffect, useRef, useState,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearSprintState, setCurrentWord } from '../../store/slices/sprintGame';
@@ -53,6 +54,7 @@ const Sprint: FC = () => {
   const [gameTime, setGameTime] = useState(DURATION_GAME_SPRINT);
   const [isVisibleLeaveModal, setVisibleLeaveModal] = useState(false);
   const learned = useRef(0);
+  const navigate = useNavigate();
 
   const sendDayStatistic = (newDayStat: IDayStat) => {
     const newDate: string = statistic.optional.statisticDay;
@@ -160,6 +162,8 @@ const Sprint: FC = () => {
     }));
   };
 
+  const detectReloadedPage = () => navigate('/', { replace: true });
+
   useEffect(() => {
     if (gameTime <= 0 || roundIndex >= words.length) {
       if (isLogged) {
@@ -181,8 +185,15 @@ const Sprint: FC = () => {
       dispatch(fetchUserStatistic(user));
     }
 
+    if (sessionStorage.getItem('reloaded') !== null) {
+      detectReloadedPage();
+    }
+
+    sessionStorage.setItem('reloaded', 'true');
+
     return function clearState() {
       dispatch(clearSprintState());
+      sessionStorage.removeItem('reloaded');
     };
   }, []);
 
