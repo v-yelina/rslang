@@ -38,6 +38,7 @@ const App: FC = () => {
       {
         (currentUrl !== 'sprint')
         && (currentUrl !== 'audiochallenge')
+        && (currentUrl !== 'games')
         && <Footer />
       }
     </Layout>
