@@ -77,14 +77,18 @@ export const updateWord = (data: addAnswersToSliceArgs, game: gameType):UpdateWo
   } else {
     newRightAnswersCounter = 0;
   }
-  const isLearned = checkIfLearned(newRightAnswersCounter, data.answer.difficulty === 'difficult');
+  const isLearned = data.isRight
+    ? checkIfLearned(newRightAnswersCounter, data.answer.difficulty === 'difficult') : false;
   const newLearned = isLearned && !wasLearned;
   return {
     newLearned,
     newStatistic: {
-      difficulty: data.answer.difficulty,
+      difficulty: newLearned ? 'easy' : data.answer.difficulty,
       optional: {
-        isLearned, isNew: false, rightAnswersCounter: newRightAnswersCounter, ...gamesStat,
+        isLearned,
+        isNew: false,
+        rightAnswersCounter: newRightAnswersCounter,
+        ...gamesStat,
       },
     },
   };
