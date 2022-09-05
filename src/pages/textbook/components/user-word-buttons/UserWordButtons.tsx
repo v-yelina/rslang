@@ -122,7 +122,7 @@ const UserWordButtons: FC<UserWordButtonsProps> = ({ userWord, wordId }) => {
   return (
     <div className="word-card--user-btns">
       <Tooltip placement="bottom" title={isLearned ? 'REMOVE FROM LEARNED' : 'ADD TO LEARNED'}>
-        {isLearned && <StarFilled style={{ color: '#52c41a' }} onClick={handleLearnedClick} />}
+        {isLearned && <StarFilled style={{ color: '#ffbf00' }} onClick={handleLearnedClick} />}
         {!isLearned && <StarOutlined onClick={handleLearnedClick} />}
       </Tooltip>
       <Tooltip

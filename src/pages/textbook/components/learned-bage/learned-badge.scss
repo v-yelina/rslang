@@ -1,0 +1,58 @@
+@import '../../../../styles/colors';
+
+.learned-page-badge {
+  width: 140px;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &--blob {
+    background-color: $light-blue-color;
+    border-radius: 50%;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &--icon {
+    background: url('../../../../assets/icons/award-badge.png') no-repeat center center;
+    background-size: cover;
+    width: 80%;
+    height: 80%;
+    &.jiggle {
+      -moz-animation: jiggle 800ms infinite;
+      -webkit-animation: jiggle 800ms infinite;
+      animation: jiggle ease-in-out 800ms infinite;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .learned-page-badge {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@keyframes jiggle {
+  0% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(3deg);
+  }
+
+  30% {
+    transform: rotateZ(-3deg);
+  }
+  45% {
+    transform: rotateZ(3deg);
+  }
+  60% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: none;
+  }
+}

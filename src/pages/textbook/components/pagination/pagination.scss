@@ -1,0 +1,26 @@
+.textbook-pagination-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  .pagination-jump {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+    span {
+      display: block;
+      min-width: 35px;
+      align-self: center;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .textbook-pagination-wrapper {
+    flex-direction: column;
+    justify-content: center;
+  }
+}

@@ -7,6 +7,7 @@
   padding: 12px;
   max-width: 1200px;
   gap: 1.5rem;
+  position: relative;
 
   .groups-wrapper {
     display: grid;
@@ -29,6 +30,16 @@
       grid-gap: 2rem;
       align-self: flex-start;
       width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .textbook-container {
+    max-width: 540px;
+    .groups-wrapper {
+      grid-template-columns: 60px auto;
+      grid-gap: 12px;
     }
   }
 }

@@ -1,3 +1,5 @@
+@import '../../../../styles/colors';
+
 .word-card {
   padding: 2rem;
   display: flex;
@@ -13,7 +15,7 @@
   &--learned {
     & .learned-badge {
       position: absolute;
-      z-index: 20;
+      z-index: 2;
       top: 12px;
       left: -10px;
       color: #fff;
@@ -21,7 +23,7 @@
       padding: 2px 8px;
       line-height: 22px;
       white-space: nowrap;
-      background-color: #52c41a;
+      background-color: $color-learned-word;
       border-radius: 2px;
     }
   }
@@ -143,5 +145,7 @@
 @media screen and (max-width: 540px) {
   .word-card {
     padding: 10px;
+    max-width: 300px;
+    min-height: 300px;
   }
 }

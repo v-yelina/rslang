@@ -16,6 +16,7 @@ const GameButton: FC<GameButtonProps> = ({ game }) => {
   const navigate = useNavigate();
 
   const currentWords = useAppSelector(selectCurrentWords);
+  const { isLoading } = useAppSelector((state) => state.textbook);
 
   const isPageLearned = currentWords.every(
     (word) => word.userWord && word.userWord.optional.isLearned,
@@ -34,7 +35,7 @@ const GameButton: FC<GameButtonProps> = ({ game }) => {
       }`}
       type="button"
       onClick={handleGameClick}
-      disabled={isPageLearned}
+      disabled={isLoading || isPageLearned}
     >
       <span>{game!.toUpperCase()}</span>
     </button>
