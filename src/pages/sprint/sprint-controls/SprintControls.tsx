@@ -79,9 +79,9 @@ const SprintControls: FC = () => {
 
   const handleKeyPress = (e: KeyboardEvent) => {
     if (e.code === 'ArrowLeft') {
-      chooseAnswer(false);
-    } else if (e.code === 'ArrowRight') {
       chooseAnswer(true);
+    } else if (e.code === 'ArrowRight') {
+      chooseAnswer(false);
     }
   };
 
@@ -97,15 +97,15 @@ const SprintControls: FC = () => {
     <div className="sprint__controls controls">
       <Button
         type="primary"
-        onClick={() => chooseAnswer(false)}
+        onClick={() => chooseAnswer(true)}
       >
-        Неверно
+        Right
       </Button>
       <Button
         type="primary"
-        onClick={() => chooseAnswer(true)}
+        onClick={() => chooseAnswer(false)}
       >
-        Верно
+        Wrong
       </Button>
     </div>
   );
