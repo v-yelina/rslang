@@ -33,3 +33,13 @@
     }
   }
 }
+
+@media screen and (max-width: 540px) {
+  .textbook-container {
+    max-width: 540px;
+    .groups-wrapper {
+      grid-template-columns: 60px auto;
+      grid-gap: 12px;
+    }
+  }
+}

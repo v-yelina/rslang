@@ -15,7 +15,7 @@
   &--learned {
     & .learned-badge {
       position: absolute;
-      z-index: 20;
+      z-index: 2;
       top: 12px;
       left: -10px;
       color: #fff;
@@ -145,5 +145,7 @@
 @media screen and (max-width: 540px) {
   .word-card {
     padding: 10px;
+    max-width: 300px;
+    min-height: 300px;
   }
 }

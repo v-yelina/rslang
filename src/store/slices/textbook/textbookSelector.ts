@@ -24,6 +24,10 @@ export const selectCurrentWords = createSelector(
 );
 
 // eslint-disable-next-line
-export const selectIsPageLearned = createSelector([selectCurrentWords], (currentWords) => currentWords.every(
-  (word) => word.userWord && word.userWord.optional && word.userWord.optional.isLearned,
-));
+export const selectIsPageLearned = createSelector(
+  [selectCurrentWords],
+  (currentWords) => !!currentWords.length
+    && currentWords.every(
+      (word) => word.userWord && word.userWord.optional && word.userWord.optional.isLearned,
+    ),
+);

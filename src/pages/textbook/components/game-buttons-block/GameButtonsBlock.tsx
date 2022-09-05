@@ -8,9 +8,10 @@ import './game-buttons-block.scss';
 
 const GameButtonsBlock: FC = () => {
   const isPageLearned = useAppSelector(selectIsPageLearned);
+  const { isLoading } = useAppSelector((state) => state.textbook);
   return (
     <div className="game-buttons-wrapper">
-      {isPageLearned && <LearnedBadge />}
+      {!isLoading && isPageLearned && <LearnedBadge />}
       <GameButton game="sprint" />
       <GameButton game="audiochallenge" />
     </div>

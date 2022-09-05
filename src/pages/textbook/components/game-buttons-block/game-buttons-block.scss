@@ -5,6 +5,12 @@
   align-items: center;
 }
 
+@media screen and (max-width: 768px) {
+  .game-buttons-wrapper {
+    margin-left: 70px;
+  }
+}
+
 @media screen and (max-width: 420px) {
   .game-buttons-wrapper {
     gap: 20px;
