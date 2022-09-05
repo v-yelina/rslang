@@ -9,11 +9,11 @@
   align-items: center;
 
   & .ant-radio-group {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-gap: 0.3rem;
+    display: flex;
+    gap: 0.3rem;
     width: 100%;
     max-width: 968px;
+    justify-content: center;
 
     & .ant-radio-button-wrapper .group-label--mobile {
       display: none;
@@ -137,11 +137,10 @@
   .group-tabs-container {
     min-height: 64px;
     & .ant-radio-group {
-      grid-template-columns: repeat(7, 1fr);
       width: 100%;
       max-width: 748px;
       min-height: 64px;
-      grid-gap: 24px;
+      gap: 24px;
 
       & .ant-radio-button-wrapper {
         height: 100%;
@@ -214,9 +213,10 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    max-width: 70px;
     & .ant-radio-group {
-      grid-template-columns: 1fr;
-      max-width: 70px;
+      flex-direction: column;
+      max-width: inherit;
     }
   }
 }
