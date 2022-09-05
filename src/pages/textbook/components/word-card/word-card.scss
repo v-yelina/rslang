@@ -1,3 +1,5 @@
+@import '../../../../styles/colors';
+
 .word-card {
   padding: 2rem;
   display: flex;
@@ -21,7 +23,7 @@
       padding: 2px 8px;
       line-height: 22px;
       white-space: nowrap;
-      background-color: #52c41a;
+      background-color: $color-learned-word;
       border-radius: 2px;
     }
   }
