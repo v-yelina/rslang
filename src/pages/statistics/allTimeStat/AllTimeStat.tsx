@@ -18,7 +18,7 @@ const AllTimeStat: FC = () => {
   daysStat.forEach((elem) => {
     if (elem[0].length) {
       wordsPerDayData.push({ date: elem[0], words: elem[1].newWordsCount });
-      learnedWordsGrowthData.push(elem[1].newWordsCount);
+      learnedWordsGrowthData.push(elem[1].learnedWords);
     }
   });
 

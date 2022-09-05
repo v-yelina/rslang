@@ -82,6 +82,7 @@ const Audiochallenge: FC = () => {
   const sendDayStatistic = (newDayStat: IDayStat) => {
     const newDate = statistic.optional.statisticDay;
     const newStat = {
+      learnedWords: newDayStat.learnedWords,
       newWordsCount: newDayStat.newWordsCount,
       gamesCount: newDayStat.gamesCount,
     };

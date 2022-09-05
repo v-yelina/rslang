@@ -18,7 +18,10 @@ export const getNewDayStat = (dayStat: IStatistic) => {
   + dayStat.optional.sprint.newWords;
   const gamesCount = dayStat.optional.audiochallenge.gamesPlayed
   + dayStat.optional.sprint.gamesPlayed;
-  return { day, newWordsCount, gamesCount };
+  const { learnedWords } = dayStat;
+  return {
+    day, newWordsCount, gamesCount, learnedWords,
+  };
 };
 
 const updateGamesStat = (

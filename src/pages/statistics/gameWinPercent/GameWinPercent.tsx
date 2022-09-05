@@ -13,7 +13,7 @@ const GameWinPercent: FC<GameWinPercentProps> = (props) => {
 
   return (
     <Gauge
-      percent={percent}
+      percent={percent || 0}
       type="meter"
       innerRadius={0.75}
       range={{
