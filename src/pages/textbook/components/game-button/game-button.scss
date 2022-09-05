@@ -7,12 +7,7 @@
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  cursor: pointer;
   transition: all 0.3s ease-out;
-
-  &:hover {
-    transform: scale(1.1);
-  }
 
   & span {
     display: block;
@@ -28,6 +23,15 @@
     top: 65%;
     left: 50%;
     transform: translateX(-47%);
+    transition: all 0.3s ease-out;
+  }
+
+  &:hover:not([disabled]) {
+    cursor: pointer;
+    transform: scale(1.1);
+    & span {
+      letter-spacing: 2px;
+    }
   }
 }
 
@@ -39,4 +43,9 @@
 .textbook-challenge-btn {
   background: url('../../../../assets/icons/audiochallenge-img.jpg') no-repeat center center;
   background-size: cover;
+}
+
+.textbook-sprint-btn:disabled,
+.textbook-challenge-btn:disabled {
+  opacity: 0.55;
 }

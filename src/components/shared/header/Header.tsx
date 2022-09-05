@@ -1,5 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import {
   Button, Typography, Menu, Layout,
 } from 'antd';
@@ -21,9 +26,11 @@ const Header: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { isLogged } = useAppSelector((state) => state.auth);
+  const { gameType } = useAppSelector((state) => state.currentGame);
   const [isShow, setIsShow] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
-  const [selected, setSelected] = useState(`${sessionStorage.getItem('link') || ''}`);
+  const [selected, setSelected] = useState('');
+  const location = useLocation();
 
   const updateDimensions = () => {
     const width = window.innerWidth;
@@ -50,19 +57,40 @@ const Header: FC = () => {
     (windowWidth <= 768) ? setIsShow(false) : setIsShow(true)
   ), [windowWidth]);
 
-  const toggleMenuItem = (url: string) => {
+  useEffect(() => {
+    const url = location.pathname.split('/');
+    switch (url[url.length - 1]) {
+      case '':
+        setSelected('home');
+        break;
+      case 'textbook':
+        setSelected('textbook');
+        break;
+      case 'sprint':
+        setSelected('sprint');
+        break;
+      case 'audiochallenge':
+        setSelected('audiochallenge');
+        break;
+      case 'statistics':
+        setSelected('statistics');
+        break;
+      case 'games':
+        setSelected(gameType!.toString());
+        break;
+      default:
+        setSelected('');
+    }
+
     if (windowWidth <= 768) {
       setIsShow(false);
     }
-    setSelected(url);
-    sessionStorage.setItem('link', url);
-  };
+  }, [location]);
 
   const logout = () => {
     localStorage.removeItem('user');
     dispatch(clearAuth());
     navigate('/');
-    toggleMenuItem('home');
   };
 
   const setSourceAndTypeGame = (source: WordsSourceType, type: GameType): void => {
@@ -77,13 +105,11 @@ const Header: FC = () => {
       key: 'home',
       label: <Link to="/">Home</Link>,
       className: 'header__link',
-      onClick: () => toggleMenuItem('home'),
     },
     {
       key: 'textbook',
       label: <Link to="/textbook">Textbook</Link>,
       className: 'header__link',
-      onClick: () => toggleMenuItem('textbook'),
     },
     {
       key: 'sprint',
@@ -96,7 +122,6 @@ const Header: FC = () => {
         </Link>
       ),
       className: 'header__link',
-      onClick: () => toggleMenuItem('sprint'),
     },
     {
       key: 'audiochallenge',
@@ -109,13 +134,11 @@ const Header: FC = () => {
         </Link>
       ),
       className: 'header__link',
-      onClick: () => toggleMenuItem('audiochallenge'),
     },
     {
       key: 'statistics',
       label: <Link to="/statistics">Statistics</Link>,
       className: 'header__link',
-      onClick: () => toggleMenuItem('statistics'),
     },
   ];
 
@@ -139,6 +162,7 @@ const Header: FC = () => {
                 <Menu
                   mode={(windowWidth <= 768) ? 'vertical' : 'horizontal'}
                   id="header-menu"
+                  defaultSelectedKeys={['home']}
                   selectedKeys={[selected]}
                   items={menuItems}
                 />
@@ -148,7 +172,7 @@ const Header: FC = () => {
                   {
                   isLogged
                     ? <Button type="primary" onClick={logout} className="btn btn--logout">Log out</Button>
-                    : <Link to="/login" className="btn btn--login" onClick={() => toggleMenuItem('')}>Login</Link>
+                    : <Link to="/login" className="btn btn--login">Login</Link>
                 }
                 </div>
               </div>

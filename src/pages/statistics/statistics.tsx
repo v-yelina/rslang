@@ -1,16 +1,18 @@
 import React, { FC, useEffect } from 'react';
 import {
+  Alert,
   Tabs, Layout,
 } from 'antd';
 import OneDayStat from './oneDayStat';
 import AllTimeStat from './allTimeStat';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { fetchUserSettings, fetchUserStatistic } from '../../store/thunks';
-import { selectUser } from '../../store/slices/auth';
+import { selectIsLogged, selectUser } from '../../store/slices/auth';
 import './statistics.scss';
 
 const Statistics: FC = () => {
   const dispatch = useAppDispatch();
+  const isLogged = useAppSelector(selectIsLogged);
   const user = useAppSelector(selectUser);
   const { TabPane } = Tabs;
   const { Content } = Layout;
@@ -22,7 +24,8 @@ const Statistics: FC = () => {
 
   return (
     <Content id='statistics-page'>
-      <h2>Statistics</h2>
+      isLogged
+      ? (
       <Tabs defaultActiveKey="1" centered>
         <TabPane tab="Today" key="1">
           <OneDayStat />
@@ -31,6 +34,8 @@ const Statistics: FC = () => {
           <AllTimeStat />
         </TabPane>
       </Tabs>
+      )
+      : <Alert message="Please, sign up or log in to see this page" type="error" />
     </Content>
   );
 };
