@@ -25,7 +25,7 @@ const GameStatistics: FC<GameStatisticsProps> = (props) => {
   };
 
   return (
-    <Space style={contentStyle}>
+    <Space style={contentStyle} >
       <Divider>{gameName}</Divider>
       <Item>
         <Text strong>Played games:&nbsp;</Text>

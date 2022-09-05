@@ -12,4 +12,14 @@
   .tab-title span {
     font-size: 2rem;
   }
+
+  .ant-carousel {
+    width: 50%;
+  }
+}
+
+#one-day-stat-tab {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }

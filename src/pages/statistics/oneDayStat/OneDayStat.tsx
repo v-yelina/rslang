@@ -9,7 +9,7 @@ import { Content } from 'antd/lib/layout/layout';
 const OneDayStat: FC = () => (
   <Content id='one-day-stat-tab'>
     <WordsStatistics />
-    <Carousel>
+    <Carousel className='game-statistic'>
       <div>
         <GameStatistic gameName="Audiochallenge" />
       </div>
