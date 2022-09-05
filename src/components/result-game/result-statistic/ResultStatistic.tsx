@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { Progress } from 'antd';
 
 import { Answer, RightAnswer } from '../../../store/types';
+import { getPercent } from '../../../utils/helpers/gameHelpers';
 
 import './result-statistic.scss';
-import { getPercent } from '../../../utils/helpers/gameHelpers';
 
 export type ResultProps = {
   rightWords: RightAnswer[];
@@ -20,7 +20,7 @@ const ResultStatistic: FC<ResultProps> = (props) => {
     <div className="statistic">
       <div className="statistic__progress">
         <Progress type="circle" percent={percent} />
-        <span>Точность</span>
+        <span>Accuracy</span>
       </div>
       <ul className="statistic__list">
         <li className="statistic__item">{`In a row ${0}`}</li>

@@ -40,12 +40,12 @@ const ResultGame: FC<ResultProps> = (props) => {
   return (
     <div className="result">
       <div className="result__header">
-        <Title level={3}>Результаты игры</Title>
+        <Title level={3}>Results</Title>
         <Button type="primary" onClick={clickHandler}>Play again</Button>
       </div>
       {
         (gameType === 'sprint')
-        && <Text id="result-score">{`Очков за раунд: ${score}`}</Text>
+        && <Text id="result-score">{`Score: ${score}`}</Text>
       }
       <ResultStatistic
         rightWords={rightWords}
@@ -59,7 +59,7 @@ const ResultGame: FC<ResultProps> = (props) => {
             header={(
               <div>
                 <h3 className="result__subtitle">
-                  Ошибок
+                  Mistakes
                   <span className="result__count result__count--wrong">
                     {wrongWords.length}
                   </span>
@@ -86,7 +86,7 @@ const ResultGame: FC<ResultProps> = (props) => {
             header={(
               <div>
                 <h3 className="result__subtitle">
-                  Знаю
+                  Right
                   <span className="result__count result__count--success">
                     {rightWords.length}
                   </span>
