@@ -322,6 +322,8 @@ const Audiochallenge: FC = () => {
           <ResultGame
             rightWords={rightAnswers}
             wrongWords={wrongAnswers}
+            maxCombo={combo}
+            amountNewWords={isLogged ? countNewWords([...rightAnswers, ...wrongAnswers]) : null}
           />
         )
       }

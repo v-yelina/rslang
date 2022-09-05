@@ -15,12 +15,19 @@ import './result-game.scss';
 type ResultProps = {
   rightWords: RightAnswer[];
   wrongWords: Answer[];
+  maxCombo: number;
+  amountNewWords: number | null;
 }
 
 const { Title, Text } = Typography;
 
 const ResultGame: FC<ResultProps> = (props) => {
-  const { rightWords, wrongWords } = props;
+  const {
+    rightWords,
+    wrongWords,
+    maxCombo,
+    amountNewWords,
+  } = props;
   const { gameType, wordsSource } = useAppSelector((state) => state.currentGame);
   const { score } = useAppSelector((state) => state.sprintGame);
   const navigate = useNavigate();
@@ -50,6 +57,8 @@ const ResultGame: FC<ResultProps> = (props) => {
       <ResultStatistic
         rightWords={rightWords}
         wrongWords={wrongWords}
+        maxCombo={maxCombo}
+        amountNewWords={amountNewWords}
       />
       {
         (wrongWords.length > 0)
