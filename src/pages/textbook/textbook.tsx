@@ -6,6 +6,8 @@ import {
   clearCurrentWords,
   setCurrentPageData,
   selectCurrentPageData,
+  selectCurrentGroup,
+  selectCurrentWords,
 } from '../../store/slices/textbook';
 import { selectIsLogged, selectUser } from '../../store/slices/auth';
 import { checkSearchParamsCorrect, formatPageDataForSlice } from './helpers';
@@ -22,6 +24,7 @@ import { clearSprintState } from '../../store/slices/sprintGame';
 import GroupsTabs from './components/groups-tabs';
 import WordsList from './components/words-list';
 import GameButtonsBlock from './components/game-buttons-block';
+import PaginationBlock from './components/pagination';
 
 import './textbook.scss';
 
@@ -29,6 +32,10 @@ const Textbook: FC = () => {
   const [params, setParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const currentPageData = useAppSelector(selectCurrentPageData);
+  const currentGroup = useAppSelector(selectCurrentGroup);
+  const currentWords = useAppSelector(selectCurrentWords);
+  const isLoading = useAppSelector((state) => state.textbook.isLoading);
+
   const isLogged = useAppSelector(selectIsLogged);
   const user = useAppSelector(selectUser);
   const [isReadyToFetchWords, setIsReadyToFetchWords] = useState(false);
@@ -92,6 +99,9 @@ const Textbook: FC = () => {
           <GroupsTabs />
           <WordsList />
         </div>
+      )}
+      {!isLoading && currentGroup !== DIFFICULT_GROUP_SLICE_NUM && !!currentWords.length && (
+        <PaginationBlock />
       )}
     </main>
   );

@@ -79,20 +79,28 @@ const PaginationBlock: FC = () => {
   return (
     <div className="textbook-pagination-wrapper">
       <ButtonGroup className="textbook-pagination">
-        <Button disabled={pageNumUI === 1} onClick={() => handlePageClick('first')}>
+        <Button size="large" disabled={pageNumUI === 1} onClick={() => handlePageClick('first')}>
           {'<<'}
         </Button>
-        <Button disabled={pageNumUI === 1} onClick={() => handlePageClick('prev')}>
+        <Button size="large" disabled={pageNumUI === 1} onClick={() => handlePageClick('prev')}>
           {'<'}
         </Button>
-        <Button onClick={() => handlePageClick('current')}>
+        <Button size="large" onClick={() => handlePageClick('current')}>
           {isPageLearned && <TrophyFilled style={{ fontSize: '16px', color: '#ffbf00' }} />}
           <span>{`PAGE ${pageNumUI}`}</span>
         </Button>
-        <Button disabled={pageNumUI === lastPage} onClick={() => handlePageClick('next')}>
+        <Button
+          size="large"
+          disabled={pageNumUI === lastPage}
+          onClick={() => handlePageClick('next')}
+        >
           {'>'}
         </Button>
-        <Button disabled={pageNumUI === lastPage} onClick={() => handlePageClick('last')}>
+        <Button
+          size="large"
+          disabled={pageNumUI === lastPage}
+          onClick={() => handlePageClick('last')}
+        >
           {'>>'}
         </Button>
       </ButtonGroup>
