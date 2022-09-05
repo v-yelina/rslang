@@ -1,0 +1,24 @@
+@import '../../../../styles/colors';
+
+.learned-page-badge {
+  width: 200px;
+  height: 140px;
+  position: absolute;
+  top: 30px;
+  left: 60px;
+  &--blob {
+    background-color: $light-blue-color;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &--text {
+    background: url('../../../../assets/icons/award-badge.png') no-repeat center center;
+    background-size: cover;
+    width: 80%;
+    height: 80%;
+  }
+}

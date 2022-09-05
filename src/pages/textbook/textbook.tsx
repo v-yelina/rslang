@@ -22,6 +22,7 @@ import { clearSprintState } from '../../store/slices/sprintGame';
 import GroupsTabs from './components/groups-tabs';
 import WordsList from './components/words-list';
 import GameButtonsBlock from './components/game-buttons-block';
+import LearnedBadge from './components/learned-bage';
 
 import './textbook.scss';
 
@@ -86,6 +87,7 @@ const Textbook: FC = () => {
 
   return (
     <main className="textbook-container">
+      <LearnedBadge />
       {isReadyToFetchWords && <GameButtonsBlock />}
       {isReadyToFetchWords && (
         <div className="groups-wrapper">
