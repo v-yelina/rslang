@@ -8,7 +8,7 @@ const IntroSection: FC = () => {
 
   useEffect(() => {
     const typed = new Typed(el!.current!, {
-      strings: ['in a week', 'in a month', 'more effectively'],
+      strings: ['in a week', 'fast', 'more effectively'],
       startDelay: 300,
       typeSpeed: 100,
       backSpeed: 100,

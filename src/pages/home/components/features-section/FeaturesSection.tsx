@@ -16,13 +16,13 @@ const FeaturesSection: FC = () => (
         </p>
         <ul className="features__items">
           <li>
-            <span>Words are sorted into groups according to their difficulty</span>
+            <span>Words are sorted into groups according to their difficulty.</span>
           </li>
           <li>
-            <span>Context examples and audio provided to every word</span>
+            <span>Two entertaining games with different modes.</span>
           </li>
           <li>
-            <span>Two entertaining games with different modes</span>
+            <span>Context examples and audio provided to every word.</span>
           </li>
           <li>
             <span>We support a mobile version: play as you go!</span>
