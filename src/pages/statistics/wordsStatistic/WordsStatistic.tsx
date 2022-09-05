@@ -18,7 +18,7 @@ const WordsStatistics: FC = () => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    width: '45%',
+    width: '40%',
   };
 
   return (

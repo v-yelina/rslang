@@ -18,14 +18,13 @@ const GameStatistics: FC<GameStatisticsProps> = (props) => {
   const contentStyle: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end',
     width: '60%',
     margin: '0 auto',
     height: 'max-content',
   };
 
   return (
-    <Space style={contentStyle} >
+    <Space style={contentStyle} className='game-tab'>
       <Divider className='game-name'>{gameName}</Divider>
       <List>
         <Item>
