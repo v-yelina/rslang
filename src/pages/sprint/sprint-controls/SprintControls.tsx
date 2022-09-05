@@ -99,13 +99,13 @@ const SprintControls: FC = () => {
         type="primary"
         onClick={() => chooseAnswer(false)}
       >
-        Неверно
+        Wrong
       </Button>
       <Button
         type="primary"
         onClick={() => chooseAnswer(true)}
       >
-        Верно
+        Right
       </Button>
     </div>
   );

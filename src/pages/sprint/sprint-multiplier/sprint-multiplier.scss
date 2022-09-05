@@ -1,3 +1,5 @@
+@import '../../../styles/colors';
+
 .multiplier {
   display: flex;
   flex-direction: column;
@@ -5,6 +7,8 @@
 
   &__text {
     margin-bottom: 20px;
+    color: $font-color;
+    font-weight: 700;
   }
 
   .ant-progress-steps-item {
@@ -13,5 +17,25 @@
     height: 25px !important;
     border: 1px solid #000000;
     border-radius: 50%;
+  }
+
+  &__progress--0 .ant-progress-steps-item-active {
+    background-color: $color-group-1;
+  }
+
+  &__progress--1 .ant-progress-steps-item-active {
+    background-color: $color-group-3;
+  }
+
+  &__progress--2 .ant-progress-steps-item-active {
+    background-color: $color-learned-word;
+  }
+
+  &__progress--3 .ant-progress-steps-item-active {
+    background-color: $color-group-5;
+  }
+
+  &__progress--4 .ant-progress-steps-item-active {
+    background-color: $color-group-6;
   }
 }

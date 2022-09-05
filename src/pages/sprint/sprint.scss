@@ -1,3 +1,5 @@
+@import '../../styles/colors';
+
 .sprint {
   position: relative;
   margin: 0 auto;
@@ -5,21 +7,56 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
   max-width: 800px;
+  min-height: 75vh;
+  background-image: url('../../assets/image/sprint-game.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center 50%;
+
+  @media screen and (max-width: 830px) {
+    max-width: 570px;
+  }
+
+  @media screen and (max-width: 620px) {
+    max-width: 370px;
+  }
+
+  @media screen and (max-width: 420px) {
+    max-width: 280px;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    z-index: 2;
+
+    @media screen and (max-width: 820px) {
+      margin-left: 30px;
+    }
   }
 
   &__leave {
     position: absolute;
     top: 30px;
     right: 0;
+    z-index: 2;
+
+    @media screen and (max-width: 820px) {
+      right: 30px;
+    }
   }
 
   &__counter {
@@ -32,6 +69,7 @@
     flex-direction: column;
     align-items: center;
     width: 340px;
-    background-color: #f2f2f2;
+    background-color: transparent;
+    z-index: 2;
   }
 }

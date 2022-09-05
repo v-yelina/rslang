@@ -15,6 +15,7 @@ const SprintMultiplier: FC = () => {
 
   const [countPerWord, setCountPerWord] = useState(0);
   const [percent, setPercent] = useState(0);
+  const [color, setColor] = useState(0);
 
   useEffect(() => {
     const currentCount = multiplier > 0 ? multiplier * 20 : 10;
@@ -29,6 +30,7 @@ const SprintMultiplier: FC = () => {
     }
 
     setCountPerWord(currentCount);
+    setColor(multiplier);
 
     if (isRightAnswer) {
       const newGameScore = score + currentCount;
@@ -39,7 +41,7 @@ const SprintMultiplier: FC = () => {
   return (
     <div className="sprint__multiplier multiplier">
       <Typography.Text className="multiplier__text">
-        {`+${countPerWord} очков за слово`}
+        {`+${countPerWord} points per word`}
       </Typography.Text>
       <Progress
         steps={4}
@@ -47,6 +49,7 @@ const SprintMultiplier: FC = () => {
         showInfo={false}
         type="line"
         strokeWidth={14}
+        className={`multiplier__progress--${color}`}
       />
     </div>
   );
