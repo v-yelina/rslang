@@ -1,0 +1,28 @@
+.modal {
+  .ant-modal-content {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 400px;
+    background-color: #c0c0c0;
+  }
+
+  .ant-modal-title {
+    margin-bottom: 20px;
+  }
+
+  .ant-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+  }
+
+  &--confirm {
+    .ant-modal-close {
+      display: none;
+    }
+  }
+}
+

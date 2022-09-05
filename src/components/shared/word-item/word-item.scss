@@ -1,0 +1,14 @@
+.word-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  list-style: none;
+
+  .ant-typography {
+    margin: 0 20px;
+  }
+
+  .ant-btn {
+    flex-shrink: 0;
+  }
+}

@@ -1,0 +1,76 @@
+.words-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  align-self: center;
+
+  & .words-spin-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & .words-list {
+    display: grid;
+    grid-template-columns: repeat(3, 365px);
+    grid-gap: 1rem;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  & .btn--top {
+    right: 80px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .words-list-container {
+    .words-list {
+      grid-template-columns: repeat(2, 370px);
+      grid-gap: 1.5rem;
+      max-width: 768px;
+    }
+
+    .btn--top {
+      right: 50px;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .words-list-container {
+    .btn--top {
+      right: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .words-list-container {
+    .words-list {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .words-list-container {
+    .btn--top {
+      right: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .words-list-container {
+    .words-list {
+      grid-template-columns: 1fr;
+      max-width: 320px;
+      grid-gap: 0.5rem;
+    }
+  }
+}

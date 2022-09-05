@@ -1,0 +1,62 @@
+@import '../../../../styles/colors';
+
+.textbook-btn {
+  position: relative;
+  outline: none;
+  border: none;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  transition: all 0.3s ease-out;
+
+  & span {
+    display: block;
+    background-color: #ffffff;
+    width: 180px;
+    position: absolute;
+    opacity: 0.75;
+    color: $primary-color;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 10px;
+    border-radius: 25px;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-47%);
+    transition: all 0.3s ease-out;
+  }
+
+  &:hover:not([disabled]) {
+    cursor: pointer;
+    transform: scale(1.1);
+    & span {
+      letter-spacing: 2px;
+    }
+  }
+}
+
+.textbook-sprint-btn {
+  background: url('../../../../assets/icons/sprint-img.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.textbook-challenge-btn {
+  background: url('../../../../assets/icons/audiochallenge-img.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.textbook-sprint-btn:disabled,
+.textbook-challenge-btn:disabled {
+  opacity: 0.55;
+}
+
+@media screen and (max-width: 768px) {
+  .textbook-btn {
+    width: 90px;
+    height: 90px;
+
+    & span {
+      display: none;
+    }
+  }
+}

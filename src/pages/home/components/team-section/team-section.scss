@@ -1,0 +1,103 @@
+@import '../../../../styles/colors';
+
+.team-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  margin-bottom: 3rem;
+
+  &--title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: $primary-color;
+  }
+
+  & .team-members--wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    & .team-member--card {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: #f3f6fe;
+      width: 300px;
+      position: relative;
+      padding: 100px 2rem 2rem 2rem;
+      border-radius: 10px;
+
+      & .team-member--pic {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        max-height: 160px;
+        max-width: 160px;
+        overflow: hidden;
+        border-radius: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        box-shadow: 0px 0px 20px 1px rgba(49, 93, 157, 0.89);
+
+        & img {
+          object-fit: cover;
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      & .team-member--name {
+        text-transform: uppercase;
+        color: $primary-color;
+        letter-spacing: 3px;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      & .team-member--desc {
+        text-align: justify;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .team-section {
+    & .team-members--wrapper {
+      .team-member--card {
+        width: 280px;
+        padding: 100px 1rem 1rem 1rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .team-section {
+    align-self: center;
+    & .team-members--wrapper {
+      max-width: 500px;
+      flex-direction: column;
+      gap: 100px;
+      .team-member--card {
+        width: 100%;
+        padding: 100px 1rem 2rem 1rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .team-section {
+    & .team-members--wrapper {
+      max-width: 300px;
+      gap: 100px;
+      .team-member--card {
+        width: 100%;
+        padding: 100px 1rem 2rem 1rem;
+      }
+    }
+  }
+}

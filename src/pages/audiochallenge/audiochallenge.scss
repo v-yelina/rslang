@@ -1,0 +1,83 @@
+#audiochallenge-page {
+    position: relative;
+    min-height: 75vh;
+    margin: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center bottom;
+}
+
+.game--audiochallenge {
+    width: 80%;
+    margin: 0 auto;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+
+    button {
+        font-size: 1.3rem;
+        height: fit-content;
+
+        &:disabled {
+            color: black;
+        }
+    }
+}
+
+.audio-right-answer__container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    height: 238px;
+}
+
+.options-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.leave-btn {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+}
+
+#right-answer {
+    background-color: #A8D2A0;
+}
+
+#wrong-answer {
+    background-color: rgba(211, 31, 67, 0.789);
+}
+
+@media screen and (max-width: 600px) {
+    .audio-right-answer__container {
+        flex-direction: column;
+        gap: 10px;
+        height: max-content;
+    }
+
+    .game--audiochallenge {
+        padding: 20px;
+    }
+
+    .options-container {
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    .leave-btn {
+        right: 10px;
+        top: 10px;
+    }
+}
