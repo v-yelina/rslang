@@ -2,17 +2,109 @@
 
 .features {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 2rem;
 
-  & .features__title {
+  & .features__text,
+  & .features__pic {
+    max-width: 450px;
+  }
+
+  & .features__pic {
+    & img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  & .features__text {
+    font-size: 1rem;
+
+    p,
+    li > span {
+      text-align: justify;
+      color: $font-color;
+    }
+
+    & ul {
+      padding-left: 15px;
+      list-style-type: square;
+      & li {
+        color: $primary-color;
+        margin-bottom: 0.9rem;
+      }
+    }
+  }
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 3rem;
+
+  & .description__title {
     font-size: 3rem;
     font-weight: bold;
     letter-spacing: 2px;
-    & span {
-      color: $primary-color;
+    color: $primary-color;
+  }
+
+  & .description__items {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+
+    & .description__item {
+      position: relative;
+      max-width: 50%;
+      padding: 1.5rem;
+      padding-left: 3rem;
+      background-color: #f3f6fe;
+
+      &:nth-child(2) {
+        align-self: center;
+      }
+      &:nth-child(3) {
+        align-self: flex-end;
+      }
+
+      &--number {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        border-radius: 50%;
+        background-color: $primary-color;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(-50%) translateY(-50%);
+
+        & span {
+          color: #fff;
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+      }
+
+      &--text {
+        font-size: 1rem;
+        text-align: justify;
+
+        & .highlighted-text {
+          color: $primary-color;
+          font-weight: bold;
+          letter-spacing: 2px;
+        }
+      }
     }
   }
 }
