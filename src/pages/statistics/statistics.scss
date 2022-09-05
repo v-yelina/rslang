@@ -1,0 +1,103 @@
+#statistics-page {
+  padding: 20px;
+
+  .tab-title span {
+    font-size: 2rem;
+  }
+}
+
+#one-day-stat-tab {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+
+  li {
+    font-size: 1.3rem;
+  }
+
+  .words-statistic {
+    font-size: 1.3rem;
+    background-color: rgba(255, 255, 255, 0.8);
+
+    li {
+      font-size: 1.3rem;
+    }
+  }
+
+  .ant-carousel {
+    width: 40%;
+    background-color: rgba(255, 255, 255, 0.8);
+
+    .slick-dots {
+      right: 120px;
+      left: 220px;
+
+      li button {
+        width: 20px;
+        height: 10px;
+        border-radius: 20%;
+        margin-right: 15px;
+        background: #359d31;
+      }
+
+      li.slick-active button {
+        width: 25px;
+        height: 15px;
+        border-radius: 20%;
+        margin-right: 15px;
+        background: #315D9D;
+      }
+    }
+
+    .game-name {
+      font-size: 2rem;
+    }
+
+    .game-tab {
+      align-items: flex-end;
+    }
+  }
+}
+
+#all-time-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .chart-name {
+    .ant-divider-inner-text {
+      font-size: 2rem;
+    }
+  }
+
+  .chart-item {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+
+@media screen and (max-width: 1270px) {
+  #one-day-stat-tab {
+    flex-direction: column;
+    align-items: center;
+
+    .words-statistic {
+      width: 80%;
+    }
+
+    .ant-carousel {
+      align-items: center;
+      width: 80%;
+
+      .game-tab {
+        align-items: center;
+      }
+    }
+  }
+}

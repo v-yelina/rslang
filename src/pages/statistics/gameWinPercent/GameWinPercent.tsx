@@ -20,6 +20,8 @@ const GameWinPercent: FC<GameWinPercentProps> = (props) => {
         ticks: [0, 1 / 3, 2 / 3, 1],
         color: ['#F4664A', '#FAAD14', '#30BF78'],
       }}
+      height={300}
+      width={300}
       indicator={{
         pointer: {
           style: {

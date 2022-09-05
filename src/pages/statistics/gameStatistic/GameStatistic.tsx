@@ -18,39 +18,41 @@ const GameStatistics: FC<GameStatisticsProps> = (props) => {
   const contentStyle: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
-    background: '#caf0f8',
     width: '60%',
     margin: '0 auto',
     height: 'max-content',
   };
 
   return (
-    <Space style={contentStyle}>
-      <Divider>{gameName}</Divider>
-      <Item>
-        <Text strong>Played games:&nbsp;</Text>
-        <Text>
-          {' '}
-          {statistic.gamesPlayed}
-        </Text>
-      </Item>
-      <Item>
-        <Text strong>New words:&nbsp;</Text>
-        <Text>
-          {' '}
-          {statistic.newWords}
-        </Text>
-      </Item>
-      <Item>
-        <Text strong>Longest combo:&nbsp;</Text>
-        <Text>
-          {' '}
-          {statistic.longestCombo}
-        </Text>
-      </Item>
-      <Item>
-        <GameWinPercent rightWords={statistic.correctAnswers} wrongWords={statistic.wrongAnswers} />
-      </Item>
+    <Space style={contentStyle} className="game-tab">
+      <Divider className="game-name">{gameName}</Divider>
+      <List>
+        <Item>
+          <Text strong>Played games:&nbsp;</Text>
+          <Text>
+            {statistic.gamesPlayed}
+          </Text>
+        </Item>
+        <Item>
+          <Text strong>New words:&nbsp;</Text>
+          <Text>
+            {statistic.newWords}
+          </Text>
+        </Item>
+        <Item>
+          <Text strong>Longest combo:&nbsp;</Text>
+          <Text>
+            {statistic.longestCombo}
+          </Text>
+        </Item>
+        <Item>
+          <Text strong>Correct answers:&nbsp;</Text>
+          <GameWinPercent
+            rightWords={statistic.correctAnswers}
+            wrongWords={statistic.wrongAnswers}
+          />
+        </Item>
+      </List>
     </Space>
   );
 };
