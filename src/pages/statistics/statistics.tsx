@@ -26,7 +26,7 @@ const Statistics: FC = () => {
     <Content id='statistics-page'>
       {isLogged
         ? (
-          <Tabs defaultActiveKey="1" centered>
+          <Tabs defaultActiveKey="1" centered size='large'>
             <TabPane tab="Today" key="1">
               <OneDayStat />
             </TabPane>
