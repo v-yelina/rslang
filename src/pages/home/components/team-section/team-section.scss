@@ -20,12 +20,12 @@
     & .team-member--card {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       background-color: #f3f6fe;
       width: 300px;
       position: relative;
-      padding: 100px 1rem 2rem 1rem;
+      padding: 100px 2rem 2rem 2rem;
 
       & .team-member--pic {
         position: absolute;
@@ -49,6 +49,11 @@
         color: $primary-color;
         letter-spacing: 3px;
         font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      & .team-member--desc {
+        text-align: justify;
       }
     }
   }

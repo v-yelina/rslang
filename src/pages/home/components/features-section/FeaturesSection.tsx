@@ -78,8 +78,8 @@ const FeaturesSection: FC = () => (
             <span>3</span>
           </div>
           <p className="description__item--text">
-            Don&apos;t forget to sign up: then you&apos;ll have access to statistics and will be
-            able to track your progress.
+            Don&apos;t forget to sign up: then you will have access to statistics and will be able
+            to track your progress.
           </p>
         </div>
       </div>
