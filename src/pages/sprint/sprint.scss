@@ -7,9 +7,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
   max-width: 800px;
+  min-height: 75vh;
+  background-image: url('../../assets/image/sprint-game.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center 50%;
+
+  @media screen and (max-width: 830px) {
+    max-width: 570px;
+  }
+
+  @media screen and (max-width: 620px) {
+    max-width: 370px;
+  }
+
+  @media screen and (max-width: 420px) {
+    max-width: 280px;
+  }
 
   &__body {
     display: flex;
@@ -17,38 +33,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    overflow: hidden;
-
-    &::after {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      content: '';
-      display: block;
-      width: 120%;
-      height: 120%;
-      background-image: url('../../assets/image/sprint-game.jpg');
-      background-repeat: no-repeat;
-      background-position: center bottom;
-      background-size: cover;
-      transform: translate(-50%, -25%);
-      opacity: 0.1;
-      z-index: 0;
-
-      @media screen and (max-width: 960px) {
-        width: 100%;
-        height: 100%;
-      }
-
-      @media screen and (max-width: 768px) {
-        width: 80%;
-        height: 80%;
-      }
-
-      @media screen and (max-width: 680px) {
-        background-image: none;
-      }
-    }
+    background-color: rgba(255, 255, 255, 0.8);
   }
 
   &__header {
