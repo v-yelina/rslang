@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import avatar from '../../../../assets/images/avatar.png';
+import avatar from '../../../../assets/image/avatar.png';
 
 import './team-section.scss';
 
