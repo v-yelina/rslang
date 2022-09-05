@@ -41,6 +41,48 @@ const FeaturesSection: FC = () => (
         {' '}
         <span>Works?</span>
       </h2>
+      <div className="description__items">
+        <div className="description__item">
+          <div className="description__item--number">
+            <span>1</span>
+          </div>
+          <p className="description__item--text">
+            Visit
+            {' '}
+            <span className="highlighted-text">Textbook</span>
+            {' '}
+            page and choose the words you
+            want to learn today. Authorized users can mark words as difficult or learned.
+          </p>
+        </div>
+        <div className="description__item">
+          <div className="description__item--number">
+            <span>2</span>
+          </div>
+          <p className="description__item--text">
+            Play
+            {' '}
+            <span className="highlighted-text">Audiochallenge</span>
+            {' '}
+            or
+            {' '}
+            <span className="highlighted-text">Sprint</span>
+            {' '}
+            game to check how well you learned
+            words. You can choose between two play modes: random words or words from a specific
+            page.
+          </p>
+        </div>
+        <div className="description__item">
+          <div className="description__item--number">
+            <span>3</span>
+          </div>
+          <p className="description__item--text">
+            Don&apos;t forget to sign up: then you&apos;ll have access to statistics and will be
+            able to track your progress.
+          </p>
+        </div>
+      </div>
     </div>
   </>
 );
