@@ -4,8 +4,6 @@
   .tab-title span {
     font-size: 2rem;
   }
-
-
 }
 
 #one-day-stat-tab {
@@ -63,6 +61,19 @@
     }
   }
 }
+
+#one-day-stat-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .chart-name {
+    .ant-divider-inner-text {
+      font-size: 2rem;
+    }
+  }
+}
+
 
 @media screen and (max-width: 1270px) {
   #one-day-stat-tab {

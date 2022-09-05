@@ -24,14 +24,13 @@ const AllTimeStat: FC = () => {
 
   return (
     <Content id='one-day-stat-tab'>
-      <Divider>New words per day:</Divider>
+      <Divider className='chart-name'>New words per day:</Divider>
       <Item>
         <WordsPerDay data={wordsPerDayData} />
       </Item>
-      <Divider>Learned words growth:</Divider>
+      <Divider className='chart-name'>Learned words growth:</Divider>
       <Item>
         {learnedWordsGrowthData.length > 1 ? <LearnedWordsGrowth data={learnedWordsGrowthData} /> : <Alert message="We need more data to show this content, please play games 2 days or more" type="error" />}
-
       </Item>
     </Content>
   );
