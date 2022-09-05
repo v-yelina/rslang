@@ -1,3 +1,5 @@
+@import '../../styles/colors';
+
 .level-select {
   margin: 40px;
   display: flex;
@@ -5,7 +7,7 @@
   align-items: center;
 
   span.ant-typography {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     font-size: 20px;
     line-height: 1.35;
   }
@@ -16,7 +18,7 @@
     align-items: center;
     justify-content: space-between;
     width: 350px;
-    border: 1px solid #000000;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 20%);
   }
 }
 
@@ -60,5 +62,59 @@
       width: 100%;
       top: 40%;
     }
+  }
+}
+
+#level-1 {
+  background: $color-group-1;
+  border: none;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+#level-2 {
+  background: $color-group-2;
+  border: none;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+#level-3 {
+  background: $color-group-3;
+  border: none;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+#level-4 {
+  background: $color-group-4;
+  border: none;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+#level-5 {
+  background: $color-group-5;
+  border: none;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+#level-6 {
+  background: $color-group-6;
+  border: none;
+
+  &:hover {
+    transform: scale(1.1);
   }
 }
