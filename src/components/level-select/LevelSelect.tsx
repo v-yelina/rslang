@@ -106,7 +106,7 @@ const LevelSelect: FC = () => {
   }, [fulfilledCount]);
 
   return (
-    <div className="level">
+    <div className="level" id="levels">
       {isSHow && (
         <div className="level-select">
           <Title level={2}>{gameType?.toUpperCase()}</Title>
@@ -132,6 +132,7 @@ const LevelSelect: FC = () => {
           <Spin
             size="large"
             tip="Loading..."
+            className="level-select__spin"
           />
         )
       }
