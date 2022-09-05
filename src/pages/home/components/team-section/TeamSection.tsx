@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
-import avatar from '../../../../assets/images/avatar.png';
+import valentina from '../../../../assets/image/valentina.jpg';
+import nina from '../../../../assets/image/nina.jpg';
+import artem from '../../../../assets/image/artem.jpg';
 
 import './team-section.scss';
 
@@ -9,7 +11,7 @@ const TeamSection: FC = () => (
     <div className="team-members--wrapper">
       <div className="team-member--card">
         <div className="team-member--pic">
-          <img src={avatar} alt="Team member" />
+          <img src={valentina} alt="Team member" />
         </div>
         <div className="team-member--name">Valiantsina Yelina</div>
         <div className="team-member--desc">
@@ -21,7 +23,7 @@ const TeamSection: FC = () => (
       </div>
       <div className="team-member--card">
         <div className="team-member--pic">
-          <img src={avatar} alt="Team member" />
+          <img src={nina} alt="Team member" />
         </div>
         <div className="team-member--name">Nina Sitaeva</div>
         <div className="team-member--desc">
@@ -33,7 +35,7 @@ const TeamSection: FC = () => (
       </div>
       <div className="team-member--card">
         <div className="team-member--pic">
-          <img src={avatar} alt="Team member" />
+          <img src={artem} alt="Team member" />
         </div>
         <div className="team-member--name">Artem Smirnov</div>
         <div className="team-member--desc">

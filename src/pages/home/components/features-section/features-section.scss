@@ -3,7 +3,7 @@
 .features {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 2rem;
 
@@ -31,6 +31,7 @@
     & ul {
       padding-left: 15px;
       list-style-type: square;
+      margin-bottom: 0;
       & li {
         color: $primary-color;
         margin-bottom: 0.9rem;
@@ -42,7 +43,7 @@
 .description {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 3rem;
   margin-bottom: 3rem;
@@ -67,6 +68,11 @@
       padding: 1.5rem;
       padding-left: 3rem;
       background-color: #f3f6fe;
+      border-radius: 10px;
+
+      &:nth-child(1) {
+        margin-left: 30px;
+      }
 
       &:nth-child(2) {
         align-self: center;
@@ -104,6 +110,89 @@
           font-weight: bold;
           letter-spacing: 2px;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .description {
+    .description__title {
+      font-size: 2rem;
+    }
+    & .description__items {
+      align-items: flex-start;
+
+      & .description__item {
+        max-width: calc(100% - 30px);
+        margin-left: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .features {
+    flex-direction: column-reverse;
+
+    & .features__pic {
+      max-width: 400px;
+    }
+
+    & .features__text {
+      text-align: center;
+      max-width: 500px;
+
+      & p {
+        text-align: center;
+      }
+
+      & ul {
+        padding-left: 0;
+        list-style-type: none;
+      }
+    }
+  }
+
+  .description {
+    & .description__items {
+      width: 500px;
+
+      & .description__item {
+        max-width: calc(100% - 30px);
+        margin-left: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .features {
+    & .features__pic {
+      max-width: 300px;
+    }
+
+    & .features__text {
+      max-width: 300px;
+    }
+  }
+
+  .description {
+    & .description__items {
+      width: 300px;
+
+      & .description__item {
+        max-width: 100%;
+        margin-left: 0;
+        padding-left: 1.5rem;
+
+        &--number {
+          display: none;
+        }
+      }
+
+      & .description__item:nth-child(1) {
+        margin-left: 0;
       }
     }
   }
