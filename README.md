@@ -5,7 +5,11 @@ An application for learning English includes a textbook with 3600 words divided 
 
 **Deploy:** https://rslang-v-yelina.netlify.app/
 
+![preview](./src/assets/image/main-page.png)
+
 ---
+## RACI Matrix
+![RACI Matrix](./src/assets/image/raci.png)
 
 ## Used technologies:
 - **Typescript**:  a superset of JavaScript which primarily provides optional static typing, classes and interfaces. One of the big benefits is to enable IDEs to provide a richer environment for spotting common errors as you type the code;
